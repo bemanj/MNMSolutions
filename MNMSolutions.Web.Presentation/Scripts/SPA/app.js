@@ -26,10 +26,18 @@ app.controller("AngularJs_studentsController", function ($scope, $timeout, $root
 
     //This variable will be used for Insert/Edit/Delete Students details.
     $scope.StdIDs = 0;
-    $scope.stdNames = "";
-    $scope.stdEmails = "";
-    $scope.Phones = "";
-    $scope.Addresss = "";
+    $scope.stdNames = '';
+    $scope.stdEmails = '';
+    $scope.Phones = '';
+    $scope.Addresss = '';
+
+    $scope.soSalesOrderID = 0;
+    $scope.soSalesOrderNumber = '';
+    $scope.soSubTotal = 0;
+    $scope.soTaxAmt = 0;
+    $scope.soFreight = 0;
+    $scope.soTotalDue = 0;
+    $scope.soComment = '';
 
     var url = "http://localhost:57483/";
 
@@ -63,13 +71,15 @@ app.controller("AngularJs_studentsController", function ($scope, $timeout, $root
     }
 
     //Edit Student Details
-    $scope.studentEdit = function(studentId, name, email, phone, address) {
+    // id, sub, tax, freight, comment
+    $scope.soEdit = function(salesOrderId, salesOrderNumber, subTotal, taxAmt, freight, comment) {
         cleardetails();
-        $scope.StdIDs = studentId;
-        $scope.stdNames = name;
-        $scope.stdEmails = email;
-        $scope.Phones = phone;
-        $scope.Addresss = address;
+        $scope.soSalesOrderID = salesOrderId;
+        $scope.soSalesOrderNumber = salesOrderNumber;
+        $scope.soSubTotal= subTotal;
+        $scope.soTaxAmt = taxAmt;
+        $scope.soFreight= freight;
+        $scope.soComment = comment;
 
         $scope.showStudentAdd = true;
         $scope.addEditStudents = true;
@@ -78,19 +88,21 @@ app.controller("AngularJs_studentsController", function ($scope, $timeout, $root
     }
 
     //Delete Dtudent Detail
-    $scope.studentDelete = function(studentId, name) {
+    $scope.soDelete = function(salesOrderId, salesOrderNumber) {
         cleardetails();
-        $scope.StdIDs = studentId;
-        var delConfirm = confirm('Are you sure you want to delete the Student ' + name + ' ?');
+        $scope.soSalesOrderID = salesOrderId;
+        //$scope.soSalesOrderNumber = salesOrderNumber;
+        var delConfirm = confirm('Are you sure you want to delete the Sales Order #: ' + salesOrderNumber + ' ?');
         if (delConfirm) {
 
-            $http.get(url + 'api/students/deleteStudent/', { params: { stdID: $scope.StdIDs } }).success(function (data) {
-                alert('Student Deleted Successfully!!');
-                cleardetails();
-                selectStudentDetails('', '');
-            })
-                .error(function () {
-                    $scope.error = "An Error has occured while loading posts!";
+            $http.delete(url + 'api/salesOrderHeaders?id=' + salesOrderId)
+                .then(function (data) {
+                    alert('SO deleted successfully!' + data.statusText);
+                    cleardetails();
+                    selectStudentDetails('', '');
+                },function(error) {
+                        $scope.error = error + " An Error has occured while loading posts!";
+
                 });
 
         }
@@ -109,11 +121,12 @@ app.controller("AngularJs_studentsController", function ($scope, $timeout, $root
 
     //clear all the control values after insert and edit.
     function cleardetails() {
-        $scope.StdIDs = 0;
-        $scope.stdNames = "";
-        $scope.stdEmails = "";
-        $scope.Phones = "";
-        $scope.Addresss = "";
+        $scope.soSalesOrderID = 0;
+        $scope.soSalesOrderNumber = '';
+        $scope.soSubTotal = '';
+        $scope.soTaxAmt = '';
+        $scope.soFreight = '';
+        $scope.soComment= '';
     }
 
     //Form Validation
@@ -132,28 +145,38 @@ app.controller("AngularJs_studentsController", function ($scope, $timeout, $root
     $scope.saveDetails = function () {
 
         $scope.IsFormSubmitted = true;
+        var config;
+        var data = {
+            //SalesOrderID: 1
+            //, OrderDate: getDate()
+            //, OnlineOrderFlag: true
+            //, SalesOrderNumber: 'SO1'
+            SubTotal: $scope.soSubTotal,
+            TaxAmt: $scope.soTaxAmt,
+            Freight: $scope.soFreight,
+            //TotalDue: soTotalDue,
+            Comment: $scope.soComment
+            //, ModifiedDate: getDate()
+        }
+
         if ($scope.IsFormValid) {
             //if the SalesOrderID=0 means its new SO insert here i will call the Web api insert method
-            if ($scope.StdIDs == 0) {
+            if ($scope.soSalesOrderID == 0) {
 
-                $http.post(url + 'api/SalesOrderHeaders/',
-                    {
-                        params: {
-                            SalesOrderID: 1
-                            , OrderDate: getDate()
-                            , OnlineOrderFlag: true
-                            , SalesOrderNumber: 'SO1'
-                            , SubTotal: 100
-                            , TaxAmt: 30
-                            , Freight: 50
-                            , TotalDue: 180
-                            , Comment: 'test'
-                            , ModifiedDate: getDate()
-                        }
-                    }).then(function (data) {
+                config = {
+                    method: 'POST',
+                    url: url + 'api/SalesOrderHeaders/',
+                    data: data,
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    }
+                };
+
+                $http(config)
+                    .then(function (data) {
 
                         $scope.StudentsInserted = data;
-                        alert($scope.StudentsInserted);
+                        alert($scope.StudentsInserted.statusText);
 
                         cleardetails();
                         selectStudentDetails('', '');
@@ -164,26 +187,60 @@ app.controller("AngularJs_studentsController", function ($scope, $timeout, $root
                     });
 
             } else {  // to update to the student details
-                $http.get('/api/students/updateStudent/',
-                    {
-                        params: {
-                            stdID: $scope.StdIDs,
-                            StudentName: $scope.stdNames,
-                            StudentEmail: $scope.stdEmails,
-                            Phone: $scope.Phones,
-                            Address: $scope.Addresss
+
+                data = {
+                    SalesOrderID: $scope.soSalesOrderID
+                    , SubTotal: $scope.soSubTotal
+                    , TaxAmt: $scope.soTaxAmt
+                    , Freight: $scope.soFreight
+                    , Comment: $scope.soComment
+                    , ModifiedDate: new Date()
+                }
+                config = {
+                    method: 'PUT',
+                    url: url + 'api/SalesOrderHeaders',
+                    data: data,
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    }
+                };
+
+                $http(config)
+                    .then(function (data) {
+
+                        $scope.soUpdated = data;
+
+                        if ($scope.soUpdated.statusText == 'No Content') {
+                            alert('Update complete');
                         }
-                    }).then(function(data) {
-                        $scope.StudentsUpdated = data;
-                        alert($scope.StudentsUpdated);
 
                         cleardetails();
                         selectStudentDetails('', '');
 
-                    },function(error) {
+                    }, function (error) {
                         $scope.error = error + ' An Error has occured while loading posts!';
-
                     });
+
+                //$http.get('/api/students/updateStudent/',
+                //    {
+                //        params: {
+                //            stdID: $scope.StdIDs,
+                //            StudentName: $scope.stdNames,
+                //            StudentEmail: $scope.stdEmails,
+                //            Phone: $scope.Phones,
+                //            Address: $scope.Addresss
+                //        }
+                //    }).then(function(data) {
+                //        $scope.StudentsUpdated = data;
+                //        alert($scope.StudentsUpdated);
+
+                //        cleardetails();
+                //        selectStudentDetails('', '');
+
+                //    },function(error) {
+                //        $scope.error = error + ' An Error has occured while loading posts!';
+
+                //    });
             }
 
         } else {

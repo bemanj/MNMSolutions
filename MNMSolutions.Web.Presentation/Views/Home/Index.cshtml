@@ -122,25 +122,37 @@
 
                                                 <tr>
                                                     <td>
-                                                        <b>Student ID : </b>
+                                                        <b>Sales Order Number : </b>
                                                     </td>
 
                                                     <td>
-                                                        <input type="text" name="txtStdIDs" ng-model="StdIDs" value="0" style="background-color:tan" readonly />
+                                                        <input type="text" name="txtStdIDs" ng-model="soSalesOrderNumber" value="0" style="background-color:tan" readonly />
                                                         <br />
 
                                                     </td>
 
 
                                                     <td>
-                                                        <b> Student Name : </b>
+                                                        <b> Sub Total : </b>
                                                     </td>
 
                                                     <td>
 
-                                                        <input type="text" name="txtstdNames" ng-model="stdNames" placeholder=" Student Name..." required />
+                                                        <input type="text" name="txtstdNames" ng-model="soSubTotal" placeholder=" Sub Total..." required />
                                                         <br />
-                                                        <span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.txtstdNames.$error.required">Student Name required!</span>
+                                                        @*<span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.txtstdNames.$error.required">Student Name required!</span>*@
+
+                                                    </td>
+                                                    
+                                                    <td>
+                                                        <b> Comment : </b>
+                                                    </td>
+
+                                                    <td>
+
+                                                        <input type="text" name="txtstdNames" ng-model="soComment" placeholder=" Comment..." required />
+                                                        <br />
+                                                        @*<span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.txtstdNames.$error.required">Student Name required!</span>*@
 
                                                     </td>
                                                 </tr>
@@ -148,39 +160,39 @@
 
                                                 <tr>
                                                     <td>
-                                                        <b>Email : </b>
+                                                        <b>Tax Amount : </b>
                                                     </td>
 
                                                     <td>
-                                                        <input type="text" name="txtstdEmails" ng-model="stdEmails" placeholder=" Email..." required />
+                                                        <input type="text" name="txtstdEmails" ng-model="soTaxAmt" placeholder=" Tax Amount..." required />
                                                         <br />
-                                                        <span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.txtstdEmails.$error.required">Email required!</span>
+                                                        @*<span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.txtstdEmails.$error.required">Email required!</span>*@
 
                                                     </td>
 
 
                                                     <td>
-                                                        <b> Phone : </b>
+                                                        <b> Freight : </b>
                                                     </td>
 
                                                     <td>
 
-                                                        <input type="text" name="txtPhones" ng-model="Phones" placeholder=" Phone ..." required />
+                                                        <input type="text" name="txtPhones" ng-model="soFreight" placeholder=" Phone ..." required />
                                                         <br />
-                                                        <span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.txtPhones.$error.required">Phone required!</span>
+                                                        @*<span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.txtPhones.$error.required">Phone required!</span>*@
 
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>
-                                                        <b>Address : </b>
+                                                        <b>Total Due : </b>
                                                     </td>
 
                                                     <td>
-                                                        <input type="text" name="txtAddresss" ng-model="Addresss" placeholder=" Address ..." required />
+                                                        <input type="text" name="txtAddresss" ng-model="soTotalDue" placeholder=" Address ..." required />
                                                         <br />
-                                                        <span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.txtAddresss.$error.required">Address required!</span>
+                                                        @*<span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.txtAddresss.$error.required">Address required!</span>*@
 
                                                     </td>
 
@@ -232,14 +244,14 @@
                         <tr>
 
                             <td align="center" style="border: solid 1px #659EC7; padding: 5px;table-layout:fixed;">
-                                <span style="color:#9F000F">
-                                    @*<img src="~/Images/edit.gif" alt="Edit" width="24px" height="24px" ng-click="studentEdit(stds.StdID,stds.StdName,stds.Email,stds.Phone,stds.Address)">*@
+                                <span style="color:#9F000F">@*// id, sub, tax, freight, comment*@
+                                    <img src="~/Images/edit.gif" alt="Edit" width="24px" height="24px" ng-click="soEdit(orders.SalesOrderID, orders.SalesOrderNumber, orders.SubTotal, orders.TaxAmt, orders.Freight, orders.Comment)">
                                 </span>
                             </td>
 
                             <td align="center" style="border: solid 1px #659EC7; padding: 5px;table-layout:fixed;">
                                 <span style="color:#9F000F">
-                                    @*<img src="~/Images/delete.gif" alt="Delete" width="24px" height="24px" ng-click="studentDelete(stds.StdID,stds.StdName)">*@
+                                    <img src="~/Images/delete.gif" alt="Delete" width="24px" height="24px" ng-click="soDelete(orders.SalesOrderID, orders.SalesOrderNumber)">
                                 </span>
                             </td>
 

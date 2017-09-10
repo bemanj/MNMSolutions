@@ -32,19 +32,19 @@ namespace MNMSolutions.Web.Api.Controllers
             return Ok(salesOrderHeader);
         }
 
-        // PUT: api/SalesOrderHeaders/5
+        // PUT: api/SalesOrderHeaders/5 [FromUri]  int id, 
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutSalesOrderHeader(int id, SalesOrderHeader salesOrderHeader)
+        public async Task<IHttpActionResult> PutSalesOrderHeader([FromBody] SalesOrderHeader salesOrderHeader)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            if (id != salesOrderHeader.SalesOrderID)
-            {
-                return BadRequest();
-            }
+            
+            //if (id != salesOrderHeader.SalesOrderID)
+            //{
+            //    return BadRequest();
+            //}
 
             _db.Entry(salesOrderHeader).State = EntityState.Modified;
 
@@ -54,7 +54,7 @@ namespace MNMSolutions.Web.Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SalesOrderHeaderExists(id))
+                if (!SalesOrderHeaderExists(salesOrderHeader.SalesOrderID))
                 {
                     return NotFound();
                 }
@@ -69,7 +69,8 @@ namespace MNMSolutions.Web.Api.Controllers
 
         // POST: api/SalesOrderHeaders
         [ResponseType(typeof(SalesOrderHeader))]
-        public async Task<IHttpActionResult> PostSalesOrderHeader([FromUri] SalesOrderHeader salesOrderHeader)
+        //[HttpPost] [FromBody] 
+        public async Task<IHttpActionResult> PostSalesOrderHeader(SalesOrderHeader salesOrderHeader)
         {
             if (!ModelState.IsValid)
             {
