@@ -97,7 +97,7 @@ app.controller("AngularJs_studentsController", function ($scope, $timeout, $root
 
             $http.delete(url + 'api/salesOrderHeaders?id=' + salesOrderId)
                 .then(function (data) {
-                    alert('SO deleted successfully!' + data.statusText);
+                    alert('Response: ' + data.statusText + ' SO deleted successfully!');
                     cleardetails();
                     selectStudentDetails('', '');
                 },function(error) {
