@@ -92,7 +92,7 @@ app.controller("AngularJs_studentsController", function ($scope, $timeout, $root
         cleardetails();
         $scope.soSalesOrderID = salesOrderId;
         //$scope.soSalesOrderNumber = salesOrderNumber;
-        var delConfirm = confirm('Are you sure you want to delete the Sales Order #: ' + salesOrderNumber + ' ?');
+        var delConfirm = confirm('Are you sure you want to delete the Sales Order # : ' + salesOrderNumber + ' ?');
         if (delConfirm) {
 
             $http.delete(url + 'api/salesOrderHeaders?id=' + salesOrderId)
