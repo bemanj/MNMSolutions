@@ -10,17 +10,35 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MNMSolutions.DAL.DB.Dev;
+using MNMSolutions.DAL.DB.Models;
 
 namespace MNMSolutions.Web.Api.Controllers
 {
     public class ProductsController : ApiController
     {
         private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
+        //private IQueryable<Product> productlist;
 
         // GET: api/Products
-        public IQueryable<Product> GetProducts()
+        public List<ProductList> GetProducts()
         {
-            return _db.Products;
+            // Filter by Category
+            //var plist = _db.Products
+            //    .Where(p => p.Category.CategoryName == "Beverages")
+            //    .Select(p => new ProductList()
+
+            var plist = _db.Products
+                .Select(p => new ProductList()
+                    {
+                        ProductId = p.ProductID,
+                        ProductName = p.ProductName,
+                        Category = p.Category.CategoryName,
+                        QuantityPerUnit = p.QuantityPerUnit,
+                        UnitPrice = p.UnitPrice
+                    });
+
+            return plist.ToList();
+
         }
 
         // GET: api/Products/5
