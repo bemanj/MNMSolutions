@@ -34,6 +34,7 @@ namespace MNMSolutions.Web.Api.Controllers
                         ProductName = p.ProductName,
                         Category = p.Category.CategoryName,
                         QuantityPerUnit = p.QuantityPerUnit,
+                        UnitsInStock = p.UnitsInStock,
                         UnitPrice = p.UnitPrice
                     });
 

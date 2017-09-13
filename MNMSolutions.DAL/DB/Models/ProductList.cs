@@ -15,7 +15,7 @@ namespace MNMSolutions.DAL.DB.Models
         //public Nullable<int> CategoryID { get; set; }
         public string QuantityPerUnit { get; set; }
         public decimal? UnitPrice { get; set; }
-        //public Nullable<short> UnitsInStock { get; set; }
+        public short? UnitsInStock { get; set; }
         //public Nullable<short> UnitsOnOrder { get; set; }
         //public Nullable<short> ReorderLevel { get; set; }
         //public bool Discontinued { get; set; }

@@ -13,12 +13,14 @@ var app;
 })();
 
 
-app.controller("AngularJs_studentsController", function ($scope, $timeout, $rootScope, $window, $http) {
+app.controller("AngularJs_SalesController", function ($scope, $timeout, $rootScope, $window, $http) {
     $scope.date = new Date();
     $scope.MyName = "shanu";
     $scope.stdName = "";
     $scope.stdemail = "";
 
+    // Modules/Panel
+    $scope.ProductsList = true;
     $scope.showStudentAdd = true;
     $scope.addEditStudents = false;
     $scope.StudentsList = true;
@@ -41,7 +43,9 @@ app.controller("AngularJs_studentsController", function ($scope, $timeout, $root
 
     var url = "http://localhost:57483/";
 
-    selectStudentDetails($scope.stdName, $scope.stdemail);
+    // Invoke function
+    //selectStudentDetails($scope.stdName, $scope.stdemail); // uncomment to show sales orders list
+    getProductsList();
 
     function selectStudentDetails() {
 
@@ -63,6 +67,26 @@ app.controller("AngularJs_studentsController", function ($scope, $timeout, $root
             });
     }
 
+    // Get Products List
+    function getProductsList() {
+
+        $http.get(url + "api/products/")
+            .then(function (data) {
+                $scope.Product = data;
+
+                $scope.showStudentAdd = false;
+                $scope.addEditStudents = false;
+                $scope.ProductsList = true;
+                $scope.showItem = false;
+
+                if ($scope.Product.length > 0) {
+
+                }
+
+            }, function (error) {
+                $scope.error = error + " An Error has occured while loading posts!";
+            });
+    }
 
     //Search
     $scope.searchStudentDetails = function () {
@@ -251,3 +275,4 @@ app.controller("AngularJs_studentsController", function ($scope, $timeout, $root
     }
 
 });
+
