@@ -970,6 +970,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\SPA\app.js" />
     <Content Include="Scripts\SPA\controllers.js" />
+    <Content Include="Scripts\SPA\Controllers\ProductsController.js" />
     <Content Include="Scripts\SPA\Controllers\SalesController.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

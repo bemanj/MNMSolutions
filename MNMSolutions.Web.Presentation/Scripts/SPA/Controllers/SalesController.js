@@ -5,7 +5,6 @@
     $scope.stdemail = "";
 
     // Modules/Panel
-    $scope.ProductsList = true;
     $scope.showStudentAdd = true;
     $scope.addEditStudents = false;
     $scope.StudentsList = true;
@@ -30,7 +29,7 @@
 
     // Invoke function
     //selectStudentDetails($scope.stdName, $scope.stdemail); // uncomment to show sales orders list
-    getProductsList();
+    //getProductsList();
 
     function selectStudentDetails() {
 
@@ -53,25 +52,25 @@
     }
 
     // Get Products List
-    function getProductsList() {
+    //function getProductsList() {
 
-        $http.get(url + "api/products/")
-            .then(function (data) {
-                $scope.Product = data;
+    //    $http.get(url + "api/products/")
+    //        .then(function (data) {
+    //            $scope.Product = data;
 
-                $scope.showStudentAdd = false;
-                $scope.addEditStudents = false;
-                $scope.ProductsList = true;
-                $scope.showItem = false;
+    //            $scope.showStudentAdd = false;
+    //            $scope.addEditStudents = false;
+    //            $scope.ProductsList = true;
+    //            $scope.showItem = false;
 
-                if ($scope.Product.length > 0) {
+    //            if ($scope.Product.length > 0) {
 
-                }
+    //            }
 
-            }, function (error) {
-                $scope.error = error + " An Error has occured while loading posts!";
-            });
-    }
+    //        }, function (error) {
+    //            $scope.error = error + " An Error has occured while loading posts!";
+    //        });
+    //}
 
     //Search
     $scope.searchStudentDetails = function () {
