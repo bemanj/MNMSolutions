@@ -34,5 +34,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Shipper> Shippers { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<category1> categories1 { get; set; }
     }
 }

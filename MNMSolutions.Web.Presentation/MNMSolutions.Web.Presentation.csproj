@@ -972,6 +972,8 @@
     <Content Include="Scripts\SPA\controllers.js" />
     <Content Include="Scripts\SPA\Controllers\ProductsController.js" />
     <Content Include="Scripts\SPA\Controllers\SalesController.js" />
+    <Content Include="Scripts\SPA\salesOrdering\components\displayname.js" />
+    <Content Include="Scripts\SPA\salesOrdering\components\name.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -991,6 +993,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Scripts\SPA\salesOrdering\directives\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

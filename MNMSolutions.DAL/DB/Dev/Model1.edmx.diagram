@@ -22,6 +22,7 @@
         <AssociationConnector Association="MNMSolutionsDevDBModel.FK_OrderDetails_Products" />
         <AssociationConnector Association="MNMSolutionsDevDBModel.FK_Orders_Shippers" />
         <AssociationConnector Association="MNMSolutionsDevDBModel.FK_Products_Suppliers" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel.category1" Width="1.5" PointX="0.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
