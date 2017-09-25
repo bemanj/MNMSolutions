@@ -95,6 +95,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Models\ProductList.cs" />
+    <Compile Include="DB\Models\TotalSalesForTheDay.cs" />
     <Compile Include="DB\Test\Category.cs" />
     <Compile Include="DB\Test\Customer.cs" />
     <Compile Include="DB\Test\CustomerDemographic.cs" />

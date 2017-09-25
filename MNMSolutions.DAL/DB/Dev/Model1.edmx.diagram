@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.Category" Width="1.5" PointX="3.375" PointY="23.875" />
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.Customer" Width="1.5" PointX="3.375" PointY="14.875" />
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.Employee" Width="1.5" PointX="3.375" PointY="9.125" />
-        <EntityTypeShape EntityType="MNMSolutionsDevDBModel.OrderDetail" Width="1.5" PointX="7.875" PointY="2.125" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel.OrderDetail" Width="1.5" PointX="7.875" PointY="1.375" />
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.Order" Width="1.5" PointX="5.625" PointY="1" />
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.Product" Width="1.5" PointX="5.625" PointY="20.875" />
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.Shipper" Width="1.5" PointX="3.375" PointY="2.375" />

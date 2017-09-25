@@ -70,6 +70,7 @@
           <Property Name="UnitPrice" Type="money" Nullable="false" />
           <Property Name="Quantity" Type="smallint" Nullable="false" />
           <Property Name="Discount" Type="real" Nullable="false" />
+          <Property Name="TotalAmount" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -79,10 +80,17 @@
           <Property Name="CustomerID" Type="nchar" MaxLength="5" />
           <Property Name="EmployeeID" Type="int" />
           <Property Name="OrderDate" Type="datetime" />
+          <Property Name="OnlineOrderFlag" Type="bit" />
+          <Property Name="SalesOrderNumber" Type="nvarchar" MaxLength="25" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="SubTotal" Type="money" />
+          <Property Name="TaxAmt" Type="money" />
+          <Property Name="Freight" Type="money" />
+          <Property Name="TotalDue" Type="money" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="128" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
           <Property Name="RequiredDate" Type="datetime" />
           <Property Name="ShippedDate" Type="datetime" />
           <Property Name="ShipVia" Type="int" />
-          <Property Name="Freight" Type="money" />
           <Property Name="ShipName" Type="nvarchar" MaxLength="40" />
           <Property Name="ShipAddress" Type="nvarchar" MaxLength="60" />
           <Property Name="ShipCity" Type="nvarchar" MaxLength="15" />
@@ -241,6 +249,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_totalSalesForTheDay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="MNMSolutionsDevDBModelStoreContainer">
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
@@ -347,6 +356,7 @@
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
           <EntitySet Name="categories1" EntityType="MNMSolutionsDevDBModel.category1" />
+          <FunctionImport Name="sp_totalSalesForTheDay" ReturnType="Collection(Decimal)" />
         </EntityContainer>
         <EntityType Name="Category">
           <Key>
@@ -413,6 +423,7 @@
           <Property Name="Discount" Type="Single" Nullable="false" />
           <NavigationProperty Name="Order" Relationship="MNMSolutionsDevDBModel.FK_OrderDetails_Orders" FromRole="OrderDetail" ToRole="Order" />
           <NavigationProperty Name="Product" Relationship="MNMSolutionsDevDBModel.FK_OrderDetails_Products" FromRole="OrderDetail" ToRole="Product" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -436,6 +447,13 @@
           <NavigationProperty Name="Employee" Relationship="MNMSolutionsDevDBModel.FK_Orders_Employees" FromRole="Order" ToRole="Employee" />
           <NavigationProperty Name="OrderDetails" Relationship="MNMSolutionsDevDBModel.FK_OrderDetails_Orders" FromRole="Order" ToRole="OrderDetail" />
           <NavigationProperty Name="Shipper" Relationship="MNMSolutionsDevDBModel.FK_Orders_Shippers" FromRole="Order" ToRole="Shipper" />
+          <Property Name="OnlineOrderFlag" Type="Boolean" />
+          <Property Name="SalesOrderNumber" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="SubTotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TaxAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TotalDue" Type="Decimal" Nullable="false" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Comment" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -661,6 +679,7 @@
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
@@ -672,6 +691,13 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="TotalDue" ColumnName="TotalDue" />
+                <ScalarProperty Name="TaxAmt" ColumnName="TaxAmt" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+                <ScalarProperty Name="OnlineOrderFlag" ColumnName="OnlineOrderFlag" />
                 <ScalarProperty Name="ShipCountry" ColumnName="ShipCountry" />
                 <ScalarProperty Name="ShipPostalCode" ColumnName="ShipPostalCode" />
                 <ScalarProperty Name="ShipRegion" ColumnName="ShipRegion" />
@@ -740,6 +766,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_totalSalesForTheDay" FunctionName="MNMSolutionsDevDBModel.Store.sp_totalSalesForTheDay" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

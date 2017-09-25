@@ -14,10 +14,10 @@ namespace MNMSolutions.DAL.DB.Test
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int OrderId { get; set; }
 
-        //[Key]
-        //[Column(Order = 1)]
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
-        //public int ProductID { get; set; }
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ProductId { get; set; }
 
         [Column(TypeName = "money")]
         public decimal UnitPrice { get; set; }
@@ -26,6 +26,8 @@ namespace MNMSolutions.DAL.DB.Test
 
         public float Discount { get; set; }
 
+        [Column(TypeName = "money")]
+        public decimal TotalAmount { get; set; }
         //public virtual Order Order { get; set; }
 
         //public virtual Product Product { get; set; }

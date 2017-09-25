@@ -27,7 +27,8 @@ namespace MNMSolutions.Web.Api.Controllers
                     OrderId = o.OrderID,
                     UnitPrice = o.UnitPrice,
                     Quantity = o.Quantity,
-                    Discount = o.Discount
+                    Discount = o.Discount,
+                    TotalAmount = o.TotalAmount
                 });
             return orderList;
         }
@@ -67,7 +68,7 @@ namespace MNMSolutions.Web.Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OrderDetailExists(id))
+                if (!OrderDetailExists(orderDetail.OrderID, orderDetail.ProductID))
                 {
                     return NotFound();
                 }
@@ -97,7 +98,7 @@ namespace MNMSolutions.Web.Api.Controllers
             }
             catch (DbUpdateException)
             {
-                if (OrderDetailExists(orderDetail.OrderID))
+                if (OrderDetailExists(orderDetail.OrderID, orderDetail.ProductID))
                 {
                     return Conflict();
                 }
@@ -135,9 +136,9 @@ namespace MNMSolutions.Web.Api.Controllers
             base.Dispose(disposing);
         }
 
-        private bool OrderDetailExists(int id)
+        private bool OrderDetailExists(int id, int productId)
         {
-            return _db.OrderDetails.Count(e => e.OrderID == id) > 0;
+            return _db.OrderDetails.Count(e => (e.OrderID == id && e.ProductID == productId) ) > 0;
         }
     }
 }

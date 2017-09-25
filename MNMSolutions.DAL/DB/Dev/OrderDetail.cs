@@ -19,6 +19,7 @@ namespace MNMSolutions.DAL.DB.Dev
         public decimal UnitPrice { get; set; }
         public short Quantity { get; set; }
         public float Discount { get; set; }
+        public decimal TotalAmount { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
