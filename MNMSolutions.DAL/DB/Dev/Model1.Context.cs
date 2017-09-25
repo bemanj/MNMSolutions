@@ -12,6 +12,8 @@ namespace MNMSolutions.DAL.DB.Dev
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class MNMSolutionsDevDBEntities : DbContext
     {
@@ -34,5 +36,11 @@ namespace MNMSolutions.DAL.DB.Dev
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Shipper> Shippers { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<category1> categories1 { get; set; }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_totalSalesForTheDay()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_totalSalesForTheDay");
+        }
     }
 }

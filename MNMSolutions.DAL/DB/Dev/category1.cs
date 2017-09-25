@@ -12,16 +12,9 @@ namespace MNMSolutions.DAL.DB.Dev
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderDetail
+    public partial class category1
     {
-        public int OrderID { get; set; }
-        public int ProductID { get; set; }
-        public decimal UnitPrice { get; set; }
-        public short Quantity { get; set; }
-        public float Discount { get; set; }
-        public decimal TotalAmount { get; set; }
-    
-        public virtual Order Order { get; set; }
-        public virtual Product Product { get; set; }
+        public string category { get; set; }
+        public string name { get; set; }
     }
 }

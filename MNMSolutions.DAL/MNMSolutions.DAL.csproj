@@ -52,6 +52,9 @@
     <Compile Include="DB\Dev\Category.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\Dev\category1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Dev\Customer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -91,6 +94,19 @@
     <Compile Include="DB\Dev\Supplier.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\Models\ProductList.cs" />
+    <Compile Include="DB\Models\TotalSalesForTheDay.cs" />
+    <Compile Include="DB\Test\Category.cs" />
+    <Compile Include="DB\Test\Customer.cs" />
+    <Compile Include="DB\Test\CustomerDemographic.cs" />
+    <Compile Include="DB\Test\Employee.cs" />
+    <Compile Include="DB\Test\Order.cs" />
+    <Compile Include="DB\Test\Order_Detail.cs" />
+    <Compile Include="DB\Test\Product.cs" />
+    <Compile Include="DB\Test\Region.cs" />
+    <Compile Include="DB\Test\Shipper.cs" />
+    <Compile Include="DB\Test\Supplier.cs" />
+    <Compile Include="DB\Test\Territory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -34,6 +34,13 @@ namespace MNMSolutions.DAL.DB.Dev
         public string ShipRegion { get; set; }
         public string ShipPostalCode { get; set; }
         public string ShipCountry { get; set; }
+        public Nullable<bool> OnlineOrderFlag { get; set; }
+        public string SalesOrderNumber { get; set; }
+        public Nullable<decimal> SubTotal { get; set; }
+        public Nullable<decimal> TaxAmt { get; set; }
+        public decimal TotalDue { get; set; }
+        public string Comment { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Employee Employee { get; set; }
