@@ -192,7 +192,7 @@
     <Compile Include="Controllers\category1Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\Inventory\ProductsController.cs" />
     <Compile Include="Controllers\Result.cs" />
     <Compile Include="Controllers\SalesOrderHeadersController.cs" />
     <Compile Include="Controllers\SalesReportController.cs" />
@@ -256,6 +256,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\Report\" />
+    <Folder Include="Controllers\SalesOrder\" />
+    <Folder Include="Controllers\UserManagement\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MNMSolutions.DAL.DB.Dev;
-using MNMSolutions.DAL.DB.Models;
+using MNMSolutions.DAL.DB.Models.Inventory;
 
-namespace MNMSolutions.Web.Api.Controllers
+namespace MNMSolutions.Web.Api.Controllers.Inventory
 {
     public class ProductsController : ApiController
     {

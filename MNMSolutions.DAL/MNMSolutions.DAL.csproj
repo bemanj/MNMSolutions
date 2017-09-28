@@ -94,8 +94,8 @@
     <Compile Include="DB\Dev\Supplier.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\Models\ProductList.cs" />
-    <Compile Include="DB\Models\TotalSalesForTheDay.cs" />
+    <Compile Include="DB\Models\Inventory\ProductList.cs" />
+    <Compile Include="DB\Models\Report\TotalSalesForTheDay.cs" />
     <Compile Include="DB\Test\Category.cs" />
     <Compile Include="DB\Test\Customer.cs" />
     <Compile Include="DB\Test\CustomerDemographic.cs" />
@@ -109,7 +109,9 @@
     <Compile Include="DB\Test\Territory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DB\Models\SalesOrder\" />
+  </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="DB\Dev\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MNMSolutions.DAL.DB.Models
+namespace MNMSolutions.DAL.DB.Models.Inventory
 {
     public partial class ProductList
     {
