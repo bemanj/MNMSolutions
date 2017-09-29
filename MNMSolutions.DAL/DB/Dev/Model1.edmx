@@ -311,18 +311,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductOne_CategoryOne">
-          <End Role="CategoryOne" Type="Self.CategoryOne" Multiplicity="1" />
-          <End Role="ProductOne" Type="Self.ProductOne" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CategoryOne">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="ProductOne">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Products_Categories">
           <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
@@ -448,10 +436,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
             <End Role="Shippers" EntitySet="Shippers" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductOne_CategoryOne" Association="Self.FK_ProductOne_CategoryOne">
-            <End Role="CategoryOne" EntitySet="CategoryOne" />
-            <End Role="ProductOne" EntitySet="ProductOne" />
-          </AssociationSet>
           <AssociationSet Name="FK_Products_Categories" Association="Self.FK_Products_Categories">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Products" EntitySet="Products" />
@@ -494,7 +478,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ProductOnes" Relationship="Self.FK_ProductOne_CategoryOne" FromRole="CategoryOne" ToRole="ProductOne" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -607,7 +590,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
           <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <Property Name="ProductDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="CategoryOne" Relationship="Self.FK_ProductOne_CategoryOne" FromRole="ProductOne" ToRole="CategoryOne" />
           <NavigationProperty Name="StockOnes" Relationship="Self.FK_StockOne_ProductOne" FromRole="ProductOne" ToRole="StockOne" />
         </EntityType>
         <EntityType Name="Product">
@@ -721,18 +703,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
               <PropertyRef Name="CategoryID" />
             </Principal>
             <Dependent Role="Products">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductOne_CategoryOne">
-          <End Role="CategoryOne" Type="Self.CategoryOne" Multiplicity="1" />
-          <End Role="ProductOne" Type="Self.ProductOne" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CategoryOne">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="ProductOne">
               <PropertyRef Name="CategoryID" />
             </Dependent>
           </ReferentialConstraint>
@@ -854,10 +824,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
           <AssociationSet Name="FK_Products_Categories" Association="Self.FK_Products_Categories">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductOne_CategoryOne" Association="Self.FK_ProductOne_CategoryOne">
-            <End Role="CategoryOne" EntitySet="CategoryOnes" />
-            <End Role="ProductOne" EntitySet="ProductOnes" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Customers" Association="Self.FK_Orders_Customers">
             <End Role="Customers" EntitySet="Customers" />

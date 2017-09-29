@@ -24,7 +24,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public int CategoryID { get; set; }
         public string ProductDescription { get; set; }
     
-        public virtual CategoryOne CategoryOne { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StockOne> StockOnes { get; set; }
     }

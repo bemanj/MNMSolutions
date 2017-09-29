@@ -13,44 +13,44 @@ using MNMSolutions.DAL.DB.Dev;
 
 namespace MNMSolutions.Web.Api.Controllers.Inventory
 {
-    public class ProductOnesController : ApiController
+    public class CategoryOnesController : ApiController
     {
         private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
 
-        // GET: api/ProductOnes
-        public IQueryable<ProductOne> GetProductOnes()
+        // GET: api/CategoryOnes
+        public IQueryable<CategoryOne> GetCategoryOnes()
         {
-            return _db.ProductOnes;
+            return _db.CategoryOnes;
         }
 
-        // GET: api/ProductOnes/5
-        [ResponseType(typeof(ProductOne))]
-        public async Task<IHttpActionResult> GetProductOne(int id)
+        // GET: api/CategoryOnes/5
+        [ResponseType(typeof(CategoryOne))]
+        public async Task<IHttpActionResult> GetCategoryOne(int id)
         {
-            ProductOne productOne = await _db.ProductOnes.FindAsync(id);
-            if (productOne == null)
+            CategoryOne categoryOne = await _db.CategoryOnes.FindAsync(id);
+            if (categoryOne == null)
             {
                 return NotFound();
             }
 
-            return Ok(productOne);
+            return Ok(categoryOne);
         }
 
-        // PUT: api/ProductOnes/5
+        // PUT: api/CategoryOnes/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutProductOne(int id, ProductOne productOne)
+        public async Task<IHttpActionResult> PutCategoryOne(int id, CategoryOne categoryOne)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != productOne.ProductId)
+            if (id != categoryOne.CategoryID)
             {
                 return BadRequest();
             }
 
-            _db.Entry(productOne).State = EntityState.Modified;
+            _db.Entry(categoryOne).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductOneExists(id))
+                if (!CategoryOneExists(id))
                 {
                     return NotFound();
                 }
@@ -71,35 +71,35 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/ProductOnes
-        [ResponseType(typeof(ProductOne))]
-        public async Task<IHttpActionResult> PostProductOne(ProductOne productOne)
+        // POST: api/CategoryOnes
+        [ResponseType(typeof(CategoryOne))]
+        public async Task<IHttpActionResult> PostCategoryOne(CategoryOne categoryOne)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _db.ProductOnes.Add(productOne);
+            _db.CategoryOnes.Add(categoryOne);
             await _db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = productOne.ProductId }, productOne);
+            return CreatedAtRoute("DefaultApi", new { id = categoryOne.CategoryID }, categoryOne);
         }
 
-        // DELETE: api/ProductOnes/5
-        [ResponseType(typeof(ProductOne))]
-        public async Task<IHttpActionResult> DeleteProductOne(int id)
+        // DELETE: api/CategoryOnes/5
+        [ResponseType(typeof(CategoryOne))]
+        public async Task<IHttpActionResult> DeleteCategoryOne(int id)
         {
-            ProductOne productOne = await _db.ProductOnes.FindAsync(id);
-            if (productOne == null)
+            CategoryOne categoryOne = await _db.CategoryOnes.FindAsync(id);
+            if (categoryOne == null)
             {
                 return NotFound();
             }
 
-            _db.ProductOnes.Remove(productOne);
+            _db.CategoryOnes.Remove(categoryOne);
             await _db.SaveChangesAsync();
 
-            return Ok(productOne);
+            return Ok(categoryOne);
         }
 
         protected override void Dispose(bool disposing)
@@ -111,9 +111,9 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
             base.Dispose(disposing);
         }
 
-        private bool ProductOneExists(int id)
+        private bool CategoryOneExists(int id)
         {
-            return _db.ProductOnes.Count(e => e.ProductId == id) > 0;
+            return _db.CategoryOnes.Count(e => e.CategoryID == id) > 0;
         }
     }
 }

@@ -14,17 +14,8 @@ namespace MNMSolutions.DAL.DB.Dev
     
     public partial class CategoryOne
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CategoryOne()
-        {
-            this.ProductOnes = new HashSet<ProductOne>();
-        }
-    
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
         public string Description { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductOne> ProductOnes { get; set; }
     }
 }
