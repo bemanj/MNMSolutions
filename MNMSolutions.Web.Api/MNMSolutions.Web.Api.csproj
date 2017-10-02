@@ -277,6 +277,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MNMSolutions.BLL\MNMSolutions.BLL.csproj">
+      <Project>{06c989c0-521f-4e27-be1d-57483ebfe024}</Project>
+      <Name>MNMSolutions.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MNMSolutions.DAL\MNMSolutions.DAL.csproj">
       <Project>{4998e6ec-e939-4f2b-8b9c-8116f087c2b8}</Project>
       <Name>MNMSolutions.DAL</Name>
