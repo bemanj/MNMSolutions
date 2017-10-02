@@ -191,8 +191,10 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\category1Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Inventory\CategoryOnesController.cs" />
+    <Compile Include="Controllers\Inventory\ProductOnesController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\Inventory\ProductsController.cs" />
     <Compile Include="Controllers\Result.cs" />
     <Compile Include="Controllers\SalesOrderHeadersController.cs" />
     <Compile Include="Controllers\SalesReportController.cs" />
@@ -256,6 +258,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\Report\" />
+    <Folder Include="Controllers\SalesOrder\" />
+    <Folder Include="Controllers\UserManagement\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -272,6 +277,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MNMSolutions.BLL\MNMSolutions.BLL.csproj">
+      <Project>{06c989c0-521f-4e27-be1d-57483ebfe024}</Project>
+      <Name>MNMSolutions.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MNMSolutions.DAL\MNMSolutions.DAL.csproj">
       <Project>{4998e6ec-e939-4f2b-8b9c-8116f087c2b8}</Project>
       <Name>MNMSolutions.DAL</Name>
