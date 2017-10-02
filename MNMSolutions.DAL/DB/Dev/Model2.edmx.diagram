@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="da5cc4407a9f42478ac401550baf5a3b" Name="Diagram1">
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.Category" Width="1.5" PointX="0.75" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.category1" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.CategoryOne" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.Customer" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.Employee" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.InventoryStock" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.OrderDetail" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.Order" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.ProductOne" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.Product" Width="1.5" PointX="3" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.SalesOrderHeader" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.Shipper" Width="1.5" PointX="0.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.StockOne" Width="1.5" PointX="8" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.Supplier" Width="1.5" PointX="0.75" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.sysdiagram" Width="1.5" PointX="10.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.PurchaseOrderDetail" Width="1.5" PointX="6.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel1.PurchaseOrderHeader" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="MNMSolutionsDevDBModel1.FK_Products_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="MNMSolutionsDevDBModel1.FK_Orders_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="MNMSolutionsDevDBModel1.FK_Employees_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MNMSolutionsDevDBModel1.FK_Orders_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MNMSolutionsDevDBModel1.FK_OrderDetails_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="MNMSolutionsDevDBModel1.FK_OrderDetails_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="MNMSolutionsDevDBModel1.FK_Orders_Shippers" ManuallyRouted="false" />
+        <AssociationConnector Association="MNMSolutionsDevDBModel1.FK_StockOne_ProductOne" ManuallyRouted="false" />
+        <AssociationConnector Association="MNMSolutionsDevDBModel1.FK_Products_Suppliers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
