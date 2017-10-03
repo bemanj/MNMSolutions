@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MNMSolutions.DAL.DB.Dev;
@@ -19,11 +12,11 @@ namespace MNMSolutions.Web.Api.Controllers
         //private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
 
         #region Global Declaration
-        private IRepository<category1> _Category1repository = null;
+        private readonly IRepository<category1> _category1Repository = null;
 
         public Category1Controller()
         {
-            this._Category1repository = new Repository<category1>();
+            this._category1Repository = new Repository<category1>();
         }
         #endregion
 
@@ -32,8 +25,8 @@ namespace MNMSolutions.Web.Api.Controllers
         [HttpGet]
         public HttpResponseMessage Getcategories1()
         {
-            var result = _Category1repository.GetAll();
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, result);
+            var result = _category1Repository.GetAll();
+            var response = Request.CreateResponse(HttpStatusCode.OK, result);
             return response;
         }
 
@@ -41,8 +34,7 @@ namespace MNMSolutions.Web.Api.Controllers
         [ResponseType(typeof(category1))]
         public IHttpActionResult Getcategories1(string id)
         {
-            //var result = _Category1repository.GetById(id);
-            category1 category1 = _Category1repository.GetById(id);//_db.categories1.FindAsync(id);
+            var category1 = _category1Repository.GetById(id);//_db.categories1.FindAsync(id);
             if (category1 == null)
             {
                 return NotFound();
@@ -51,86 +43,53 @@ namespace MNMSolutions.Web.Api.Controllers
             return Ok(category1);
         }
 
-        //// PUT: api/category1/5
-        //[ResponseType(typeof(void))]
-        //public async Task<IHttpActionResult> Putcategory1(string id, category1 category1)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // PUT: api/category1/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult Putcategory1(string id, category1 category1)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    if (id != category1.category)
-        //    {
-        //        return BadRequest();
-        //    }
+            if (id != category1.category)
+            {
+                return BadRequest();
+            }
 
-        //    _db.Entry(category1).State = EntityState.Modified;
+            _category1Repository.Update(category1);
 
-        //    try
-        //    {
-        //        await _db.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!category1Exists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
+        // POST: api/category1
+        [ResponseType(typeof(category1))]
+        public IHttpActionResult Postcategory1(category1 category1)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //// POST: api/category1
-        //[ResponseType(typeof(category1))]
-        //public async Task<IHttpActionResult> Postcategory1(category1 category1)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+            _category1Repository.Insert(category1);
 
-        //    _db.categories1.Add(category1);
+            return CreatedAtRoute("DefaultApi", new { id = category1.category }, category1);
+        }
 
-        //    try
-        //    {
-        //        await _db.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        if (category1Exists(category1.category))
-        //        {
-        //            return Conflict();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+        // DELETE: api/category1/5
+        [ResponseType(typeof(category1))]
+        public IHttpActionResult Deletecategory1(string id)
+        {
+            var category1 = _category1Repository.GetById(id);
+            if (category1 == null)
+            {
+                return NotFound();
+            }
 
-        //    return CreatedAtRoute("DefaultApi", new { id = category1.category }, category1);
-        //}
+            _category1Repository.Delete(category1);
 
-        //// DELETE: api/category1/5
-        //[ResponseType(typeof(category1))]
-        //public async Task<IHttpActionResult> Deletecategory1(string id)
-        //{
-        //    category1 category1 = await _db.categories1.FindAsync(id);
-        //    if (category1 == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _db.categories1.Remove(category1);
-        //    await _db.SaveChangesAsync();
-
-        //    return Ok(category1);
-        //}
+            return Ok(category1);
+        }
 
         //protected override void Dispose(bool disposing)
         //{

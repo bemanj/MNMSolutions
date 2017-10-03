@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MNMSolutions.DAL.DB.Dev;
-using MNMSolutions.DAL.DB.Models.Inventory;
+using MNMSolutions.DAL.DB.Models;
 
 namespace MNMSolutions.Web.Api.Controllers.Inventory
 {

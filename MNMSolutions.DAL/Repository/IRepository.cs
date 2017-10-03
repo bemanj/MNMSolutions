@@ -9,9 +9,9 @@ namespace MNMSolutions.DAL.Repository
     public interface IRepository<T> where T : class
     {
         IEnumerable<T> GetAll();
-        T GetById(object Id);
+        T GetById(object id);
         T Insert(T obj);
-        void Delete(object Id);
+        void Delete(object id);
         T Update(T obj);
         void Save();
     }

@@ -4,17 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MNMSolutions.DAL.DB.Dev;
+using MNMSolutions.DAL.Repository;
 
 namespace MNMSolutions.BLL
 {
     public class ProductList
     {
-        private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
+        //private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
 
-        // GET: api/ProductOnes
-        public IQueryable<ProductOne> GetProductOnes()
+        #region Global Declaration
+        private readonly IRepository<ProductOne> _productListRepository = null;
+
+        public ProductList()
         {
-            return _db.ProductOnes;
+            this._productListRepository = new Repository<ProductOne>();
+        }
+        #endregion
+        // GET: api/ProductOnes
+        public IEnumerable<ProductOne> GetProductOnes()
+        {
+            return _productListRepository.GetAll();
         }
     }
 }
