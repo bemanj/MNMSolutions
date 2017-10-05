@@ -23,9 +23,9 @@ namespace MNMSolutions.DAL.DB.Dev
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public decimal AcquisitionPrice { get; set; }
-        public System.DateTime DateDelivered { get; set; }
+        public Nullable<System.DateTime> DateDelivered { get; set; }
         public Nullable<System.DateTime> DateDisposed { get; set; }
-        public System.DateTime ModifiedDate { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
         public int PutAwayLocation { get; set; }
     }
 }

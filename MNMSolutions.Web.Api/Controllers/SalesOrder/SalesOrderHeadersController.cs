@@ -1,25 +1,21 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MNMSolutions.DAL.DB.Dev;
 
-namespace MNMSolutions.Web.Api.Controllers
+namespace MNMSolutions.Web.Api.Controllers.SalesOrder
 {
     public class SalesOrderHeadersController : ApiController
     {
         private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
-        //#region Global Declaration
-        //private readonly IRepository<SalesOrderHeader> _soHeadersRepository = null;
 
-        //public SalesOrderHeadersController()
-        //{
-        //    this._soHeadersRepository= new Repository<SalesOrderHeader>();
-        //}
-        //#endregion
         // GET: api/SalesOrderHeaders
         public IQueryable<SalesOrderHeader> GetSalesOrderHeaders()
         {
@@ -28,9 +24,9 @@ namespace MNMSolutions.Web.Api.Controllers
 
         // GET: api/SalesOrderHeaders/5
         [ResponseType(typeof(SalesOrderHeader))]
-        public async Task<IHttpActionResult> GetSalesOrderHeader(int id)
+        public IHttpActionResult GetSalesOrderHeader(int id)
         {
-            SalesOrderHeader salesOrderHeader = await _db.SalesOrderHeaders.FindAsync(id);
+            SalesOrderHeader salesOrderHeader = _db.SalesOrderHeaders.Find(id);
             if (salesOrderHeader == null)
             {
                 return NotFound();
@@ -39,29 +35,29 @@ namespace MNMSolutions.Web.Api.Controllers
             return Ok(salesOrderHeader);
         }
 
-        // PUT: api/SalesOrderHeaders/5 [FromUri]  int id, 
+        // PUT: api/SalesOrderHeaders/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutSalesOrderHeader([FromBody] SalesOrderHeader salesOrderHeader)
+        public IHttpActionResult PutSalesOrderHeader(int id, SalesOrderHeader salesOrderHeader)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            
-            //if (id != salesOrderHeader.SalesOrderID)
-            //{
-            //    return BadRequest();
-            //}
+
+            if (id != salesOrderHeader.SalesOrderID)
+            {
+                return BadRequest();
+            }
 
             _db.Entry(salesOrderHeader).State = EntityState.Modified;
 
             try
             {
-                await _db.SaveChangesAsync();
+                _db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SalesOrderHeaderExists(salesOrderHeader.SalesOrderID))
+                if (!SalesOrderHeaderExists(id))
                 {
                     return NotFound();
                 }
@@ -76,8 +72,7 @@ namespace MNMSolutions.Web.Api.Controllers
 
         // POST: api/SalesOrderHeaders
         [ResponseType(typeof(SalesOrderHeader))]
-        //[HttpPost] [FromBody] 
-        public async Task<IHttpActionResult> PostSalesOrderHeader(SalesOrderHeader salesOrderHeader)
+        public IHttpActionResult PostSalesOrderHeader(SalesOrderHeader salesOrderHeader)
         {
             if (!ModelState.IsValid)
             {
@@ -85,23 +80,23 @@ namespace MNMSolutions.Web.Api.Controllers
             }
 
             _db.SalesOrderHeaders.Add(salesOrderHeader);
-            await _db.SaveChangesAsync();
+            _db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = salesOrderHeader.SalesOrderID }, salesOrderHeader);
         }
 
         // DELETE: api/SalesOrderHeaders/5
         [ResponseType(typeof(SalesOrderHeader))]
-        public async Task<IHttpActionResult> DeleteSalesOrderHeader(int id)
+        public IHttpActionResult DeleteSalesOrderHeader(int id)
         {
-            SalesOrderHeader salesOrderHeader = await _db.SalesOrderHeaders.FindAsync(id);
+            SalesOrderHeader salesOrderHeader = _db.SalesOrderHeaders.Find(id);
             if (salesOrderHeader == null)
             {
                 return NotFound();
             }
 
             _db.SalesOrderHeaders.Remove(salesOrderHeader);
-            await _db.SaveChangesAsync();
+            _db.SaveChanges();
 
             return Ok(salesOrderHeader);
         }
