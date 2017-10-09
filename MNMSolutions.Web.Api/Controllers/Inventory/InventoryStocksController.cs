@@ -88,6 +88,8 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
                 return NotFound();
             }
 
+            _inventoryStockRepository.Delete(inventoryStock);
+
             return Ok(inventoryStock);
         }
 
