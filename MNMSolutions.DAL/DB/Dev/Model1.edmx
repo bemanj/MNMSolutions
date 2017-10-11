@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MNMSolutionsDevDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MNMSolutionsDevDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'MNMSolutionsDevDB.dbo.Brand' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Brand">
@@ -250,6 +250,36 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MNMSolutionsDevDB.dbo.inventory_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="inventory_view">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="PONumber" />
+            <PropertyRef Name="StockId" />
+            <PropertyRef Name="SupplierId" />
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="Brand" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="AcquisitionPrice" />
+            <PropertyRef Name="PutAwayLocation" />
+            <PropertyRef Name="ProductName" />
+            <PropertyRef Name="CompanyName" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PONumber" Type="int" Nullable="false" />
+          <Property Name="StockId" Type="int" Nullable="false" />
+          <Property Name="SupplierId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Brand" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="AcquisitionPrice" Type="money" Nullable="false" />
+          <Property Name="PutAwayLocation" Type="int" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="40" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Employees_Employees">
           <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
           <End Role="Employees1" Type="Self.Employees" Multiplicity="*" />
@@ -429,6 +459,22 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
     [PurchaseOrderHeader].[SupplierId] AS [SupplierId]
     FROM [dbo].[PurchaseOrderHeader] AS [PurchaseOrderHeader]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="inventory_view" EntityType="Self.inventory_view" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [inventory_view].[Id] AS [Id], 
+    [inventory_view].[PONumber] AS [PONumber], 
+    [inventory_view].[StockId] AS [StockId], 
+    [inventory_view].[SupplierId] AS [SupplierId], 
+    [inventory_view].[ProductId] AS [ProductId], 
+    [inventory_view].[Brand] AS [Brand], 
+    [inventory_view].[Quantity] AS [Quantity], 
+    [inventory_view].[Price] AS [Price], 
+    [inventory_view].[AcquisitionPrice] AS [AcquisitionPrice], 
+    [inventory_view].[PutAwayLocation] AS [PutAwayLocation], 
+    [inventory_view].[ProductName] AS [ProductName], 
+    [inventory_view].[CompanyName] AS [CompanyName]
+    FROM [dbo].[inventory_view] AS [inventory_view]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Employees_Employees" Association="Self.FK_Employees_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Employees1" EntitySet="Employees" />
@@ -466,8 +512,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
             <End Role="StockOne" EntitySet="StockOne" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MNMSolutionsDevDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -915,6 +960,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
           </FunctionImport>
           <FunctionImport Name="sp_totalSalesForTheDay" ReturnType="Collection(Decimal)" />
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="inventory_view" EntityType="MNMSolutionsDevDBModel.inventory_view" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -927,6 +973,34 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="inventory_view">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="PONumber" />
+            <PropertyRef Name="StockId" />
+            <PropertyRef Name="SupplierId" />
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="Brand" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="AcquisitionPrice" />
+            <PropertyRef Name="PutAwayLocation" />
+            <PropertyRef Name="ProductName" />
+            <PropertyRef Name="CompanyName" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PONumber" Type="Int32" Nullable="false" />
+          <Property Name="StockId" Type="Int32" Nullable="false" />
+          <Property Name="SupplierId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Brand" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="AcquisitionPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="PutAwayLocation" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1203,6 +1277,24 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="MNMSolutionsDevDBModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_totalSalesForTheDay" FunctionName="MNMSolutionsDevDBModel.Store.sp_totalSalesForTheDay" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="MNMSolutionsDevDBModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="inventory_view">
+            <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.inventory_view">
+              <MappingFragment StoreEntitySet="inventory_view">
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="PutAwayLocation" ColumnName="PutAwayLocation" />
+                <ScalarProperty Name="AcquisitionPrice" ColumnName="AcquisitionPrice" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="StockId" ColumnName="StockId" />
+                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

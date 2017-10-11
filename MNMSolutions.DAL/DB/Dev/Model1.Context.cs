@@ -45,6 +45,7 @@ namespace MNMSolutions.DAL.DB.Dev
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
         public virtual DbSet<PurchaseOrderHeader> PurchaseOrderHeaders { get; set; }
+        public virtual DbSet<inventory_view> inventory_view { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

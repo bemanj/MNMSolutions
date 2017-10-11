@@ -15,12 +15,12 @@
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.Order" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.ProductOne" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.Product" Width="1.5" PointX="3" PointY="20.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNMSolutionsDevDBModel.SalesOrderHeader" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel.SalesOrderHeader" Width="1.5" PointX="6.5" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.Shipper" Width="1.5" PointX="0.75" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.StockOne" Width="1.5" PointX="8" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.Supplier" Width="1.5" PointX="0.75" PointY="21.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.sysdiagram" Width="1.5" PointX="10.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNMSolutionsDevDBModel.Brand" Width="1.5" PointX="6.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel.Brand" Width="1.5" PointX="8.5" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.PurchaseOrderDetail" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNMSolutionsDevDBModel.PurchaseOrderHeader" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="MNMSolutionsDevDBModel.FK_Products_Categories" ManuallyRouted="false" />
@@ -32,6 +32,7 @@
         <AssociationConnector Association="MNMSolutionsDevDBModel.FK_Orders_Shippers" ManuallyRouted="false" />
         <AssociationConnector Association="MNMSolutionsDevDBModel.FK_StockOne_ProductOne" ManuallyRouted="false" />
         <AssociationConnector Association="MNMSolutionsDevDBModel.FK_Products_Suppliers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MNMSolutionsDevDBModel.inventory_view" Width="1.5" PointX="3.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
