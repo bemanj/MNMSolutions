@@ -279,6 +279,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.inventory_view' does not hav
           <Property Name="PutAwayLocation" Type="int" Nullable="false" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="CompanyName" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="DateDelivered" Type="date" />
         </EntityType>
         <Association Name="FK_Employees_Employees">
           <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
@@ -472,7 +474,9 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.inventory_view' does not hav
     [inventory_view].[AcquisitionPrice] AS [AcquisitionPrice], 
     [inventory_view].[PutAwayLocation] AS [PutAwayLocation], 
     [inventory_view].[ProductName] AS [ProductName], 
-    [inventory_view].[CompanyName] AS [CompanyName]
+    [inventory_view].[CompanyName] AS [CompanyName], 
+    [inventory_view].[CategoryID] AS [CategoryID], 
+    [inventory_view].[DateDelivered] AS [DateDelivered]
     FROM [dbo].[inventory_view] AS [inventory_view]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Employees_Employees" Association="Self.FK_Employees_Employees">
@@ -1000,6 +1004,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.inventory_view' does not hav
           <Property Name="PutAwayLocation" Type="Int32" Nullable="false" />
           <Property Name="ProductName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="DateDelivered" Type="DateTime" Precision="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1280,6 +1286,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.inventory_view' does not hav
           <EntitySetMapping Name="inventory_view">
             <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.inventory_view">
               <MappingFragment StoreEntitySet="inventory_view">
+                <ScalarProperty Name="DateDelivered" ColumnName="DateDelivered" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="PutAwayLocation" ColumnName="PutAwayLocation" />

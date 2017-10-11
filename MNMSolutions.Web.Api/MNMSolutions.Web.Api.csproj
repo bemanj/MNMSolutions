@@ -193,6 +193,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Inventory\CategoryOnesController.cs" />
     <Compile Include="Controllers\Inventory\InventoryStocksController.cs" />
+    <Compile Include="Controllers\Inventory\inventory_viewController.cs" />
     <Compile Include="Controllers\Inventory\ProductOnesController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\Inventory\ProductsController.cs" />
