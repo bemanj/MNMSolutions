@@ -190,6 +190,19 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
           <Property Name="DateModified" Type="date" Nullable="false" />
           <Property Name="SupplierId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="SalesOrderDetails">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalesOrderNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="money" Nullable="false" />
+          <Property Name="Quantity" Type="smallint" Nullable="false" />
+          <Property Name="Discount" Type="real" Nullable="false" />
+          <Property Name="TotalAmount" Type="money" Nullable="false" />
+        </EntityType>
         <EntityType Name="SalesOrderHeader">
           <Key>
             <PropertyRef Name="SalesOrderID" />
@@ -281,6 +294,28 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.inventory_view' does not hav
           <Property Name="CompanyName" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="CategoryID" Type="int" />
           <Property Name="DateDelivered" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_SalesOrderDetails">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="SalesOrderNumber" />
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="UnitPrice" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="Discount" />
+            <PropertyRef Name="TotalAmount" />
+            <PropertyRef Name="ProductName" />
+          </Key>
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="SalesOrderNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="money" Nullable="false" />
+          <Property Name="Quantity" Type="smallint" Nullable="false" />
+          <Property Name="Discount" Type="real" Nullable="false" />
+          <Property Name="TotalAmount" Type="money" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="40" Nullable="false" />
         </EntityType>
         <Association Name="FK_Employees_Employees">
           <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
@@ -433,6 +468,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.inventory_view' does not hav
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductOne" EntityType="Self.ProductOne" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesOrderDetails" EntityType="Self.SalesOrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SalesOrderHeader" EntityType="Self.SalesOrderHeader" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shippers" EntityType="Self.Shippers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StockOne" EntityType="Self.StockOne" Schema="dbo" store:Type="Tables" />
@@ -478,6 +514,18 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.inventory_view' does not hav
     [inventory_view].[CategoryID] AS [CategoryID], 
     [inventory_view].[DateDelivered] AS [DateDelivered]
     FROM [dbo].[inventory_view] AS [inventory_view]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_SalesOrderDetails" EntityType="Self.View_SalesOrderDetails" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_SalesOrderDetails].[OrderID] AS [OrderID], 
+    [View_SalesOrderDetails].[SalesOrderNumber] AS [SalesOrderNumber], 
+    [View_SalesOrderDetails].[ProductID] AS [ProductID], 
+    [View_SalesOrderDetails].[UnitPrice] AS [UnitPrice], 
+    [View_SalesOrderDetails].[Quantity] AS [Quantity], 
+    [View_SalesOrderDetails].[Discount] AS [Discount], 
+    [View_SalesOrderDetails].[TotalAmount] AS [TotalAmount], 
+    [View_SalesOrderDetails].[ProductName] AS [ProductName]
+    FROM [dbo].[View_SalesOrderDetails] AS [View_SalesOrderDetails]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Employees_Employees" Association="Self.FK_Employees_Employees">
             <End Role="Employees" EntitySet="Employees" />
@@ -770,6 +818,36 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.inventory_view' does not hav
           <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="SupplierId" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="inventory_view">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="PONumber" />
+            <PropertyRef Name="StockId" />
+            <PropertyRef Name="SupplierId" />
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="Brand" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="AcquisitionPrice" />
+            <PropertyRef Name="PutAwayLocation" />
+            <PropertyRef Name="ProductName" />
+            <PropertyRef Name="CompanyName" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PONumber" Type="Int32" Nullable="false" />
+          <Property Name="StockId" Type="Int32" Nullable="false" />
+          <Property Name="SupplierId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Brand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="AcquisitionPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PutAwayLocation" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="DateDelivered" Type="DateTime" Precision="0" />
+        </EntityType>
         <Association Name="FK_Products_Categories">
           <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Products" Type="Self.Product" Multiplicity="*" />
@@ -897,6 +975,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.inventory_view' does not hav
           <EntitySet Name="Brands" EntityType="Self.Brand" />
           <EntitySet Name="PurchaseOrderDetails" EntityType="Self.PurchaseOrderDetail" />
           <EntitySet Name="PurchaseOrderHeaders" EntityType="Self.PurchaseOrderHeader" />
+          <EntitySet Name="inventory_view" EntityType="Self.inventory_view" />
           <AssociationSet Name="FK_Products_Categories" Association="Self.FK_Products_Categories">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Products" EntitySet="Products" />
@@ -964,7 +1043,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.inventory_view' does not hav
           </FunctionImport>
           <FunctionImport Name="sp_totalSalesForTheDay" ReturnType="Collection(Decimal)" />
           <FunctionImport Name="sp_upgraddiagrams" />
-          <EntitySet Name="inventory_view" EntityType="MNMSolutionsDevDBModel.inventory_view" />
+          <EntitySet Name="SalesOrderDetails" EntityType="MNMSolutionsDevDBModel.SalesOrderDetail" />
+          <EntitySet Name="View_SalesOrderDetails" EntityType="MNMSolutionsDevDBModel.View_SalesOrderDetails" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -977,35 +1057,38 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.inventory_view' does not hav
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <EntityType Name="inventory_view">
+        <EntityType Name="SalesOrderDetail">
           <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="PONumber" />
-            <PropertyRef Name="StockId" />
-            <PropertyRef Name="SupplierId" />
-            <PropertyRef Name="ProductId" />
-            <PropertyRef Name="Brand" />
-            <PropertyRef Name="Quantity" />
-            <PropertyRef Name="Price" />
-            <PropertyRef Name="AcquisitionPrice" />
-            <PropertyRef Name="PutAwayLocation" />
-            <PropertyRef Name="ProductName" />
-            <PropertyRef Name="CompanyName" />
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="ProductID" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="PONumber" Type="Int32" Nullable="false" />
-          <Property Name="StockId" Type="Int32" Nullable="false" />
-          <Property Name="SupplierId" Type="Int32" Nullable="false" />
-          <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="Brand" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="AcquisitionPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="PutAwayLocation" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalesOrderNumber" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Quantity" Type="Int16" Nullable="false" />
+          <Property Name="Discount" Type="Single" Nullable="false" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="View_SalesOrderDetails">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="SalesOrderNumber" />
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="UnitPrice" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="Discount" />
+            <PropertyRef Name="TotalAmount" />
+            <PropertyRef Name="ProductName" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="SalesOrderNumber" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Quantity" Type="Int16" Nullable="false" />
+          <Property Name="Discount" Type="Single" Nullable="false" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="ProductName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryID" Type="Int32" />
-          <Property Name="DateDelivered" Type="DateTime" Precision="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1258,6 +1341,26 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.inventory_view' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="inventory_view">
+            <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.inventory_view">
+              <MappingFragment StoreEntitySet="inventory_view">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
+                <ScalarProperty Name="StockId" ColumnName="StockId" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="AcquisitionPrice" ColumnName="AcquisitionPrice" />
+                <ScalarProperty Name="PutAwayLocation" ColumnName="PutAwayLocation" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="DateDelivered" ColumnName="DateDelivered" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="MNMSolutionsDevDBModel.Store.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="MNMSolutionsDevDBModel.Store.sp_creatediagram" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="MNMSolutionsDevDBModel.Store.sp_dropdiagram" />
@@ -1283,23 +1386,30 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.inventory_view' does not hav
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="MNMSolutionsDevDBModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_totalSalesForTheDay" FunctionName="MNMSolutionsDevDBModel.Store.sp_totalSalesForTheDay" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="MNMSolutionsDevDBModel.Store.sp_upgraddiagrams" />
-          <EntitySetMapping Name="inventory_view">
-            <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.inventory_view">
-              <MappingFragment StoreEntitySet="inventory_view">
-                <ScalarProperty Name="DateDelivered" ColumnName="DateDelivered" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="PutAwayLocation" ColumnName="PutAwayLocation" />
-                <ScalarProperty Name="AcquisitionPrice" ColumnName="AcquisitionPrice" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
+          <EntitySetMapping Name="SalesOrderDetails">
+            <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.SalesOrderDetail">
+              <MappingFragment StoreEntitySet="SalesOrderDetails">
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Brand" ColumnName="Brand" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
-                <ScalarProperty Name="StockId" ColumnName="StockId" />
-                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_SalesOrderDetails">
+            <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.View_SalesOrderDetails">
+              <MappingFragment StoreEntitySet="View_SalesOrderDetails">
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

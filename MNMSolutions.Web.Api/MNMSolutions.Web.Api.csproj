@@ -195,12 +195,14 @@
     <Compile Include="Controllers\Inventory\InventoryStocksController.cs" />
     <Compile Include="Controllers\Inventory\inventory_viewController.cs" />
     <Compile Include="Controllers\Inventory\ProductOnesController.cs" />
+    <Compile Include="Controllers\Inventory\SalesOrderDetailsController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\Inventory\ProductsController.cs" />
     <Compile Include="Controllers\Result.cs" />
     <Compile Include="Controllers\SalesOrder\SalesOrderHeadersController.cs" />
     <Compile Include="Controllers\SalesReportController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\View_SalesOrderDetailsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
