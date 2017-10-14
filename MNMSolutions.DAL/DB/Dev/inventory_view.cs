@@ -14,6 +14,9 @@ namespace MNMSolutions.DAL.DB.Dev
     
     public partial class inventory_view
     {
+        public string ProductName { get; set; }
+        public string CompanyName { get; set; }
+        public Nullable<int> CategoryID { get; set; }
         public int Id { get; set; }
         public int PONumber { get; set; }
         public int StockId { get; set; }
@@ -21,12 +24,9 @@ namespace MNMSolutions.DAL.DB.Dev
         public int ProductId { get; set; }
         public string Brand { get; set; }
         public int Quantity { get; set; }
+        public string UOM { get; set; }
         public decimal Price { get; set; }
         public decimal AcquisitionPrice { get; set; }
         public int PutAwayLocation { get; set; }
-        public string ProductName { get; set; }
-        public string CompanyName { get; set; }
-        public Nullable<int> CategoryID { get; set; }
-        public Nullable<System.DateTime> DateDelivered { get; set; }
     }
 }

@@ -121,6 +121,9 @@
     <Compile Include="DB\Dev\sp_helpdiagrams_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\Dev\sp_orderdetail_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Dev\StockOne.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

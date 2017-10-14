@@ -21,6 +21,7 @@ namespace MNMSolutions.DAL.DB.Dev
         public int ProductId { get; set; }
         public string Brand { get; set; }
         public int Quantity { get; set; }
+        public string UOM { get; set; }
         public decimal Price { get; set; }
         public decimal AcquisitionPrice { get; set; }
         public Nullable<System.DateTime> DateDelivered { get; set; }

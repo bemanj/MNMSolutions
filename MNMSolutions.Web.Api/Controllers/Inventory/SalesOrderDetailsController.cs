@@ -15,19 +15,19 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
 {
     public class SalesOrderDetailsController : ApiController
     {
-        private MNMSolutionsDevDBEntities db = new MNMSolutionsDevDBEntities();
+        private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
 
         // GET: api/SalesOrderDetails
         public IQueryable<SalesOrderDetail> GetSalesOrderDetails()
         {
-            return db.SalesOrderDetails;
+            return _db.SalesOrderDetails;
         }
 
         // GET: api/SalesOrderDetails/5
         [ResponseType(typeof(SalesOrderDetail))]
         public async Task<IHttpActionResult> GetSalesOrderDetail(int id)
         {
-            SalesOrderDetail salesOrderDetail = await db.SalesOrderDetails.FindAsync(id);
+            SalesOrderDetail salesOrderDetail = await _db.SalesOrderDetails.FindAsync(id);
             if (salesOrderDetail == null)
             {
                 return NotFound();
@@ -45,16 +45,16 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
                 return BadRequest(ModelState);
             }
 
-            if (id != salesOrderDetail.OrderID)
+            if (id != salesOrderDetail.SalesOrderID)
             {
                 return BadRequest();
             }
 
-            db.Entry(salesOrderDetail).State = EntityState.Modified;
+            _db.Entry(salesOrderDetail).State = EntityState.Modified;
 
             try
             {
-                await db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -80,24 +80,24 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
                 return BadRequest(ModelState);
             }
 
-            db.SalesOrderDetails.Add(salesOrderDetail);
-            await db.SaveChangesAsync();
+            _db.SalesOrderDetails.Add(salesOrderDetail);
+            await _db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = salesOrderDetail.OrderID }, salesOrderDetail);
+            return CreatedAtRoute("DefaultApi", new { id = salesOrderDetail.SalesOrderID }, salesOrderDetail);
         }
 
         // DELETE: api/SalesOrderDetails/5
         [ResponseType(typeof(SalesOrderDetail))]
         public async Task<IHttpActionResult> DeleteSalesOrderDetail(int id)
         {
-            SalesOrderDetail salesOrderDetail = await db.SalesOrderDetails.FindAsync(id);
+            SalesOrderDetail salesOrderDetail = await _db.SalesOrderDetails.FindAsync(id);
             if (salesOrderDetail == null)
             {
                 return NotFound();
             }
 
-            db.SalesOrderDetails.Remove(salesOrderDetail);
-            await db.SaveChangesAsync();
+            _db.SalesOrderDetails.Remove(salesOrderDetail);
+            await _db.SaveChangesAsync();
 
             return Ok(salesOrderDetail);
         }
@@ -106,14 +106,14 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool SalesOrderDetailExists(int id)
         {
-            return db.SalesOrderDetails.Count(e => e.OrderID == id) > 0;
+            return _db.SalesOrderDetails.Count(e => e.SalesOrderID == id) > 0;
         }
     }
 }

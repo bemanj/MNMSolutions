@@ -10,9 +10,8 @@
 namespace MNMSolutions.DAL.DB.Dev
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class SalesOrderDetail
+    public partial class sp_orderdetail_Result
     {
         public int SODetailsID { get; set; }
         public int SalesOrderID { get; set; }
@@ -24,5 +23,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public short Quantity { get; set; }
         public float Discount { get; set; }
         public decimal TotalAmount { get; set; }
+        public string ProductName { get; set; }
     }
 }

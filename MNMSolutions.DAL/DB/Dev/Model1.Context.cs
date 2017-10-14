@@ -37,6 +37,7 @@ namespace MNMSolutions.DAL.DB.Dev
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<ProductOne> ProductOnes { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<SalesOrderDetail> SalesOrderDetails { get; set; }
         public virtual DbSet<SalesOrderHeader> SalesOrderHeaders { get; set; }
         public virtual DbSet<Shipper> Shippers { get; set; }
         public virtual DbSet<StockOne> StockOnes { get; set; }
@@ -46,7 +47,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
         public virtual DbSet<PurchaseOrderHeader> PurchaseOrderHeaders { get; set; }
         public virtual DbSet<inventory_view> inventory_view { get; set; }
-        public virtual DbSet<SalesOrderDetail> SalesOrderDetails { get; set; }
         public virtual DbSet<View_SalesOrderDetails> View_SalesOrderDetails { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
@@ -155,6 +155,15 @@ namespace MNMSolutions.DAL.DB.Dev
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual ObjectResult<sp_orderdetail_Result> sp_orderdetail(Nullable<int> salesOrderID)
+        {
+            var salesOrderIDParameter = salesOrderID.HasValue ?
+                new ObjectParameter("salesOrderID", salesOrderID) :
+                new ObjectParameter("salesOrderID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_orderdetail_Result>("sp_orderdetail", salesOrderIDParameter);
         }
     }
 }

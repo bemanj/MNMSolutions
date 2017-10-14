@@ -14,10 +14,13 @@ namespace MNMSolutions.DAL.DB.Dev
     
     public partial class View_SalesOrderDetails
     {
-        public int OrderID { get; set; }
+        public int SODetailsID { get; set; }
+        public int SalesOrderID { get; set; }
+        public int StockID { get; set; }
         public string SalesOrderNumber { get; set; }
         public int ProductID { get; set; }
         public decimal UnitPrice { get; set; }
+        public string UOM { get; set; }
         public short Quantity { get; set; }
         public float Discount { get; set; }
         public decimal TotalAmount { get; set; }
