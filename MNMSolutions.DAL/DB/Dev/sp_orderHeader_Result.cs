@@ -10,9 +10,8 @@
 namespace MNMSolutions.DAL.DB.Dev
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class SalesOrderHeader
+    public partial class sp_orderHeader_Result
     {
         public int SalesOrderID { get; set; }
         public string Customer { get; set; }

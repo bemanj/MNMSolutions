@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MNMSolutionsDevDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MNMSolutionsDevDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'MNMSolutionsDevDB.dbo.Brand' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Brand">
@@ -211,6 +211,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
             <PropertyRef Name="SalesOrderID" />
           </Key>
           <Property Name="SalesOrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="OrderDate" Type="datetime" Nullable="false" />
           <Property Name="OnlineOrderFlag" Type="bit" Nullable="false" />
           <Property Name="SalesOrderNumber" Type="nvarchar" MaxLength="25" StoreGeneratedPattern="Computed" Nullable="false" />
@@ -461,6 +462,13 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
         <Function Name="sp_orderdetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="salesOrderID" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_orderHeader" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="soID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_orderTotalAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="soID" Type="int" Mode="In" />
+          <Parameter Name="dateRange" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -578,7 +586,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <End Role="StockOne" EntitySet="StockOne" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MNMSolutionsDevDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -760,6 +769,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <PropertyRef Name="SalesOrderID" />
           </Key>
           <Property Name="SalesOrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OnlineOrderFlag" Type="Boolean" Nullable="false" />
           <Property Name="SalesOrderNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
@@ -1093,6 +1103,16 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_orderdetail" ReturnType="Collection(MNMSolutionsDevDBModel.sp_orderdetail_Result)">
+            <Parameter Name="salesOrderID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_orderHeader" ReturnType="Collection(MNMSolutionsDevDBModel.sp_orderHeader_Result)">
+            <Parameter Name="soID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_orderTotalAmount" ReturnType="Collection(Decimal)">
+            <Parameter Name="soID" Mode="In" Type="Int32" />
+            <Parameter Name="dateRange" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_renamediagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -1100,9 +1120,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           </FunctionImport>
           <FunctionImport Name="sp_totalSalesForTheDay" ReturnType="Collection(Decimal)" />
           <FunctionImport Name="sp_upgraddiagrams" />
-          <FunctionImport Name="sp_orderdetail" ReturnType="Collection(MNMSolutionsDevDBModel.sp_orderdetail_Result)">
-            <Parameter Name="salesOrderID" Mode="In" Type="Int32" />
-          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1127,6 +1144,20 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           <Property Type="Single" Name="Discount" Nullable="false" />
           <Property Type="Decimal" Name="TotalAmount" Nullable="false" Precision="19" />
           <Property Type="String" Name="ProductName" Nullable="false" MaxLength="40" />
+        </ComplexType>
+        <ComplexType Name="sp_orderHeader_Result">
+          <Property Type="Int32" Name="SalesOrderID" Nullable="false" />
+          <Property Type="String" Name="Customer" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="OnlineOrderFlag" Nullable="false" />
+          <Property Type="String" Name="SalesOrderNumber" Nullable="false" MaxLength="25" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TaxAmt" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Freight" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TotalDue" Nullable="false" Precision="19" />
+          <Property Type="String" Name="Comment" Nullable="true" MaxLength="128" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="Fulfilled" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1306,6 +1337,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.SalesOrderHeader">
               <MappingFragment StoreEntitySet="SalesOrderHeader">
                 <ScalarProperty Name="SalesOrderID" ColumnName="SalesOrderID" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="OnlineOrderFlag" ColumnName="OnlineOrderFlag" />
                 <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
@@ -1456,9 +1488,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="MNMSolutionsDevDBModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_totalSalesForTheDay" FunctionName="MNMSolutionsDevDBModel.Store.sp_totalSalesForTheDay" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="MNMSolutionsDevDBModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="sp_orderdetail" FunctionName="MNMSolutionsDevDBModel.Store.sp_orderdetail">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MNMSolutionsDevDBModel.sp_orderdetail_Result">
@@ -1476,6 +1505,28 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_orderHeader" FunctionName="MNMSolutionsDevDBModel.Store.sp_orderHeader">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNMSolutionsDevDBModel.sp_orderHeader_Result">
+                <ScalarProperty Name="SalesOrderID" ColumnName="SalesOrderID" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OnlineOrderFlag" ColumnName="OnlineOrderFlag" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="TaxAmt" ColumnName="TaxAmt" />
+                <ScalarProperty Name="Freight" ColumnName="Freight" />
+                <ScalarProperty Name="TotalDue" ColumnName="TotalDue" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Fulfilled" ColumnName="Fulfilled" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_orderTotalAmount" FunctionName="MNMSolutionsDevDBModel.Store.sp_orderTotalAmount" />
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="MNMSolutionsDevDBModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_totalSalesForTheDay" FunctionName="MNMSolutionsDevDBModel.Store.sp_totalSalesForTheDay" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="MNMSolutionsDevDBModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

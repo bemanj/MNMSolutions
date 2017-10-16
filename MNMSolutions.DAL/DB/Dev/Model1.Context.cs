@@ -130,6 +130,37 @@ namespace MNMSolutions.DAL.DB.Dev
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
         }
     
+        public virtual ObjectResult<sp_orderdetail_Result> sp_orderdetail(Nullable<int> salesOrderID)
+        {
+            var salesOrderIDParameter = salesOrderID.HasValue ?
+                new ObjectParameter("salesOrderID", salesOrderID) :
+                new ObjectParameter("salesOrderID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_orderdetail_Result>("sp_orderdetail", salesOrderIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_orderHeader_Result> sp_orderHeader(Nullable<int> soID)
+        {
+            var soIDParameter = soID.HasValue ?
+                new ObjectParameter("soID", soID) :
+                new ObjectParameter("soID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_orderHeader_Result>("sp_orderHeader", soIDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_orderTotalAmount(Nullable<int> soID, string dateRange)
+        {
+            var soIDParameter = soID.HasValue ?
+                new ObjectParameter("soID", soID) :
+                new ObjectParameter("soID", typeof(int));
+    
+            var dateRangeParameter = dateRange != null ?
+                new ObjectParameter("dateRange", dateRange) :
+                new ObjectParameter("dateRange", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_orderTotalAmount", soIDParameter, dateRangeParameter);
+        }
+    
         public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
         {
             var diagramnameParameter = diagramname != null ?
@@ -155,15 +186,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
-        }
-    
-        public virtual ObjectResult<sp_orderdetail_Result> sp_orderdetail(Nullable<int> salesOrderID)
-        {
-            var salesOrderIDParameter = salesOrderID.HasValue ?
-                new ObjectParameter("salesOrderID", salesOrderID) :
-                new ObjectParameter("salesOrderID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_orderdetail_Result>("sp_orderdetail", salesOrderIDParameter);
         }
     }
 }
