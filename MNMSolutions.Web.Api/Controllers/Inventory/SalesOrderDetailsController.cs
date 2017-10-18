@@ -83,6 +83,8 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
             _db.SalesOrderDetails.Add(salesOrderDetail);
             await _db.SaveChangesAsync();
 
+            _db.sp_orderHeader(salesOrderDetail.SalesOrderID);
+
             return CreatedAtRoute("DefaultApi", new { id = salesOrderDetail.SalesOrderID }, salesOrderDetail);
         }
 
