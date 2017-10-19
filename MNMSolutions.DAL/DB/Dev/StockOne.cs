@@ -19,7 +19,5 @@ namespace MNMSolutions.DAL.DB.Dev
         public int SupplierId { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
-    
-        public virtual ProductOne ProductOne { get; set; }
     }
 }

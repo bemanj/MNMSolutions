@@ -54,7 +54,7 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
                 return BadRequest(ModelState);
             }
 
-            if (id != inventoryStock.Id)
+            if (id != inventoryStock.StockId)
             {
                 return BadRequest();
             }
@@ -75,7 +75,7 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
 
             _inventoryStockRepository.Insert(inventoryStock);
 
-            return CreatedAtRoute("DefaultApi", new { id = inventoryStock.Id }, inventoryStock);
+            return CreatedAtRoute("DefaultApi", new { id = inventoryStock.StockId }, inventoryStock);
         }
 
         // DELETE: api/InventoryStocks/5

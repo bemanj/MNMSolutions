@@ -12,19 +12,15 @@ namespace MNMSolutions.DAL.DB.Dev
     using System;
     using System.Collections.Generic;
     
-    public partial class CategoryOne
+    public partial class View_Product
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CategoryOne()
-        {
-            this.ProductOnes = new HashSet<ProductOne>();
-        }
-    
+        public int ProductId { get; set; }
         public int CategoryID { get; set; }
+        public string ProductTitle { get; set; }
         public string CategoryName { get; set; }
-        public string Description { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductOne> ProductOnes { get; set; }
+        public Nullable<int> StockQuantity { get; set; }
+        public Nullable<short> UnitsOnOrder { get; set; }
+        public Nullable<short> ReorderLevel { get; set; }
+        public bool Discontinued { get; set; }
     }
 }

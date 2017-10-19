@@ -22,11 +22,6 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
         // GET: api/Products
         public List<ProductList> GetProducts()
         {
-            // Filter by Category
-            //var plist = _db.Products
-            //    .Where(p => p.Category.CategoryName == "Beverages")
-            //    .Select(p => new ProductList()
-
             var plist = _db.Products
                 .Select(p => new ProductList()
                     {
@@ -41,86 +36,7 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
             return plist.ToList();
 
         }
-
-        // GET: api/Products/5
-        [ResponseType(typeof(Product))]
-        public async Task<IHttpActionResult> GetProduct(int id)
-        {
-            Product product = await _db.Products.FindAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(product);
-        }
-
-        // PUT: api/Products/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutProduct(int id, Product product)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != product.ProductID)
-            {
-                return BadRequest();
-            }
-
-            _db.Entry(product).State = EntityState.Modified;
-
-            try
-            {
-                await _db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Products
-        [ResponseType(typeof(Product))]
-        public async Task<IHttpActionResult> PostProduct(Product product)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _db.Products.Add(product);
-            await _db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = product.ProductID }, product);
-        }
-
-        // DELETE: api/Products/5
-        [ResponseType(typeof(Product))]
-        public async Task<IHttpActionResult> DeleteProduct(int id)
-        {
-            Product product = await _db.Products.FindAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            _db.Products.Remove(product);
-            await _db.SaveChangesAsync();
-
-            return Ok(product);
-        }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

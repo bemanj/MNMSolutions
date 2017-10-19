@@ -14,17 +14,14 @@ namespace MNMSolutions.DAL.DB.Dev
     
     public partial class ProductOne
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProductOne()
-        {
-            this.StockOnes = new HashSet<StockOne>();
-        }
-    
         public int ProductId { get; set; }
         public int CategoryID { get; set; }
-        public string ProductDescription { get; set; }
+        public string ProductTitle { get; set; }
+        public Nullable<short> UnitsInStock { get; set; }
+        public Nullable<short> UnitsOnOrder { get; set; }
+        public Nullable<short> ReorderLevel { get; set; }
+        public bool Discontinued { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StockOne> StockOnes { get; set; }
+        public virtual CategoryOne CategoryOne { get; set; }
     }
 }
