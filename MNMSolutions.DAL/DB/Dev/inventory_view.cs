@@ -17,7 +17,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public int StockId { get; set; }
         public int PONumber { get; set; }
         public string CompanyName { get; set; }
-        public string ProductDescription { get; set; }
         public string Brand { get; set; }
         public int Quantity { get; set; }
         public string UOM { get; set; }
@@ -26,5 +25,8 @@ namespace MNMSolutions.DAL.DB.Dev
         public decimal AcquisitionPrice { get; set; }
         public Nullable<System.DateTime> DateDelivered { get; set; }
         public int PutAwayLocation { get; set; }
+        public int CategoryID { get; set; }
+        public int ProductId { get; set; }
+        public string ProductTitle { get; set; }
     }
 }

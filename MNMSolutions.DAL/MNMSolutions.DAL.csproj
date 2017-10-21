@@ -143,6 +143,9 @@
     <Compile Include="DB\Dev\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\Dev\View_Category.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Dev\View_Product.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

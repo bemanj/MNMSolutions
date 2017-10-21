@@ -24,6 +24,7 @@ namespace MNMSolutions.DAL.DB.Dev
         public short Quantity { get; set; }
         public float Discount { get; set; }
         public decimal TotalAmount { get; set; }
-        public string ProductName { get; set; }
+        public string Article { get; set; }
+        public string ProductTitle { get; set; }
     }
 }
