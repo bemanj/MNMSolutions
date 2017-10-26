@@ -47,7 +47,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
         public virtual DbSet<PurchaseOrderHeader> PurchaseOrderHeaders { get; set; }
         public virtual DbSet<inventory_view> inventory_view { get; set; }
-        public virtual DbSet<View_Category> View_Category { get; set; }
         public virtual DbSet<View_Product> View_Product { get; set; }
         public virtual DbSet<View_SalesOrderDetails> View_SalesOrderDetails { get; set; }
     

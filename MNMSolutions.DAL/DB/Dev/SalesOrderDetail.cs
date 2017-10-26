@@ -20,7 +20,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public string SalesOrderNumber { get; set; }
         public int ProductID { get; set; }
         public decimal UnitPrice { get; set; }
-        public string Article { get; set; }
         public string UOM { get; set; }
         public short Quantity { get; set; }
         public float Discount { get; set; }
