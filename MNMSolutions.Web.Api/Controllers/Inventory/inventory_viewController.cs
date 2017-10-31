@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MNMSolutions.DAL.DB.Dev;
+using MNMSolutions.DAL.DB.Models.SalesOrder;
 
 namespace MNMSolutions.Web.Api.Controllers.Inventory
 {
@@ -24,7 +25,7 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
         }
 
         // GET: api/inventory_view
-        public IEnumerable<sp_orderdetail_Result> Getinventory_view(int id)
+        public IEnumerable<SpOrderDetailResult> Getinventory_view(int id)
         {
             return _db.sp_orderdetail(id).AsEnumerable();
         }

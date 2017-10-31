@@ -17,7 +17,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public int SODetailsID { get; set; }
         public int SalesOrderID { get; set; }
         public int StockID { get; set; }
-        public string SalesOrderNumber { get; set; }
         public int ProductID { get; set; }
         public decimal UnitPrice { get; set; }
         public string Article { get; set; }

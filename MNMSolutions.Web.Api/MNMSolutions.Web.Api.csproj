@@ -189,7 +189,6 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\category1Controller.cs" />
     <Compile Include="Controllers\Category\View_CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Inventory\CategoryOnesController.cs" />
@@ -198,7 +197,6 @@
     <Compile Include="Controllers\Inventory\ProductOnesController.cs" />
     <Compile Include="Controllers\Inventory\SalesOrderDetailsController.cs" />
     <Compile Include="Controllers\Inventory\spOrderHeaderController.cs" />
-    <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\Inventory\ProductsController.cs" />
     <Compile Include="Controllers\Product\ProductController.cs" />
     <Compile Include="Controllers\Product\ProductOnesController.cs" />

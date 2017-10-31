@@ -15,15 +15,15 @@ namespace MNMSolutions.DAL.DB.Dev
     {
         public int SalesOrderID { get; set; }
         public string Customer { get; set; }
-        public System.DateTime OrderDate { get; set; }
-        public bool OnlineOrderFlag { get; set; }
+        public Nullable<System.DateTime> OrderDate { get; set; }
+        public string OnlineOrderFlag { get; set; }
         public string SalesOrderNumber { get; set; }
         public decimal SubTotal { get; set; }
         public decimal TaxAmt { get; set; }
         public decimal Freight { get; set; }
         public decimal TotalDue { get; set; }
         public string Comment { get; set; }
-        public System.DateTime ModifiedDate { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<bool> Fulfilled { get; set; }
     }
 }
