@@ -25,9 +25,9 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
         }
 
         // GET: api/inventory_view
-        public IEnumerable<SpOrderDetailResult> Getinventory_view(int id)
+        public IEnumerable<vsp_orderdetail_ViewBySalesOrderId_Result> Getinventory_view(int id)
         {
-            return _db.sp_orderdetail(id).AsEnumerable();
+            return _db.vsp_orderdetail_ViewBySalesOrderId(id).AsEnumerable();
         }
 
     }

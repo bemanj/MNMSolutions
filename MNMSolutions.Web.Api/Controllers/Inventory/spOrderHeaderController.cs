@@ -14,10 +14,10 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
         private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
 
         // GET: api/SalesOrderDetails/5
-        [ResponseType(typeof(sp_orderHeader_Result))]
+        [ResponseType(typeof(vsp_orderHeader_UpdateSubTotal_ViewBySOId_Result))]
         public IHttpActionResult Getinventory_view(int id)
         {
-            var data = _db.sp_orderHeader(id);
+            var data = _db.vsp_orderHeader_UpdateSubTotal_ViewBySOId(id);
             if (data == null)
             {
                 return NotFound();

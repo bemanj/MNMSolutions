@@ -27,32 +27,216 @@ namespace MNMSolutions.DAL.DB.Dev
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<CategoryOne> CategoryOnes { get; set; }
+        public virtual DbSet<CustomerList> CustomerLists { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<InventoryLocation> InventoryLocations { get; set; }
         public virtual DbSet<InventoryStock> InventoryStocks { get; set; }
         public virtual DbSet<ProductOne> ProductOnes { get; set; }
         public virtual DbSet<SalesOrderDetail> SalesOrderDetails { get; set; }
         public virtual DbSet<SalesOrderHeader> SalesOrderHeaders { get; set; }
+        public virtual DbSet<Shipper> Shippers { get; set; }
+        public virtual DbSet<StockOne> StockOnes { get; set; }
+        public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Term> Terms { get; set; }
+        public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
+        public virtual DbSet<PurchaseOrderHeader> PurchaseOrderHeaders { get; set; }
         public virtual DbSet<inventory_view> inventory_view { get; set; }
         public virtual DbSet<View_Category> View_Category { get; set; }
         public virtual DbSet<View_Product> View_Product { get; set; }
         public virtual DbSet<View_SalesOrderDetails> View_SalesOrderDetails { get; set; }
     
-        public virtual int sp_orderdetail(Nullable<int> salesOrderID)
+        public virtual int vsp_Customer_UpdateById(string companyName, string contactName, string contactTitle, string address, string city, string region, string postalCode, string country, string phone, string fax, Nullable<int> terms, Nullable<int> iD)
         {
-            var salesOrderIDParameter = salesOrderID.HasValue ?
-                new ObjectParameter("salesOrderID", salesOrderID) :
-                new ObjectParameter("salesOrderID", typeof(int));
+            var companyNameParameter = companyName != null ?
+                new ObjectParameter("CompanyName", companyName) :
+                new ObjectParameter("CompanyName", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_orderdetail", salesOrderIDParameter);
+            var contactNameParameter = contactName != null ?
+                new ObjectParameter("ContactName", contactName) :
+                new ObjectParameter("ContactName", typeof(string));
+    
+            var contactTitleParameter = contactTitle != null ?
+                new ObjectParameter("ContactTitle", contactTitle) :
+                new ObjectParameter("ContactTitle", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("Address", address) :
+                new ObjectParameter("Address", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(string));
+    
+            var regionParameter = region != null ?
+                new ObjectParameter("Region", region) :
+                new ObjectParameter("Region", typeof(string));
+    
+            var postalCodeParameter = postalCode != null ?
+                new ObjectParameter("PostalCode", postalCode) :
+                new ObjectParameter("PostalCode", typeof(string));
+    
+            var countryParameter = country != null ?
+                new ObjectParameter("Country", country) :
+                new ObjectParameter("Country", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("Phone", phone) :
+                new ObjectParameter("Phone", typeof(string));
+    
+            var faxParameter = fax != null ?
+                new ObjectParameter("Fax", fax) :
+                new ObjectParameter("Fax", typeof(string));
+    
+            var termsParameter = terms.HasValue ?
+                new ObjectParameter("Terms", terms) :
+                new ObjectParameter("Terms", typeof(int));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("vsp_Customer_UpdateById", companyNameParameter, contactNameParameter, contactTitleParameter, addressParameter, cityParameter, regionParameter, postalCodeParameter, countryParameter, phoneParameter, faxParameter, termsParameter, iDParameter);
         }
     
-        public virtual ObjectResult<sp_orderHeader_Result> sp_orderHeader(Nullable<int> soID)
+        public virtual ObjectResult<Nullable<decimal>> vsp_order_ReturnTotalAmountByDateSelected(Nullable<int> soID, string dateRange)
         {
             var soIDParameter = soID.HasValue ?
                 new ObjectParameter("soID", soID) :
                 new ObjectParameter("soID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_orderHeader_Result>("sp_orderHeader", soIDParameter);
+            var dateRangeParameter = dateRange != null ?
+                new ObjectParameter("dateRange", dateRange) :
+                new ObjectParameter("dateRange", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("vsp_order_ReturnTotalAmountByDateSelected", soIDParameter, dateRangeParameter);
+        }
+    
+        public virtual ObjectResult<vsp_orderdetail_ViewBySalesOrderId_Result> vsp_orderdetail_ViewBySalesOrderId(Nullable<int> salesOrderID)
+        {
+            var salesOrderIDParameter = salesOrderID.HasValue ?
+                new ObjectParameter("salesOrderID", salesOrderID) :
+                new ObjectParameter("salesOrderID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vsp_orderdetail_ViewBySalesOrderId_Result>("vsp_orderdetail_ViewBySalesOrderId", salesOrderIDParameter);
+        }
+    
+        public virtual ObjectResult<vsp_orderHeader_UpdateSubTotal_ViewBySOId_Result> vsp_orderHeader_UpdateSubTotal_ViewBySOId(Nullable<int> soID)
+        {
+            var soIDParameter = soID.HasValue ?
+                new ObjectParameter("soID", soID) :
+                new ObjectParameter("soID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vsp_orderHeader_UpdateSubTotal_ViewBySOId_Result>("vsp_orderHeader_UpdateSubTotal_ViewBySOId", soIDParameter);
+        }
+    
+        public virtual ObjectResult<vsp_Product_CreateThenReturn_Result> vsp_Product_CreateThenReturn(Nullable<short> categoryID, string productTitle, Nullable<short> reorderLevel)
+        {
+            var categoryIDParameter = categoryID.HasValue ?
+                new ObjectParameter("CategoryID", categoryID) :
+                new ObjectParameter("CategoryID", typeof(short));
+    
+            var productTitleParameter = productTitle != null ?
+                new ObjectParameter("ProductTitle", productTitle) :
+                new ObjectParameter("ProductTitle", typeof(string));
+    
+            var reorderLevelParameter = reorderLevel.HasValue ?
+                new ObjectParameter("ReorderLevel", reorderLevel) :
+                new ObjectParameter("ReorderLevel", typeof(short));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vsp_Product_CreateThenReturn_Result>("vsp_Product_CreateThenReturn", categoryIDParameter, productTitleParameter, reorderLevelParameter);
+        }
+    
+        public virtual int vsp_Product_UpdateById(Nullable<int> categoryId, string producttitle, Nullable<int> reoderlevel, Nullable<bool> discontinued, Nullable<int> productid)
+        {
+            var categoryIdParameter = categoryId.HasValue ?
+                new ObjectParameter("categoryId", categoryId) :
+                new ObjectParameter("categoryId", typeof(int));
+    
+            var producttitleParameter = producttitle != null ?
+                new ObjectParameter("producttitle", producttitle) :
+                new ObjectParameter("producttitle", typeof(string));
+    
+            var reoderlevelParameter = reoderlevel.HasValue ?
+                new ObjectParameter("reoderlevel", reoderlevel) :
+                new ObjectParameter("reoderlevel", typeof(int));
+    
+            var discontinuedParameter = discontinued.HasValue ?
+                new ObjectParameter("discontinued", discontinued) :
+                new ObjectParameter("discontinued", typeof(bool));
+    
+            var productidParameter = productid.HasValue ?
+                new ObjectParameter("productid", productid) :
+                new ObjectParameter("productid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("vsp_Product_UpdateById", categoryIdParameter, producttitleParameter, reoderlevelParameter, discontinuedParameter, productidParameter);
+        }
+    
+        public virtual ObjectResult<vsp_Product_ViewByProductId_Result> vsp_Product_ViewByProductId(Nullable<int> paramId)
+        {
+            var paramIdParameter = paramId.HasValue ?
+                new ObjectParameter("paramId", paramId) :
+                new ObjectParameter("paramId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vsp_Product_ViewByProductId_Result>("vsp_Product_ViewByProductId", paramIdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> vsp_Sales_TotalDueForToday()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("vsp_Sales_TotalDueForToday");
+        }
+    
+        public virtual int vsp_Customer_Create(string companyName, string contactName, string contactTitle, string address, string city, string region, string postalCode, string country, string phone, string fax, Nullable<int> terms)
+        {
+            var companyNameParameter = companyName != null ?
+                new ObjectParameter("CompanyName", companyName) :
+                new ObjectParameter("CompanyName", typeof(string));
+    
+            var contactNameParameter = contactName != null ?
+                new ObjectParameter("ContactName", contactName) :
+                new ObjectParameter("ContactName", typeof(string));
+    
+            var contactTitleParameter = contactTitle != null ?
+                new ObjectParameter("ContactTitle", contactTitle) :
+                new ObjectParameter("ContactTitle", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("Address", address) :
+                new ObjectParameter("Address", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(string));
+    
+            var regionParameter = region != null ?
+                new ObjectParameter("Region", region) :
+                new ObjectParameter("Region", typeof(string));
+    
+            var postalCodeParameter = postalCode != null ?
+                new ObjectParameter("PostalCode", postalCode) :
+                new ObjectParameter("PostalCode", typeof(string));
+    
+            var countryParameter = country != null ?
+                new ObjectParameter("Country", country) :
+                new ObjectParameter("Country", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("Phone", phone) :
+                new ObjectParameter("Phone", typeof(string));
+    
+            var faxParameter = fax != null ?
+                new ObjectParameter("Fax", fax) :
+                new ObjectParameter("Fax", typeof(string));
+    
+            var termsParameter = terms.HasValue ?
+                new ObjectParameter("Terms", terms) :
+                new ObjectParameter("Terms", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("vsp_Customer_Create", companyNameParameter, contactNameParameter, contactTitleParameter, addressParameter, cityParameter, regionParameter, postalCodeParameter, countryParameter, phoneParameter, faxParameter, termsParameter);
         }
     }
 }

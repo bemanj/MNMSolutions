@@ -56,7 +56,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB\Dev\AspNetRole.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\AspNetUser.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\AspNetUserRole.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Dev\CategoryOne.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\CustomerList.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\Employee.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\InventoryLocation.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Dev\InventoryStock.cs">
@@ -83,13 +101,31 @@
     <Compile Include="DB\Dev\ProductOne.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\Dev\PurchaseOrderDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\PurchaseOrderHeader.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Dev\SalesOrderDetail.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Dev\SalesOrderHeader.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\Dev\sp_orderHeader_Result.cs">
+    <Compile Include="DB\Dev\Shipper.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\StockOne.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\Supplier.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\Term.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Dev\View_Category.cs">
@@ -101,9 +137,24 @@
     <Compile Include="DB\Dev\View_SalesOrderDetails.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\Dev\vsp_orderdetail_ViewBySalesOrderId_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\vsp_orderHeader_UpdateSubTotal_ViewBySOId_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\vsp_Product_CreateThenReturn_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\vsp_Product_ViewByProductId_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Models\SalesOrder\Sp_OrderDetail_Result.cs" />
+    <Compile Include="Models\Customer\NewCustomer.cs" />
     <Compile Include="Models\InventoryStockUpdate.cs" />
-    <Compile Include="Models\ProductList.cs" />
+    <Compile Include="Models\Product\UpdateProduct.cs" />
+    <Compile Include="Models\Product\NewProduct.cs" />
+    <Compile Include="Models\Product\ProductList.cs" />
     <Compile Include="Models\TotalSalesForTheDay.cs" />
     <Compile Include="DB\Test\Category.cs" />
     <Compile Include="DB\Test\Customer.cs" />

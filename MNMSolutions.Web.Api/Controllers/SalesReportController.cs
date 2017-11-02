@@ -21,7 +21,7 @@ namespace MNMSolutions.Web.Api.Controllers
         [HttpGet]
         public ObjectResult<decimal?> GetTotalSales()
         {
-            var totalSales = _db.sp_totalSalesForTheDay();
+            var totalSales = _db.vsp_Sales_TotalDueForToday();
 
             return totalSales;
         }

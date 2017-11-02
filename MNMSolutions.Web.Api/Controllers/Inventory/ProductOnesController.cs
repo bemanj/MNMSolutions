@@ -1,15 +1,20 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Microsoft.Ajax.Utilities;
 using MNMSolutions.DAL.DB.Dev;
+using MNMSolutions.DAL.Models;
+using MNMSolutions.DAL.Models.Customer;
 
 namespace MNMSolutions.Web.Api.Controllers.Inventory
 {
@@ -18,72 +23,60 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
         private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
 
         // GET: api/ProductOnes
-        public IQueryable<ProductOne> GetProductOnes()
+        public IQueryable<View_Product> GetProductOnes()
         {
-            return _db.ProductOnes;
+            return _db.View_Product;
         }
 
         // GET: api/ProductOnes/5
-        [ResponseType(typeof(ProductOne))]
-        public async Task<IHttpActionResult> GetProductOne(int id)
+        public IEnumerable<vsp_Product_ViewByProductId_Result> Getinventory_view(int id)
         {
-            ProductOne productOne = await _db.ProductOnes.FindAsync(id);
-            if (productOne == null)
-            {
-                return NotFound();
-            }
+            var productList = _db.vsp_Product_ViewByProductId(id).AsEnumerable();
 
-            return Ok(productOne);
+            
+
+            return productList;
         }
 
         // PUT: api/ProductOnes/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutProductOne(int id, ProductOne productOne)
+        public IHttpActionResult PutProductOne(int id, UpdateProduct p)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != productOne.ProductId)
+           if (id != p.ProductId)
             {
                 return BadRequest();
             }
 
-            _db.Entry(productOne).State = EntityState.Modified;
-
             try
             {
-                await _db.SaveChangesAsync();
+                _db.vsp_Product_UpdateById(p.CategoryId, p.ProductTitle, p.ReorderLevel, p.Discontinued, p.ProductId);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
-                if (!ProductOneExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                Console.WriteLine(e);
+                Debug.Assert(e.InnerException != null, "e.InnerException != null");
+                throw e.InnerException;
             }
+            
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/ProductOnes
-        [ResponseType(typeof(ProductOne))]
-        public async Task<IHttpActionResult> PostProductOne(ProductOne productOne)
+        public IEnumerable<vsp_Product_CreateThenReturn_Result> PostProductOne(NewProduct newproduct)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                var product = _db.vsp_Product_CreateThenReturn(newproduct.CategoryId, newproduct.ProductTitle, newproduct.ReorderLevel);
+
+                return product;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
 
-            _db.ProductOnes.Add(productOne);
-            await _db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = productOne.ProductId }, productOne);
         }
 
         // DELETE: api/ProductOnes/5

@@ -10,9 +10,8 @@
 namespace MNMSolutions.DAL.DB.Dev
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class View_SalesOrderDetails
+    public partial class vsp_orderdetail_ViewBySalesOrderId_Result
     {
         public int SODetailsID { get; set; }
         public int SalesOrderID { get; set; }

@@ -11,7 +11,7 @@ namespace MNMSolutions.DAL.DB.Dev
 {
     using System;
     
-    public partial class sp_orderHeader_Result
+    public partial class vsp_orderHeader_UpdateSubTotal_ViewBySOId_Result
     {
         public int SalesOrderID { get; set; }
         public string Customer { get; set; }
