@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -13,27 +6,27 @@ using MNMSolutions.DAL.DB.Dev;
 
 namespace MNMSolutions.Web.Api.Controllers
 {
-    public class View_SalesOrderDetailsController : ApiController
+    public class ViewSalesOrderDetailsController : ApiController
     {
-        private MNMSolutionsDevDBEntities db = new MNMSolutionsDevDBEntities();
+        private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
 
         // GET: api/View_SalesOrderDetails
         public IQueryable<View_SalesOrderDetails> GetView_SalesOrderDetails()
         {
-            return db.View_SalesOrderDetails;
+            return _db.View_SalesOrderDetails;
         }
 
         // GET: api/View_SalesOrderDetails/5
         [ResponseType(typeof(View_SalesOrderDetails))]
         public async Task<IHttpActionResult> GetView_SalesOrderDetails(int id)
         {
-            View_SalesOrderDetails view_SalesOrderDetails = await db.View_SalesOrderDetails.FindAsync(id);
-            if (view_SalesOrderDetails == null)
+            View_SalesOrderDetails viewSalesOrderDetails = await _db.View_SalesOrderDetails.FindAsync(id);
+            if (viewSalesOrderDetails == null)
             {
                 return NotFound();
             }
 
-            return Ok(view_SalesOrderDetails);
+            return Ok(viewSalesOrderDetails);
         }
 
         //    // PUT: api/View_SalesOrderDetails/5
