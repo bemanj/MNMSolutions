@@ -32,5 +32,7 @@ namespace MNMSolutions.DAL.DB.Dev
         public int committed_qty { get; set; }
         public Nullable<int> available_qty { get; set; }
         public Nullable<int> deficient_qty { get; set; }
+        public string ProductTitle { get; set; }
+        public string CategoryName { get; set; }
     }
 }

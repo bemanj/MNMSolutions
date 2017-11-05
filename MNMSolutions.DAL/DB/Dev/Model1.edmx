@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MNMSolutionsDevDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MNMSolutionsDevDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -305,8 +305,10 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_Inventory' does not hav
             <PropertyRef Name="Created" />
             <PropertyRef Name="PutAwayLocation" />
             <PropertyRef Name="committed_qty" />
+            <PropertyRef Name="ProductTitle" />
+            <PropertyRef Name="CategoryName" />
           </Key>
-          <Property Name="StockId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StockId" Type="int" Nullable="false" />
           <Property Name="PONumber" Type="int" Nullable="false" />
           <Property Name="SupplierId" Type="int" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
@@ -324,6 +326,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_Inventory' does not hav
           <Property Name="committed_qty" Type="int" Nullable="false" />
           <Property Name="available_qty" Type="int" />
           <Property Name="deficient_qty" Type="int" />
+          <Property Name="ProductTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_Product' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -631,7 +635,9 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
     [View_Inventory].[PutAwayLocation] AS [PutAwayLocation], 
     [View_Inventory].[committed_qty] AS [committed_qty], 
     [View_Inventory].[available_qty] AS [available_qty], 
-    [View_Inventory].[deficient_qty] AS [deficient_qty]
+    [View_Inventory].[deficient_qty] AS [deficient_qty], 
+    [View_Inventory].[ProductTitle] AS [ProductTitle], 
+    [View_Inventory].[CategoryName] AS [CategoryName]
     FROM [dbo].[View_Inventory] AS [View_Inventory]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="View_Product" EntityType="Self.View_Product" store:Type="Views" store:Schema="dbo">
@@ -670,8 +676,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <End Role="ProductOne" EntitySet="ProductOne" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MNMSolutionsDevDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -956,39 +961,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           <Property Name="CategoryName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="View_Inventory">
-          <Key>
-            <PropertyRef Name="StockId" />
-            <PropertyRef Name="PONumber" />
-            <PropertyRef Name="SupplierId" />
-            <PropertyRef Name="ProductId" />
-            <PropertyRef Name="Brand" />
-            <PropertyRef Name="Quantity" />
-            <PropertyRef Name="Price" />
-            <PropertyRef Name="AcquisitionPrice" />
-            <PropertyRef Name="Created" />
-            <PropertyRef Name="PutAwayLocation" />
-            <PropertyRef Name="committed_qty" />
-          </Key>
-          <Property Name="StockId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PONumber" Type="Int32" Nullable="false" />
-          <Property Name="SupplierId" Type="Int32" Nullable="false" />
-          <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="Brand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="UOM" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Article" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="AcquisitionPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateDelivered" Type="DateTime" Precision="3" />
-          <Property Name="DateDisposed" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="PutAwayLocation" Type="Int32" Nullable="false" />
-          <Property Name="committed_qty" Type="Int32" Nullable="false" />
-          <Property Name="available_qty" Type="Int32" />
-          <Property Name="deficient_qty" Type="Int32" />
-        </EntityType>
         <EntityType Name="View_Product">
           <Key>
             <PropertyRef Name="ProductId" />
@@ -1076,7 +1048,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           <EntitySet Name="PurchaseOrderHeaders" EntityType="Self.PurchaseOrderHeader" />
           <EntitySet Name="inventory_view" EntityType="Self.inventory_view" />
           <EntitySet Name="View_Category" EntityType="Self.View_Category" />
-          <EntitySet Name="View_Inventory" EntityType="Self.View_Inventory" />
           <EntitySet Name="View_Product" EntityType="Self.View_Product" />
           <EntitySet Name="View_SalesOrderDetails" EntityType="Self.View_SalesOrderDetails" />
           <AssociationSet Name="FK_ProductOne_CategoryOne" Association="Self.FK_ProductOne_CategoryOne">
@@ -1142,10 +1113,10 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <Parameter Name="TotalAmount" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="usp_SOD_Delete">
-            <Parameter Name="SalesDetailsID" Mode="In" Type="Int32" />
+          <Parameter Name="SalesDetailsID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_SOD_GetBySID" ReturnType="Collection(MNMSolutionsDevDBModel.usp_SOD_GetBySID_Result)">
-            <Parameter Name="SalesDetailsID" Mode="In" Type="Int32" />
+          <Parameter Name="SalesDetailsID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_SOD_Insert">
             <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
@@ -1171,10 +1142,10 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <Parameter Name="TotalAmount" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="usp_SOH_Delete">
-            <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
+          <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_SOH_GetBySID" ReturnType="Collection(MNMSolutionsDevDBModel.usp_SOH_GetBySID_Result)">
-            <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
+          <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_SOH_Update">
             <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
@@ -1218,10 +1189,10 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <Parameter Name="dateRange" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="vsp_orderdetail_ViewBySalesOrderId" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_orderdetail_ViewBySalesOrderId_Result)">
-            <Parameter Name="salesOrderID" Mode="In" Type="Int32" />
+          <Parameter Name="salesOrderID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vsp_orderHeader_UpdateSubTotal_ViewBySOId" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_orderHeader_UpdateSubTotal_ViewBySOId_Result)">
-            <Parameter Name="soID" Mode="In" Type="Int32" />
+          <Parameter Name="soID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vsp_Product_CreateThenReturn" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_Product_CreateThenReturn_Result)">
             <Parameter Name="CategoryID" Mode="In" Type="Int16" />
@@ -1236,7 +1207,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <Parameter Name="productid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vsp_Product_ViewByProductId" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_Product_ViewByProductId_Result)">
-            <Parameter Name="paramId" Mode="In" Type="Int32" />
+          <Parameter Name="paramId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vsp_Sales_TotalDueForToday" ReturnType="Collection(Decimal)" />
           <FunctionImport Name="vsp_SOH_InsertThenReturnNewSO" ReturnType="Collection(Int32)">
@@ -1244,6 +1215,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <Parameter Name="TaxAmt" Mode="In" Type="Decimal" />
             <Parameter Name="Freight" Mode="In" Type="Decimal" />
           </FunctionImport>
+          <EntitySet Name="View_Inventory" EntityType="MNMSolutionsDevDBModel.View_Inventory" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1328,6 +1300,43 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           <Property Type="Int16" Name="ReorderLevel" Nullable="true" />
           <Property Type="Boolean" Name="Discontinued" Nullable="false" />
         </ComplexType>
+        <EntityType Name="View_Inventory">
+          <Key>
+            <PropertyRef Name="StockId" />
+            <PropertyRef Name="PONumber" />
+            <PropertyRef Name="SupplierId" />
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="Brand" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="AcquisitionPrice" />
+            <PropertyRef Name="Created" />
+            <PropertyRef Name="PutAwayLocation" />
+            <PropertyRef Name="committed_qty" />
+            <PropertyRef Name="ProductTitle" />
+            <PropertyRef Name="CategoryName" />
+          </Key>
+          <Property Name="StockId" Type="Int32" Nullable="false" />
+          <Property Name="PONumber" Type="Int32" Nullable="false" />
+          <Property Name="SupplierId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Brand" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UOM" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Article" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="AcquisitionPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateDelivered" Type="DateTime" Precision="3" />
+          <Property Name="DateDisposed" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="PutAwayLocation" Type="Int32" Nullable="false" />
+          <Property Name="committed_qty" Type="Int32" Nullable="false" />
+          <Property Name="available_qty" Type="Int32" />
+          <Property Name="deficient_qty" Type="Int32" />
+          <Property Name="ProductTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1618,30 +1627,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="View_Inventory">
-            <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.View_Inventory">
-              <MappingFragment StoreEntitySet="View_Inventory">
-                <ScalarProperty Name="StockId" ColumnName="StockId" />
-                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
-                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="Brand" ColumnName="Brand" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="UOM" ColumnName="UOM" />
-                <ScalarProperty Name="Article" ColumnName="Article" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="AcquisitionPrice" ColumnName="AcquisitionPrice" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="DateDelivered" ColumnName="DateDelivered" />
-                <ScalarProperty Name="DateDisposed" ColumnName="DateDisposed" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="PutAwayLocation" ColumnName="PutAwayLocation" />
-                <ScalarProperty Name="committed_qty" ColumnName="committed_qty" />
-                <ScalarProperty Name="available_qty" ColumnName="available_qty" />
-                <ScalarProperty Name="deficient_qty" ColumnName="deficient_qty" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="View_Product">
             <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.View_Product">
               <MappingFragment StoreEntitySet="View_Product">
@@ -1808,6 +1793,32 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="vsp_Sales_TotalDueForToday" FunctionName="MNMSolutionsDevDBModel.Store.vsp_Sales_TotalDueForToday" />
           <FunctionImportMapping FunctionImportName="vsp_SOH_InsertThenReturnNewSO" FunctionName="MNMSolutionsDevDBModel.Store.vsp_SOH_InsertThenReturnNewSO" />
+          <EntitySetMapping Name="View_Inventory">
+            <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.View_Inventory">
+              <MappingFragment StoreEntitySet="View_Inventory">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="ProductTitle" ColumnName="ProductTitle" />
+                <ScalarProperty Name="deficient_qty" ColumnName="deficient_qty" />
+                <ScalarProperty Name="available_qty" ColumnName="available_qty" />
+                <ScalarProperty Name="committed_qty" ColumnName="committed_qty" />
+                <ScalarProperty Name="PutAwayLocation" ColumnName="PutAwayLocation" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="DateDisposed" ColumnName="DateDisposed" />
+                <ScalarProperty Name="DateDelivered" ColumnName="DateDelivered" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="AcquisitionPrice" ColumnName="AcquisitionPrice" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Article" ColumnName="Article" />
+                <ScalarProperty Name="UOM" ColumnName="UOM" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
+                <ScalarProperty Name="StockId" ColumnName="StockId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
