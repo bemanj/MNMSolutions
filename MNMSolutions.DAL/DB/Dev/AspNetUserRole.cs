@@ -12,10 +12,11 @@ namespace MNMSolutions.DAL.DB.Dev
     using System;
     using System.Collections.Generic;
     
-    public partial class Shipper
+    public partial class AspNetUserRole
     {
-        public int ShipperID { get; set; }
-        public string CompanyName { get; set; }
-        public string Phone { get; set; }
+        public int UserRoleId { get; set; }
+        public int UserId { get; set; }
+        public int RoleId { get; set; }
+        public Nullable<bool> IsEnabled { get; set; }
     }
 }

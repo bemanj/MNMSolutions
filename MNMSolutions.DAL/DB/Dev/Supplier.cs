@@ -14,12 +14,6 @@ namespace MNMSolutions.DAL.DB.Dev
     
     public partial class Supplier
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Supplier()
-        {
-            this.Products = new HashSet<Product>();
-        }
-    
         public int SupplierID { get; set; }
         public string CompanyName { get; set; }
         public string ContactName { get; set; }
@@ -32,8 +26,5 @@ namespace MNMSolutions.DAL.DB.Dev
         public string Phone { get; set; }
         public string Fax { get; set; }
         public string HomePage { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
     }
 }

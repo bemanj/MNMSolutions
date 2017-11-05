@@ -12,10 +12,10 @@ namespace MNMSolutions.DAL.DB.Dev
     using System;
     using System.Collections.Generic;
     
-    public partial class Shipper
+    public partial class Term
     {
-        public int ShipperID { get; set; }
-        public string CompanyName { get; set; }
-        public string Phone { get; set; }
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public int Days { get; set; }
     }
 }

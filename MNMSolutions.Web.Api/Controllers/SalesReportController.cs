@@ -18,13 +18,13 @@ namespace MNMSolutions.Web.Api.Controllers
 
         // GET: api/Products/5
         //[ResponseType(typeof())]
-        [HttpGet]
-        public ObjectResult<decimal?> GetTotalSales()
-        {
-            var totalSales = _db.sp_totalSalesForTheDay();
+        //[HttpGet]
+        //public ObjectResult<decimal?> GetTotalSales()
+        //{
+        //    var totalSales = _db.sp_totalSalesForTheDay();
 
-            return totalSales;
-        }
+        //    return totalSales;
+        //}
 
     }
 }

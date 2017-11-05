@@ -18,7 +18,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public Employee()
         {
             this.Employees1 = new HashSet<Employee>();
-            this.Orders = new HashSet<Order>();
         }
     
         public int EmployeeID { get; set; }
@@ -43,7 +42,5 @@ namespace MNMSolutions.DAL.DB.Dev
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees1 { get; set; }
         public virtual Employee Employee1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
     }
 }

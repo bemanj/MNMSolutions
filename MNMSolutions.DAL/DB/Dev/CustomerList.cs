@@ -12,15 +12,9 @@ namespace MNMSolutions.DAL.DB.Dev
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class CustomerList
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customer()
-        {
-            this.Orders = new HashSet<Order>();
-        }
-    
-        public string CustomerID { get; set; }
+        public int CustomerID { get; set; }
         public string CompanyName { get; set; }
         public string ContactName { get; set; }
         public string ContactTitle { get; set; }
@@ -31,8 +25,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public string Country { get; set; }
         public string Phone { get; set; }
         public string Fax { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public Nullable<int> Terms { get; set; }
     }
 }

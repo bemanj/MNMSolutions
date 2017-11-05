@@ -12,9 +12,10 @@ namespace MNMSolutions.DAL.DB.Dev
     using System;
     using System.Collections.Generic;
     
-    public partial class Brand
+    public partial class InventoryLocation
     {
-        public int BrandId { get; set; }
-        public string Brand1 { get; set; }
+        public int Id { get; set; }
+        public string LocationId { get; set; }
+        public string LocationDetails { get; set; }
     }
 }

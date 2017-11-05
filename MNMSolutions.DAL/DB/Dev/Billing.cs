@@ -12,9 +12,13 @@ namespace MNMSolutions.DAL.DB.Dev
     using System;
     using System.Collections.Generic;
     
-    public partial class category1
+    public partial class Billing
     {
-        public string category { get; set; }
-        public string name { get; set; }
+        public int id { get; set; }
+        public int SalesOrderID { get; set; }
+        public int Terms { get; set; }
+        public System.DateTime PaymentDueDate { get; set; }
+        public decimal AmountDue { get; set; }
+        public bool isPaid { get; set; }
     }
 }

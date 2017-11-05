@@ -72,21 +72,21 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
         }
 
         // POST: api/SalesOrderDetails
-        [ResponseType(typeof(SalesOrderDetail))]
-        public async Task<IHttpActionResult> PostSalesOrderDetail(SalesOrderDetail salesOrderDetail)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[ResponseType(typeof(SalesOrderDetail))]
+        //public async Task<IHttpActionResult> PostSalesOrderDetail(SalesOrderDetail salesOrderDetail)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            _db.SalesOrderDetails.Add(salesOrderDetail);
-            await _db.SaveChangesAsync();
+        //    _db.SalesOrderDetails.Add(salesOrderDetail);
+        //    await _db.SaveChangesAsync();
 
-            _db.sp_orderHeader(salesOrderDetail.SalesOrderID);
+        //    _db.sp_orderHeader(salesOrderDetail.SalesOrderID);
 
-            return CreatedAtRoute("DefaultApi", new { id = salesOrderDetail.SalesOrderID }, salesOrderDetail);
-        }
+        //    return CreatedAtRoute("DefaultApi", new { id = salesOrderDetail.SalesOrderID }, salesOrderDetail);
+        //}
 
         // DELETE: api/SalesOrderDetails/5
         [ResponseType(typeof(SalesOrderDetail))]

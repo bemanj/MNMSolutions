@@ -11,19 +11,19 @@ namespace MNMSolutions.DAL.DB.Dev
 {
     using System;
     
-    public partial class sp_orderdetail_Result
+    public partial class usp_SOH_GetBySID_Result
     {
-        public int SODetailsID { get; set; }
         public int SalesOrderID { get; set; }
-        public int StockID { get; set; }
+        public Nullable<int> Customer { get; set; }
+        public Nullable<System.DateTime> OrderDate { get; set; }
+        public string OnlineOrderFlag { get; set; }
         public string SalesOrderNumber { get; set; }
-        public int ProductID { get; set; }
-        public decimal UnitPrice { get; set; }
-        public string UOM { get; set; }
-        public short Quantity { get; set; }
-        public float Discount { get; set; }
-        public decimal TotalAmount { get; set; }
-        public string Article { get; set; }
-        public string ProductTitle { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal TaxAmt { get; set; }
+        public decimal Freight { get; set; }
+        public decimal TotalDue { get; set; }
+        public string Comment { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public Nullable<bool> Fulfilled { get; set; }
     }
 }

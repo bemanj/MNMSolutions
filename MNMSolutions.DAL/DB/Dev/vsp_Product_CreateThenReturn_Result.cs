@@ -10,18 +10,15 @@
 namespace MNMSolutions.DAL.DB.Dev
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class OrderDetail
+    public partial class vsp_Product_CreateThenReturn_Result
     {
-        public int OrderID { get; set; }
-        public int ProductID { get; set; }
-        public decimal UnitPrice { get; set; }
-        public short Quantity { get; set; }
-        public float Discount { get; set; }
-        public decimal TotalAmount { get; set; }
-    
-        public virtual Order Order { get; set; }
-        public virtual Product Product { get; set; }
+        public int ProductId { get; set; }
+        public int CategoryID { get; set; }
+        public string ProductTitle { get; set; }
+        public Nullable<short> UnitsInStock { get; set; }
+        public Nullable<short> UnitsOnOrder { get; set; }
+        public Nullable<short> ReorderLevel { get; set; }
+        public bool Discontinued { get; set; }
     }
 }

@@ -14,17 +14,17 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
         private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
 
         // GET: api/SalesOrderDetails/5
-        [ResponseType(typeof(sp_orderHeader_Result))]
-        public IHttpActionResult Getinventory_view(int id)
-        {
-            var data = _db.sp_orderHeader(id);
-            if (data == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(View_SalesOrderDetails))]
+        //public IHttpActionResult Getinventory_view(int id)
+        //{
+        //    var data = _db.sp_orderHeader(id);
+        //    if (data == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(data);
-        }
+        //    return Ok(data);
+        //}
 
         //GET: api/inventory_view
         //public IEnumerable<sp_orderHeader_Result> Getinventory_view(int id)

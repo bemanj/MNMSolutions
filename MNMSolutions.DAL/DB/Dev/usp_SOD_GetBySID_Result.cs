@@ -10,20 +10,18 @@
 namespace MNMSolutions.DAL.DB.Dev
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class View_SalesOrderDetails
+    public partial class usp_SOD_GetBySID_Result
     {
         public int SODetailsID { get; set; }
         public int SalesOrderID { get; set; }
         public int StockID { get; set; }
         public int ProductID { get; set; }
         public decimal UnitPrice { get; set; }
+        public string Article { get; set; }
         public string UOM { get; set; }
         public short Quantity { get; set; }
         public float Discount { get; set; }
         public decimal TotalAmount { get; set; }
-        public string Article { get; set; }
-        public string ProductTitle { get; set; }
     }
 }
