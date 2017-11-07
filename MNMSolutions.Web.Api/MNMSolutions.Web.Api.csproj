@@ -201,7 +201,6 @@
     <Compile Include="Controllers\Inventory\SalesOrderDetailsController.cs" />
     <Compile Include="Controllers\Inventory\spOrderHeaderController.cs" />
     <Compile Include="Controllers\Inventory\View_InventoryController.cs" />
-    <Compile Include="Controllers\Product\ProductOnesController.cs" />
     <Compile Include="Controllers\Product\View_ProductController.cs" />
     <Compile Include="Controllers\Result.cs" />
     <Compile Include="Controllers\SalesOrder\SalesOrderHeadersController.cs" />
