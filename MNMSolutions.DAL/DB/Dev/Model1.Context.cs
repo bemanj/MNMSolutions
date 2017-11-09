@@ -603,5 +603,14 @@ namespace MNMSolutions.DAL.DB.Dev
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("vsp_SOH_InsertThenReturnNewSO", subTotalParameter, taxAmtParameter, freightParameter);
         }
+    
+        public virtual ObjectResult<vsp_orderdetail_ViewBySalesOrderId_Result> Get_OrderDetails_BySalesOrderId(Nullable<int> salesOrderID)
+        {
+            var salesOrderIDParameter = salesOrderID.HasValue ?
+                new ObjectParameter("salesOrderID", salesOrderID) :
+                new ObjectParameter("salesOrderID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vsp_orderdetail_ViewBySalesOrderId_Result>("Get_OrderDetails_BySalesOrderId", salesOrderIDParameter);
+        }
     }
 }

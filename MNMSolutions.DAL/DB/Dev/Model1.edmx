@@ -1216,6 +1216,9 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <Parameter Name="Freight" Mode="In" Type="Decimal" />
           </FunctionImport>
           <EntitySet Name="View_Inventory" EntityType="MNMSolutionsDevDBModel.View_Inventory" />
+          <FunctionImport Name="Get_OrderDetails_BySalesOrderId" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_orderdetail_ViewBySalesOrderId_Result)">
+            <Parameter Name="salesOrderID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1819,6 +1822,23 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Get_OrderDetails_BySalesOrderId" FunctionName="MNMSolutionsDevDBModel.Store.vsp_orderdetail_ViewBySalesOrderId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNMSolutionsDevDBModel.vsp_orderdetail_ViewBySalesOrderId_Result">
+                <ScalarProperty Name="SODetailsID" ColumnName="SODetailsID" />
+                <ScalarProperty Name="SalesOrderID" ColumnName="SalesOrderID" />
+                <ScalarProperty Name="StockID" ColumnName="StockID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="UOM" ColumnName="UOM" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="Article" ColumnName="Article" />
+                <ScalarProperty Name="ProductTitle" ColumnName="ProductTitle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

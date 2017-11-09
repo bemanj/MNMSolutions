@@ -25,15 +25,9 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
 
         // GET: api/SalesOrderDetails/5
         [ResponseType(typeof(SalesOrderDetail))]
-        public async Task<IHttpActionResult> GetSalesOrderDetail(int id)
+        public  IEnumerable<vsp_orderdetail_ViewBySalesOrderId_Result> GetSalesOrderDetail(int id)
         {
-            SalesOrderDetail salesOrderDetail = await _db.SalesOrderDetails.FindAsync(id);
-            if (salesOrderDetail == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(salesOrderDetail);
+            return _db.vsp_orderdetail_ViewBySalesOrderId(id).AsEnumerable();
         }
 
         // PUT: api/SalesOrderDetails/5
@@ -72,21 +66,21 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
         }
 
         // POST: api/SalesOrderDetails
-        //[ResponseType(typeof(SalesOrderDetail))]
-        //public async Task<IHttpActionResult> PostSalesOrderDetail(SalesOrderDetail salesOrderDetail)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [ResponseType(typeof(SalesOrderDetail))]
+        public async Task<IHttpActionResult> PostSalesOrderDetail(SalesOrderDetail salesOrderDetail)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    _db.SalesOrderDetails.Add(salesOrderDetail);
-        //    await _db.SaveChangesAsync();
+            _db.SalesOrderDetails.Add(salesOrderDetail);
+            await _db.SaveChangesAsync();
 
-        //    _db.sp_orderHeader(salesOrderDetail.SalesOrderID);
+            _db.vsp_orderHeader_UpdateSubTotal_ViewBySOId(salesOrderDetail.SalesOrderID);
 
-        //    return CreatedAtRoute("DefaultApi", new { id = salesOrderDetail.SalesOrderID }, salesOrderDetail);
-        //}
+            return CreatedAtRoute("DefaultApi", new { id = salesOrderDetail.SalesOrderID }, salesOrderDetail);
+        }
 
         // DELETE: api/SalesOrderDetails/5
         [ResponseType(typeof(SalesOrderDetail))]
