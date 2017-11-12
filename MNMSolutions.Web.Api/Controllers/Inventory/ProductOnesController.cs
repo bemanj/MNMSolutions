@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MNMSolutions.DAL.DB.Dev;
+using MNMSolutions.DAL.Models.Product;
 
 namespace MNMSolutions.Web.Api.Controllers.Inventory
 {
@@ -72,19 +73,35 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
         }
 
         // POST: api/ProductOnes
-        [ResponseType(typeof(ProductOne))]
-        public async Task<IHttpActionResult> PostProductOne(ProductOne productOne)
+        public IEnumerable<vsp_Product_CreateThenReturn_Result> PostProductOne(NewProduct newproduct)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                var product = _db.vsp_Product_CreateThenReturn(newproduct.CategoryId, newproduct.ProductTitle, newproduct.ReorderLevel);
+
+                return product;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
 
-            _db.ProductOnes.Add(productOne);
-            await _db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = productOne.ProductId }, productOne);
         }
+        // POST: api/ProductOnes
+        //[ResponseType(typeof(ProductOne))]
+        //public async Task<IHttpActionResult> PostProductOne(ProductOne productOne)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    _db.ProductOnes.Add(productOne);
+        //    await _db.SaveChangesAsync();
+
+        //    return CreatedAtRoute("DefaultApi", new { id = productOne.ProductId }, productOne);
+        //}
 
         // DELETE: api/ProductOnes/5
         [ResponseType(typeof(ProductOne))]

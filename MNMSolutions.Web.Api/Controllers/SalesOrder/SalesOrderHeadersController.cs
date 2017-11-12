@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MNMSolutions.DAL.DB.Dev;
+using MNMSolutions.DAL.Models.Sales.Order;
 
 namespace MNMSolutions.Web.Api.Controllers.SalesOrder
 {
@@ -35,40 +36,59 @@ namespace MNMSolutions.Web.Api.Controllers.SalesOrder
             return Ok(salesOrderHeader);
         }
 
-        // PUT: api/SalesOrderHeaders/5
+
+        // POST: api/ProductOnes
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutSalesOrderHeader(int id, SalesOrderHeader salesOrderHeader)
+        public IHttpActionResult PutSalesOrderHeader(int id, OrderHeader orderHeader)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != salesOrderHeader.SalesOrderID)
-            {
-                return BadRequest();
-            }
-
-            _db.Entry(salesOrderHeader).State = EntityState.Modified;
-
             try
             {
-                _db.SaveChanges();
+                _db.usp_SOH_Update(orderHeader.SalesOrderId, orderHeader.Customer, orderHeader.OnlineOrderFlag, 0, 0, 0, orderHeader.Comment, orderHeader.Fulfilled);
+
+                return StatusCode(HttpStatusCode.NoContent);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
-                if (!SalesOrderHeaderExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                Console.WriteLine(e);
+                throw;
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
         }
+
+        // PUT: api/SalesOrderHeaders/5
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutSalesOrderHeader(int id, SalesOrderHeader salesOrderHeader)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    if (id != salesOrderHeader.SalesOrderID)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    _db.Entry(salesOrderHeader).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        _db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!SalesOrderHeaderExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/SalesOrderHeaders
         [ResponseType(typeof(SalesOrderHeader))]
