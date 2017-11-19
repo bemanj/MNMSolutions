@@ -31,6 +31,7 @@ namespace MNMSolutions.DAL.DB.Dev
         public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Billing> Billings { get; set; }
+        public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<CategoryOne> CategoryOnes { get; set; }
         public virtual DbSet<CustomerList> CustomerLists { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
@@ -48,9 +49,10 @@ namespace MNMSolutions.DAL.DB.Dev
         public virtual DbSet<PurchaseOrderHeader> PurchaseOrderHeaders { get; set; }
         public virtual DbSet<inventory_view> inventory_view { get; set; }
         public virtual DbSet<View_Category> View_Category { get; set; }
+        public virtual DbSet<View_Inventory> View_Inventory { get; set; }
         public virtual DbSet<View_Product> View_Product { get; set; }
         public virtual DbSet<View_SalesOrderDetails> View_SalesOrderDetails { get; set; }
-        public virtual DbSet<View_Inventory> View_Inventory { get; set; }
+        public virtual DbSet<View_SalesOrderHeaders> View_SalesOrderHeaders { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
@@ -298,39 +300,11 @@ namespace MNMSolutions.DAL.DB.Dev
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SOD_Insert", salesOrderIDParameter, stockIDParameter, productIDParameter, unitPriceParameter, articleParameter, uOMParameter, quantityParameter, discountParameter, totalAmountParameter);
         }
     
-        public virtual int usp_SOD_Update(Nullable<int> salesDetailsID, Nullable<int> salesOrderID, Nullable<int> stockID, Nullable<int> productID, Nullable<decimal> unitPrice, string article, string uOM, Nullable<short> quantity, Nullable<float> discount, Nullable<decimal> totalAmount)
+        public virtual int usp_SOD_Update(Nullable<int> salesDetailsID, Nullable<float> discount, Nullable<decimal> totalAmount)
         {
             var salesDetailsIDParameter = salesDetailsID.HasValue ?
                 new ObjectParameter("SalesDetailsID", salesDetailsID) :
                 new ObjectParameter("SalesDetailsID", typeof(int));
-    
-            var salesOrderIDParameter = salesOrderID.HasValue ?
-                new ObjectParameter("SalesOrderID", salesOrderID) :
-                new ObjectParameter("SalesOrderID", typeof(int));
-    
-            var stockIDParameter = stockID.HasValue ?
-                new ObjectParameter("StockID", stockID) :
-                new ObjectParameter("StockID", typeof(int));
-    
-            var productIDParameter = productID.HasValue ?
-                new ObjectParameter("ProductID", productID) :
-                new ObjectParameter("ProductID", typeof(int));
-    
-            var unitPriceParameter = unitPrice.HasValue ?
-                new ObjectParameter("UnitPrice", unitPrice) :
-                new ObjectParameter("UnitPrice", typeof(decimal));
-    
-            var articleParameter = article != null ?
-                new ObjectParameter("Article", article) :
-                new ObjectParameter("Article", typeof(string));
-    
-            var uOMParameter = uOM != null ?
-                new ObjectParameter("UOM", uOM) :
-                new ObjectParameter("UOM", typeof(string));
-    
-            var quantityParameter = quantity.HasValue ?
-                new ObjectParameter("Quantity", quantity) :
-                new ObjectParameter("Quantity", typeof(short));
     
             var discountParameter = discount.HasValue ?
                 new ObjectParameter("Discount", discount) :
@@ -340,7 +314,7 @@ namespace MNMSolutions.DAL.DB.Dev
                 new ObjectParameter("TotalAmount", totalAmount) :
                 new ObjectParameter("TotalAmount", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SOD_Update", salesDetailsIDParameter, salesOrderIDParameter, stockIDParameter, productIDParameter, unitPriceParameter, articleParameter, uOMParameter, quantityParameter, discountParameter, totalAmountParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SOD_Update", salesDetailsIDParameter, discountParameter, totalAmountParameter);
         }
     
         public virtual int usp_SOH_Delete(Nullable<int> salesOrderID)
@@ -602,15 +576,6 @@ namespace MNMSolutions.DAL.DB.Dev
                 new ObjectParameter("Freight", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("vsp_SOH_InsertThenReturnNewSO", subTotalParameter, taxAmtParameter, freightParameter);
-        }
-    
-        public virtual ObjectResult<vsp_orderdetail_ViewBySalesOrderId_Result> Get_OrderDetails_BySalesOrderId(Nullable<int> salesOrderID)
-        {
-            var salesOrderIDParameter = salesOrderID.HasValue ?
-                new ObjectParameter("salesOrderID", salesOrderID) :
-                new ObjectParameter("salesOrderID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vsp_orderdetail_ViewBySalesOrderId_Result>("Get_OrderDetails_BySalesOrderId", salesOrderIDParameter);
         }
     }
 }

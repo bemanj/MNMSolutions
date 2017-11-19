@@ -18,9 +18,9 @@ namespace MNMSolutions.Web.Api.Controllers.SalesOrder
         private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
 
         // GET: api/SalesOrderHeaders
-        public IQueryable<SalesOrderHeader> GetSalesOrderHeaders()
+        public IQueryable<View_SalesOrderHeaders> GetSalesOrderHeaders()
         {
-            return _db.SalesOrderHeaders;
+            return _db.View_SalesOrderHeaders;
         }
 
         // GET: api/SalesOrderHeaders/5

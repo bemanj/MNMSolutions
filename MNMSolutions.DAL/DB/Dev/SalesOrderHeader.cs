@@ -26,5 +26,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public string Comment { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<bool> Fulfilled { get; set; }
+        public decimal TotalDueAmt { get; set; }
     }
 }

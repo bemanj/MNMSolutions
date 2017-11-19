@@ -10,11 +10,13 @@
 namespace MNMSolutions.DAL.DB.Dev
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class vsp_orderHeader_UpdateSubTotal_ViewBySOId_Result
+    public partial class View_SalesOrderHeaders
     {
         public int SalesOrderID { get; set; }
         public Nullable<int> Customer { get; set; }
+        public string CompanyName { get; set; }
         public Nullable<System.DateTime> OrderDate { get; set; }
         public string OnlineOrderFlag { get; set; }
         public string SalesOrderNumber { get; set; }

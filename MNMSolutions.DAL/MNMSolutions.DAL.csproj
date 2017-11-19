@@ -68,6 +68,9 @@
     <Compile Include="DB\Dev\Billing.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\Dev\Brand.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Dev\CategoryOne.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -155,6 +158,9 @@
     <Compile Include="DB\Dev\View_SalesOrderDetails.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\Dev\View_SalesOrderHeaders.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Dev\vsp_orderdetail_ViewBySalesOrderId_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -169,6 +175,7 @@
     </Compile>
     <Compile Include="Models\ProductList.cs" />
     <Compile Include="Models\Product\NewProduct.cs" />
+    <Compile Include="Models\Sales\Order\OrderDetail.cs" />
     <Compile Include="Models\Sales\Order\OrderHeader.cs" />
     <Compile Include="Models\TotalSalesForTheDay.cs" />
     <Compile Include="DB\Test\Category.cs" />

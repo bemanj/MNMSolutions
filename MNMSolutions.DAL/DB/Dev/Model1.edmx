@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MNMSolutionsDevDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MNMSolutionsDevDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -48,6 +48,14 @@
           <Property Name="PaymentDueDate" Type="date" Nullable="false" />
           <Property Name="AmountDue" Type="money" Nullable="false" />
           <Property Name="isPaid" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BrandTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="CategoryOne">
           <Key>
@@ -194,6 +202,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
           <Property Name="Comment" Type="nvarchar" MaxLength="250" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="Fulfilled" Type="bit" />
+          <Property Name="TotalDueAmt" Type="money" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="Shippers">
           <Key>
@@ -374,6 +383,33 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           <Property Name="Article" Type="nvarchar" MaxLength="250" />
           <Property Name="ProductTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_SalesOrderHeaders">
+          <Key>
+            <PropertyRef Name="SalesOrderID" />
+            <PropertyRef Name="SalesOrderNumber" />
+            <PropertyRef Name="SubTotal" />
+            <PropertyRef Name="TaxAmt" />
+            <PropertyRef Name="Freight" />
+            <PropertyRef Name="TotalDue" />
+            <PropertyRef Name="TotalDueAmt" />
+          </Key>
+          <Property Name="SalesOrderID" Type="int" Nullable="false" />
+          <Property Name="Customer" Type="int" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="40" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="OnlineOrderFlag" Type="varchar" MaxLength="150" />
+          <Property Name="SalesOrderNumber" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="SubTotal" Type="money" Nullable="false" />
+          <Property Name="TaxAmt" Type="money" Nullable="false" />
+          <Property Name="Freight" Type="money" Nullable="false" />
+          <Property Name="TotalDue" Type="money" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="250" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="Fulfilled" Type="bit" />
+          <Property Name="TotalDueAmt" Type="money" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Employees_Employees">
           <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
           <End Role="Employees1" Type="Self.Employees" Multiplicity="*" />
@@ -472,13 +508,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
         </Function>
         <Function Name="usp_SOD_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SalesDetailsID" Type="int" Mode="In" />
-          <Parameter Name="SalesOrderID" Type="int" Mode="In" />
-          <Parameter Name="StockID" Type="int" Mode="In" />
-          <Parameter Name="ProductID" Type="int" Mode="In" />
-          <Parameter Name="UnitPrice" Type="money" Mode="In" />
-          <Parameter Name="Article" Type="nvarchar" Mode="In" />
-          <Parameter Name="UOM" Type="nvarchar" Mode="In" />
-          <Parameter Name="Quantity" Type="smallint" Mode="In" />
           <Parameter Name="Discount" Type="real" Mode="In" />
           <Parameter Name="TotalAmount" Type="money" Mode="In" />
         </Function>
@@ -561,6 +590,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Billing" EntityType="Self.Billing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CategoryOne" EntityType="Self.CategoryOne" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerList" EntityType="Self.CustomerList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
@@ -667,6 +697,24 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
     [View_SalesOrderDetails].[ProductTitle] AS [ProductTitle]
     FROM [dbo].[View_SalesOrderDetails] AS [View_SalesOrderDetails]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="View_SalesOrderHeaders" EntityType="Self.View_SalesOrderHeaders" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_SalesOrderHeaders].[SalesOrderID] AS [SalesOrderID], 
+    [View_SalesOrderHeaders].[Customer] AS [Customer], 
+    [View_SalesOrderHeaders].[CompanyName] AS [CompanyName], 
+    [View_SalesOrderHeaders].[OrderDate] AS [OrderDate], 
+    [View_SalesOrderHeaders].[OnlineOrderFlag] AS [OnlineOrderFlag], 
+    [View_SalesOrderHeaders].[SalesOrderNumber] AS [SalesOrderNumber], 
+    [View_SalesOrderHeaders].[SubTotal] AS [SubTotal], 
+    [View_SalesOrderHeaders].[TaxAmt] AS [TaxAmt], 
+    [View_SalesOrderHeaders].[Freight] AS [Freight], 
+    [View_SalesOrderHeaders].[TotalDue] AS [TotalDue], 
+    [View_SalesOrderHeaders].[Comment] AS [Comment], 
+    [View_SalesOrderHeaders].[ModifiedDate] AS [ModifiedDate], 
+    [View_SalesOrderHeaders].[Fulfilled] AS [Fulfilled], 
+    [View_SalesOrderHeaders].[TotalDueAmt] AS [TotalDueAmt]
+    FROM [dbo].[View_SalesOrderHeaders] AS [View_SalesOrderHeaders]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Employees_Employees" Association="Self.FK_Employees_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Employees1" EntitySet="Employees" />
@@ -676,7 +724,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <End Role="ProductOne" EntitySet="ProductOne" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MNMSolutionsDevDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -723,6 +772,14 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           <Property Name="PaymentDueDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="AmountDue" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="isPaid" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrandTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="CategoryOne">
           <Key>
@@ -847,6 +904,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="Fulfilled" Type="Boolean" />
+          <Property Name="TotalDueAmt" Type="Decimal" Precision="19" Scale="4" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Shipper">
           <Key>
@@ -961,6 +1019,43 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           <Property Name="CategoryName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="View_Inventory">
+          <Key>
+            <PropertyRef Name="StockId" />
+            <PropertyRef Name="PONumber" />
+            <PropertyRef Name="SupplierId" />
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="Brand" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="AcquisitionPrice" />
+            <PropertyRef Name="Created" />
+            <PropertyRef Name="PutAwayLocation" />
+            <PropertyRef Name="committed_qty" />
+            <PropertyRef Name="ProductTitle" />
+            <PropertyRef Name="CategoryName" />
+          </Key>
+          <Property Name="StockId" Type="Int32" Nullable="false" />
+          <Property Name="PONumber" Type="Int32" Nullable="false" />
+          <Property Name="SupplierId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Brand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UOM" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Article" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="AcquisitionPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateDelivered" Type="DateTime" Precision="3" />
+          <Property Name="DateDisposed" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="PutAwayLocation" Type="Int32" Nullable="false" />
+          <Property Name="committed_qty" Type="Int32" Nullable="false" />
+          <Property Name="available_qty" Type="Int32" />
+          <Property Name="deficient_qty" Type="Int32" />
+          <Property Name="ProductTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="View_Product">
           <Key>
             <PropertyRef Name="ProductId" />
@@ -1002,6 +1097,31 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           <Property Name="Article" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ProductTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
+        <EntityType Name="View_SalesOrderHeaders">
+          <Key>
+            <PropertyRef Name="SalesOrderID" />
+            <PropertyRef Name="SalesOrderNumber" />
+            <PropertyRef Name="SubTotal" />
+            <PropertyRef Name="TaxAmt" />
+            <PropertyRef Name="Freight" />
+            <PropertyRef Name="TotalDue" />
+            <PropertyRef Name="TotalDueAmt" />
+          </Key>
+          <Property Name="SalesOrderID" Type="Int32" Nullable="false" />
+          <Property Name="Customer" Type="Int32" />
+          <Property Name="CompanyName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="OnlineOrderFlag" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="SalesOrderNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubTotal" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="TaxAmt" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Freight" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="TotalDue" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="Fulfilled" Type="Boolean" />
+          <Property Name="TotalDueAmt" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
         <Association Name="FK_ProductOne_CategoryOne">
           <End Role="CategoryOne" Type="Self.CategoryOne" Multiplicity="1" />
           <End Role="ProductOne" Type="Self.ProductOne" Multiplicity="*" />
@@ -1031,6 +1151,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRole" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="Billings" EntityType="Self.Billing" />
+          <EntitySet Name="Brands" EntityType="Self.Brand" />
           <EntitySet Name="CategoryOnes" EntityType="Self.CategoryOne" />
           <EntitySet Name="CustomerLists" EntityType="Self.CustomerList" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
@@ -1048,8 +1169,10 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           <EntitySet Name="PurchaseOrderHeaders" EntityType="Self.PurchaseOrderHeader" />
           <EntitySet Name="inventory_view" EntityType="Self.inventory_view" />
           <EntitySet Name="View_Category" EntityType="Self.View_Category" />
+          <EntitySet Name="View_Inventory" EntityType="Self.View_Inventory" />
           <EntitySet Name="View_Product" EntityType="Self.View_Product" />
           <EntitySet Name="View_SalesOrderDetails" EntityType="Self.View_SalesOrderDetails" />
+          <EntitySet Name="View_SalesOrderHeaders" EntityType="Self.View_SalesOrderHeaders" />
           <AssociationSet Name="FK_ProductOne_CategoryOne" Association="Self.FK_ProductOne_CategoryOne">
             <End Role="CategoryOne" EntitySet="CategoryOnes" />
             <End Role="ProductOne" EntitySet="ProductOnes" />
@@ -1113,10 +1236,10 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <Parameter Name="TotalAmount" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="usp_SOD_Delete">
-          <Parameter Name="SalesDetailsID" Mode="In" Type="Int32" />
+            <Parameter Name="SalesDetailsID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_SOD_GetBySID" ReturnType="Collection(MNMSolutionsDevDBModel.usp_SOD_GetBySID_Result)">
-          <Parameter Name="SalesDetailsID" Mode="In" Type="Int32" />
+            <Parameter Name="SalesDetailsID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_SOD_Insert">
             <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
@@ -1131,21 +1254,14 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           </FunctionImport>
           <FunctionImport Name="usp_SOD_Update">
             <Parameter Name="SalesDetailsID" Mode="In" Type="Int32" />
-            <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
-            <Parameter Name="StockID" Mode="In" Type="Int32" />
-            <Parameter Name="ProductID" Mode="In" Type="Int32" />
-            <Parameter Name="UnitPrice" Mode="In" Type="Decimal" />
-            <Parameter Name="Article" Mode="In" Type="String" />
-            <Parameter Name="UOM" Mode="In" Type="String" />
-            <Parameter Name="Quantity" Mode="In" Type="Int16" />
             <Parameter Name="Discount" Mode="In" Type="Single" />
             <Parameter Name="TotalAmount" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="usp_SOH_Delete">
-          <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
+            <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_SOH_GetBySID" ReturnType="Collection(MNMSolutionsDevDBModel.usp_SOH_GetBySID_Result)">
-          <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
+            <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_SOH_Update">
             <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
@@ -1189,10 +1305,10 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <Parameter Name="dateRange" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="vsp_orderdetail_ViewBySalesOrderId" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_orderdetail_ViewBySalesOrderId_Result)">
-          <Parameter Name="salesOrderID" Mode="In" Type="Int32" />
+            <Parameter Name="salesOrderID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vsp_orderHeader_UpdateSubTotal_ViewBySOId" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_orderHeader_UpdateSubTotal_ViewBySOId_Result)">
-          <Parameter Name="soID" Mode="In" Type="Int32" />
+            <Parameter Name="soID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vsp_Product_CreateThenReturn" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_Product_CreateThenReturn_Result)">
             <Parameter Name="CategoryID" Mode="In" Type="Int16" />
@@ -1207,17 +1323,13 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
             <Parameter Name="productid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vsp_Product_ViewByProductId" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_Product_ViewByProductId_Result)">
-          <Parameter Name="paramId" Mode="In" Type="Int32" />
+            <Parameter Name="paramId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vsp_Sales_TotalDueForToday" ReturnType="Collection(Decimal)" />
           <FunctionImport Name="vsp_SOH_InsertThenReturnNewSO" ReturnType="Collection(Int32)">
             <Parameter Name="SubTotal" Mode="In" Type="Decimal" />
             <Parameter Name="TaxAmt" Mode="In" Type="Decimal" />
             <Parameter Name="Freight" Mode="In" Type="Decimal" />
-          </FunctionImport>
-          <EntitySet Name="View_Inventory" EntityType="MNMSolutionsDevDBModel.View_Inventory" />
-          <FunctionImport Name="Get_OrderDetails_BySalesOrderId" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_orderdetail_ViewBySalesOrderId_Result)">
-            <Parameter Name="salesOrderID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -1283,6 +1395,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           <Property Type="String" Name="Comment" Nullable="true" MaxLength="250" />
           <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="Fulfilled" Nullable="true" />
+          <Property Type="Decimal" Name="TotalDueAmt" Nullable="false" Precision="19" />
         </ComplexType>
         <ComplexType Name="vsp_Product_CreateThenReturn_Result">
           <Property Type="Int32" Name="ProductId" Nullable="false" />
@@ -1303,43 +1416,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           <Property Type="Int16" Name="ReorderLevel" Nullable="true" />
           <Property Type="Boolean" Name="Discontinued" Nullable="false" />
         </ComplexType>
-        <EntityType Name="View_Inventory">
-          <Key>
-            <PropertyRef Name="StockId" />
-            <PropertyRef Name="PONumber" />
-            <PropertyRef Name="SupplierId" />
-            <PropertyRef Name="ProductId" />
-            <PropertyRef Name="Brand" />
-            <PropertyRef Name="Quantity" />
-            <PropertyRef Name="Price" />
-            <PropertyRef Name="AcquisitionPrice" />
-            <PropertyRef Name="Created" />
-            <PropertyRef Name="PutAwayLocation" />
-            <PropertyRef Name="committed_qty" />
-            <PropertyRef Name="ProductTitle" />
-            <PropertyRef Name="CategoryName" />
-          </Key>
-          <Property Name="StockId" Type="Int32" Nullable="false" />
-          <Property Name="PONumber" Type="Int32" Nullable="false" />
-          <Property Name="SupplierId" Type="Int32" Nullable="false" />
-          <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="Brand" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="UOM" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Article" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="AcquisitionPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateDelivered" Type="DateTime" Precision="3" />
-          <Property Name="DateDisposed" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="PutAwayLocation" Type="Int32" Nullable="false" />
-          <Property Name="committed_qty" Type="Int32" Nullable="false" />
-          <Property Name="available_qty" Type="Int32" />
-          <Property Name="deficient_qty" Type="Int32" />
-          <Property Name="ProductTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1391,6 +1467,15 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
                 <ScalarProperty Name="PaymentDueDate" ColumnName="PaymentDueDate" />
                 <ScalarProperty Name="AmountDue" ColumnName="AmountDue" />
                 <ScalarProperty Name="isPaid" ColumnName="isPaid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Brands">
+            <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.Brand">
+              <MappingFragment StoreEntitySet="Brand">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="BrandTitle" ColumnName="BrandTitle" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1519,6 +1604,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="Fulfilled" ColumnName="Fulfilled" />
+                <ScalarProperty Name="TotalDueAmt" ColumnName="TotalDueAmt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1630,6 +1716,32 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="View_Inventory">
+            <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.View_Inventory">
+              <MappingFragment StoreEntitySet="View_Inventory">
+                <ScalarProperty Name="StockId" ColumnName="StockId" />
+                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UOM" ColumnName="UOM" />
+                <ScalarProperty Name="Article" ColumnName="Article" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="AcquisitionPrice" ColumnName="AcquisitionPrice" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="DateDelivered" ColumnName="DateDelivered" />
+                <ScalarProperty Name="DateDisposed" ColumnName="DateDisposed" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="PutAwayLocation" ColumnName="PutAwayLocation" />
+                <ScalarProperty Name="committed_qty" ColumnName="committed_qty" />
+                <ScalarProperty Name="available_qty" ColumnName="available_qty" />
+                <ScalarProperty Name="deficient_qty" ColumnName="deficient_qty" />
+                <ScalarProperty Name="ProductTitle" ColumnName="ProductTitle" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="View_Product">
             <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.View_Product">
               <MappingFragment StoreEntitySet="View_Product">
@@ -1658,6 +1770,26 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
                 <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
                 <ScalarProperty Name="Article" ColumnName="Article" />
                 <ScalarProperty Name="ProductTitle" ColumnName="ProductTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_SalesOrderHeaders">
+            <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.View_SalesOrderHeaders">
+              <MappingFragment StoreEntitySet="View_SalesOrderHeaders">
+                <ScalarProperty Name="SalesOrderID" ColumnName="SalesOrderID" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OnlineOrderFlag" ColumnName="OnlineOrderFlag" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="TaxAmt" ColumnName="TaxAmt" />
+                <ScalarProperty Name="Freight" ColumnName="Freight" />
+                <ScalarProperty Name="TotalDue" ColumnName="TotalDue" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Fulfilled" ColumnName="Fulfilled" />
+                <ScalarProperty Name="TotalDueAmt" ColumnName="TotalDueAmt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1763,6 +1895,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="Fulfilled" ColumnName="Fulfilled" />
+                <ScalarProperty Name="TotalDueAmt" ColumnName="TotalDueAmt" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1796,49 +1929,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderDetails' does
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="vsp_Sales_TotalDueForToday" FunctionName="MNMSolutionsDevDBModel.Store.vsp_Sales_TotalDueForToday" />
           <FunctionImportMapping FunctionImportName="vsp_SOH_InsertThenReturnNewSO" FunctionName="MNMSolutionsDevDBModel.Store.vsp_SOH_InsertThenReturnNewSO" />
-          <EntitySetMapping Name="View_Inventory">
-            <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.View_Inventory">
-              <MappingFragment StoreEntitySet="View_Inventory">
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="ProductTitle" ColumnName="ProductTitle" />
-                <ScalarProperty Name="deficient_qty" ColumnName="deficient_qty" />
-                <ScalarProperty Name="available_qty" ColumnName="available_qty" />
-                <ScalarProperty Name="committed_qty" ColumnName="committed_qty" />
-                <ScalarProperty Name="PutAwayLocation" ColumnName="PutAwayLocation" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="DateDisposed" ColumnName="DateDisposed" />
-                <ScalarProperty Name="DateDelivered" ColumnName="DateDelivered" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="AcquisitionPrice" ColumnName="AcquisitionPrice" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Article" ColumnName="Article" />
-                <ScalarProperty Name="UOM" ColumnName="UOM" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Brand" ColumnName="Brand" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
-                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
-                <ScalarProperty Name="StockId" ColumnName="StockId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Get_OrderDetails_BySalesOrderId" FunctionName="MNMSolutionsDevDBModel.Store.vsp_orderdetail_ViewBySalesOrderId">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNMSolutionsDevDBModel.vsp_orderdetail_ViewBySalesOrderId_Result">
-                <ScalarProperty Name="SODetailsID" ColumnName="SODetailsID" />
-                <ScalarProperty Name="SalesOrderID" ColumnName="SalesOrderID" />
-                <ScalarProperty Name="StockID" ColumnName="StockID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="UOM" ColumnName="UOM" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="Article" ColumnName="Article" />
-                <ScalarProperty Name="ProductTitle" ColumnName="ProductTitle" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

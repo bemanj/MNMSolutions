@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MNMSolutions.DAL.DB.Dev;
+using MNMSolutions.DAL.Models.Sales.Order;
 
 
 namespace MNMSolutions.Web.Api.Controllers.Inventory
@@ -33,37 +30,20 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
 
         // PUT: api/SalesOrderDetails/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutSalesOrderDetail(int id, SalesOrderDetail salesOrderDetail)
+        public IHttpActionResult PutSalesOrderDetail(int id, OrderDetail soDetail)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != salesOrderDetail.SalesOrderID)
-            {
-                return BadRequest();
-            }
-
-            _db.Entry(salesOrderDetail).State = EntityState.Modified;
-
             try
             {
-                await _db.SaveChangesAsync();
+                _db.usp_SOD_Update(soDetail.SalesDetailsId, soDetail.Discount, soDetail.TotalAmount);
+
+                return StatusCode(HttpStatusCode.NoContent);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
-                if (!SalesOrderDetailExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                Console.WriteLine(e);
+                throw;
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/SalesOrderDetails
@@ -108,9 +88,5 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
             base.Dispose(disposing);
         }
 
-        private bool SalesOrderDetailExists(int id)
-        {
-            return _db.SalesOrderDetails.Count(e => e.SalesOrderID == id) > 0;
-        }
     }
 }
