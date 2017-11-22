@@ -21,6 +21,7 @@ namespace MNMSolutions.DAL.DB.Dev
         public Nullable<short> UnitsOnOrder { get; set; }
         public Nullable<short> ReorderLevel { get; set; }
         public bool Discontinued { get; set; }
+        public Nullable<bool> isTaxFree { get; set; }
     
         public virtual CategoryOne CategoryOne { get; set; }
     }

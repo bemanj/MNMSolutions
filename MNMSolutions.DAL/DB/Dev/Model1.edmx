@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MNMSolutionsDevDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MNMSolutionsDevDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -144,6 +144,7 @@
           <Property Name="UnitsOnOrder" Type="smallint" />
           <Property Name="ReorderLevel" Type="smallint" />
           <Property Name="Discontinued" Type="bit" Nullable="false" />
+          <Property Name="isTaxFree" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -724,8 +725,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
             <End Role="ProductOne" EntitySet="ProductOne" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MNMSolutionsDevDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -872,6 +872,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           <Property Name="ReorderLevel" Type="Int16" />
           <Property Name="Discontinued" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CategoryOne" Relationship="Self.FK_ProductOne_CategoryOne" FromRole="ProductOne" ToRole="CategoryOne" />
+          <Property Name="isTaxFree" Type="Boolean" />
         </EntityType>
         <EntityType Name="SalesOrderDetail">
           <Key>
@@ -1236,10 +1237,10 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
             <Parameter Name="TotalAmount" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="usp_SOD_Delete">
-            <Parameter Name="SalesDetailsID" Mode="In" Type="Int32" />
+          <Parameter Name="SalesDetailsID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_SOD_GetBySID" ReturnType="Collection(MNMSolutionsDevDBModel.usp_SOD_GetBySID_Result)">
-            <Parameter Name="SalesDetailsID" Mode="In" Type="Int32" />
+          <Parameter Name="SalesDetailsID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_SOD_Insert">
             <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
@@ -1258,10 +1259,10 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
             <Parameter Name="TotalAmount" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="usp_SOH_Delete">
-            <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
+          <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_SOH_GetBySID" ReturnType="Collection(MNMSolutionsDevDBModel.usp_SOH_GetBySID_Result)">
-            <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
+          <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_SOH_Update">
             <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
@@ -1305,10 +1306,10 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
             <Parameter Name="dateRange" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="vsp_orderdetail_ViewBySalesOrderId" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_orderdetail_ViewBySalesOrderId_Result)">
-            <Parameter Name="salesOrderID" Mode="In" Type="Int32" />
+          <Parameter Name="salesOrderID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vsp_orderHeader_UpdateSubTotal_ViewBySOId" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_orderHeader_UpdateSubTotal_ViewBySOId_Result)">
-            <Parameter Name="soID" Mode="In" Type="Int32" />
+          <Parameter Name="soID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vsp_Product_CreateThenReturn" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_Product_CreateThenReturn_Result)">
             <Parameter Name="CategoryID" Mode="In" Type="Int16" />
@@ -1323,7 +1324,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
             <Parameter Name="productid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vsp_Product_ViewByProductId" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_Product_ViewByProductId_Result)">
-            <Parameter Name="paramId" Mode="In" Type="Int32" />
+          <Parameter Name="paramId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vsp_Sales_TotalDueForToday" ReturnType="Collection(Decimal)" />
           <FunctionImport Name="vsp_SOH_InsertThenReturnNewSO" ReturnType="Collection(Int32)">
@@ -1563,6 +1564,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           <EntitySetMapping Name="ProductOnes">
             <EntityTypeMapping TypeName="MNMSolutionsDevDBModel.ProductOne">
               <MappingFragment StoreEntitySet="ProductOne">
+                <ScalarProperty Name="isTaxFree" ColumnName="isTaxFree" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="ProductTitle" ColumnName="ProductTitle" />
