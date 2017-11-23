@@ -6,5 +6,6 @@
         public int SalesOrderID { get; set; }
         public float Discount { get; set; }
         public decimal TotalAmount { get; set; }
+        //public bool addTax { get; set; }
     }
 }

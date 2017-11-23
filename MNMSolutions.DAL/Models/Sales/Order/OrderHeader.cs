@@ -18,5 +18,6 @@ namespace MNMSolutions.DAL.Models.Sales.Order
         public string Comment { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public bool? Fulfilled { get; set; }
+        public bool? ComputeTax { get; set; }
     }
 }

@@ -335,7 +335,7 @@ namespace MNMSolutions.DAL.DB.Dev
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SOH_GetBySID_Result>("usp_SOH_GetBySID", salesOrderIDParameter);
         }
     
-        public virtual int usp_SOH_Update(Nullable<int> salesOrderID, Nullable<int> customer, string onlineOrderFlag, Nullable<decimal> subTotal, Nullable<decimal> taxAmt, Nullable<decimal> freight, string comment, Nullable<bool> fulfilled)
+        public virtual int usp_SOH_Update(Nullable<int> salesOrderID, Nullable<int> customer, string onlineOrderFlag, Nullable<decimal> subTotal, Nullable<decimal> taxAmt, Nullable<decimal> freight, string comment, Nullable<bool> fulfilled, Nullable<bool> computeTax)
         {
             var salesOrderIDParameter = salesOrderID.HasValue ?
                 new ObjectParameter("SalesOrderID", salesOrderID) :
@@ -369,7 +369,11 @@ namespace MNMSolutions.DAL.DB.Dev
                 new ObjectParameter("Fulfilled", fulfilled) :
                 new ObjectParameter("Fulfilled", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SOH_Update", salesOrderIDParameter, customerParameter, onlineOrderFlagParameter, subTotalParameter, taxAmtParameter, freightParameter, commentParameter, fulfilledParameter);
+            var computeTaxParameter = computeTax.HasValue ?
+                new ObjectParameter("ComputeTax", computeTax) :
+                new ObjectParameter("ComputeTax", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SOH_Update", salesOrderIDParameter, customerParameter, onlineOrderFlagParameter, subTotalParameter, taxAmtParameter, freightParameter, commentParameter, fulfilledParameter, computeTaxParameter);
         }
     
         public virtual int vsp_Customer_Create(string companyName, string contactName, string contactTitle, string address, string city, string region, string postalCode, string country, string phone, string fax, Nullable<int> terms)

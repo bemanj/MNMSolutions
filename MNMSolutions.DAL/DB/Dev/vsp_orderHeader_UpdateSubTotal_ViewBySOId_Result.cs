@@ -28,5 +28,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public decimal TotalDueAmt { get; set; }
         public decimal TaxableAmt { get; set; }
         public decimal TaxFreeAmt { get; set; }
+        public bool ComputeTax { get; set; }
     }
 }

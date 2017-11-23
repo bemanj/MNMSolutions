@@ -43,7 +43,9 @@ namespace MNMSolutions.Web.Api.Controllers.SalesOrder
         {
             try
             {
-                _db.usp_SOH_Update(orderHeader.SalesOrderId, orderHeader.Customer, orderHeader.OnlineOrderFlag, 0, 0, 0, orderHeader.Comment, orderHeader.Fulfilled);
+                _db.usp_SOH_Update(orderHeader.SalesOrderId, orderHeader.Customer, orderHeader.OnlineOrderFlag, 0, 0, 0, orderHeader.Comment, orderHeader.Fulfilled, orderHeader.ComputeTax);
+
+                _db.vsp_orderHeader_UpdateSubTotal_ViewBySOId(orderHeader.SalesOrderId);
 
                 return StatusCode(HttpStatusCode.NoContent);
             }

@@ -177,6 +177,7 @@
     </Compile>
     <Compile Include="Models\ProductList.cs" />
     <Compile Include="Models\Product\NewProduct.cs" />
+    <Compile Include="Models\Sales\Order\SalesOrderDetail.cs" />
     <Compile Include="Models\Sales\Order\OrderDetail.cs" />
     <Compile Include="Models\Sales\Order\OrderHeader.cs" />
     <Compile Include="Models\TotalSalesForTheDay.cs" />

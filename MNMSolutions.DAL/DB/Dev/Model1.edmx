@@ -206,6 +206,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
           <Property Name="TotalDueAmt" Type="money" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="TaxableAmt" Type="money" Nullable="false" />
           <Property Name="TaxFreeAmt" Type="money" Nullable="false" />
+          <Property Name="ComputeTax" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Shippers">
           <Key>
@@ -530,6 +531,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           <Parameter Name="Freight" Type="money" Mode="In" />
           <Parameter Name="Comment" Type="nvarchar" Mode="In" />
           <Parameter Name="Fulfilled" Type="bit" Mode="In" />
+          <Parameter Name="ComputeTax" Type="bit" Mode="In" />
         </Function>
         <Function Name="vsp_Customer_Create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CompanyName" Type="nvarchar" Mode="In" />
@@ -913,6 +915,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           <Property Name="TotalDueAmt" Type="Decimal" Precision="19" Scale="4" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="TaxableAmt" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="TaxFreeAmt" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ComputeTax" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Shipper">
           <Key>
@@ -1281,6 +1284,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
             <Parameter Name="Freight" Mode="In" Type="Decimal" />
             <Parameter Name="Comment" Mode="In" Type="String" />
             <Parameter Name="Fulfilled" Mode="In" Type="Boolean" />
+            <Parameter Name="ComputeTax" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="vsp_Customer_Create">
             <Parameter Name="CompanyName" Mode="In" Type="String" />
@@ -1408,6 +1412,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           <Property Type="Decimal" Name="TotalDueAmt" Nullable="false" Precision="19" />
           <Property Type="Decimal" Name="TaxableAmt" Nullable="false" Precision="19" />
           <Property Type="Decimal" Name="TaxFreeAmt" Nullable="false" Precision="19" />
+          <Property Type="Boolean" Name="ComputeTax" Nullable="false" />
         </ComplexType>
         <ComplexType Name="vsp_Product_CreateThenReturn_Result">
           <Property Type="Int32" Name="ProductId" Nullable="false" />
@@ -1621,6 +1626,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
                 <ScalarProperty Name="TotalDueAmt" ColumnName="TotalDueAmt" />
                 <ScalarProperty Name="TaxableAmt" ColumnName="TaxableAmt" />
                 <ScalarProperty Name="TaxFreeAmt" ColumnName="TaxFreeAmt" />
+                <ScalarProperty Name="ComputeTax" ColumnName="ComputeTax" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1916,6 +1922,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
                 <ScalarProperty Name="TotalDueAmt" ColumnName="TotalDueAmt" />
                 <ScalarProperty Name="TaxableAmt" ColumnName="TaxableAmt" />
                 <ScalarProperty Name="TaxFreeAmt" ColumnName="TaxFreeAmt" />
+                <ScalarProperty Name="ComputeTax" ColumnName="ComputeTax" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

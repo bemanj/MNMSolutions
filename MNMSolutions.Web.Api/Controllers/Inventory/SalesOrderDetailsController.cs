@@ -49,7 +49,7 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
         }
 
         // POST: api/SalesOrderDetails
-        [ResponseType(typeof(SalesOrderDetail))]
+        [ResponseType(typeof(SalesOrderDetailv2))]
         public async Task<IHttpActionResult> PostSalesOrderDetail(SalesOrderDetail salesOrderDetail)
         {
             if (!ModelState.IsValid)
