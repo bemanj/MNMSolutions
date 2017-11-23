@@ -25,5 +25,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public decimal TotalAmount { get; set; }
         public string Article { get; set; }
         public string ProductTitle { get; set; }
+        public Nullable<bool> isTaxFree { get; set; }
     }
 }

@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\Product\ProductList.cs" />
-    <Compile Include="BLL\Sales\Order\header\OrderHeader.cs" />
+    <Compile Include="BLL\Sales\OrderHeader.cs" />
     <Compile Include="DB\Dev\AspNetRole.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -198,6 +198,7 @@
   <ItemGroup>
     <Folder Include="BLL\Sales\Order\computation\" />
     <Folder Include="BLL\Sales\Order\detail\" />
+    <Folder Include="BLL\Sales\Order\header\" />
     <Folder Include="DB\Models\SalesOrder\" />
   </ItemGroup>
   <ItemGroup>

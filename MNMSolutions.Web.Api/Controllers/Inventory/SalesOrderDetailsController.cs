@@ -36,6 +36,8 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
             {
                 _db.usp_SOD_Update(soDetail.SalesDetailsId, soDetail.Discount, soDetail.TotalAmount);
 
+                _db.vsp_orderHeader_UpdateSubTotal_ViewBySOId(soDetail.SalesOrderID);
+
                 return StatusCode(HttpStatusCode.NoContent);
             }
             catch (Exception e)

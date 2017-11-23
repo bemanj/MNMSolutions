@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MNMSolutions.DAL.Models.Sales.Order;
+﻿using System.Linq;
 using MNMSolutions.DAL.DB.Dev;
 
-namespace MNMSolutions.DAL.BLL.Sales.Order.header
+namespace MNMSolutions.DAL.BLL.Sales
 {
-    public class OrderHeader
+    public class OrderHeaderFunctions
     {
         private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
 
@@ -18,6 +13,17 @@ namespace MNMSolutions.DAL.BLL.Sales.Order.header
             if (result != null)
             {
                 result.TotalDue = _soHeader.TotalDue;
+                _db.SaveChanges();
+            }
+
+        }
+
+        public void CompleteOrder(int id)
+        {
+            var result = _db.SalesOrderHeaders.SingleOrDefault(d => d.SalesOrderID == id);
+            if (result != null)
+            {
+                result.Fulfilled = true;
                 _db.SaveChanges();
             }
 
