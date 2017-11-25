@@ -34,21 +34,22 @@ namespace MNMSolutions.Web.Api.Controllers.Product
         [ResponseType(typeof(void))]
         public IHttpActionResult PutProductOne(int id, ProductOne productOne)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
-            if (id != productOne.ProductId)
-            {
-                return BadRequest();
-            }
+            //if (id != productOne.ProductId)
+            //{
+            //    return BadRequest();
+            //}
 
-            db.Entry(productOne).State = EntityState.Modified;
+            //db.Entry(productOne).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                plist.UpdateProduct(id, productOne);
+                //db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {

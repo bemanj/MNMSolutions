@@ -10,9 +10,8 @@
 namespace MNMSolutions.DAL.DB.Dev
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class View_SalesOrderHeaders
+    public partial class vsp_SOH_NotFulfilled_OrderBy_SOID_Desc_Result
     {
         public string CompanyName { get; set; }
         public int SalesOrderID { get; set; }

@@ -207,7 +207,8 @@
     <Compile Include="Controllers\Result.cs" />
     <Compile Include="Controllers\SalesOrder\SalesOrderFunctionsController.cs" />
     <Compile Include="Controllers\SalesOrder\SalesOrderHeadersController.cs" />
-    <Compile Include="Controllers\SalesReportController.cs" />
+    <Compile Include="Controllers\SalesOrder\SettledSalesOrderController.cs" />
+    <Compile Include="Controllers\SalesOrder\NotSettledSalesOrderController.cs" />
     <Compile Include="Controllers\Suppliers\SuppliersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\View_SalesOrderDetailsController.cs" />

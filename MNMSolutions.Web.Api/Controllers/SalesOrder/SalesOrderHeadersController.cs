@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MNMSolutions.DAL.DB.Dev;
+using MNMSolutions.DAL.BLL.Sales;
 using MNMSolutions.DAL.Models.Sales.Order;
 
 namespace MNMSolutions.Web.Api.Controllers.SalesOrder
@@ -16,11 +17,12 @@ namespace MNMSolutions.Web.Api.Controllers.SalesOrder
     public class SalesOrderHeadersController : ApiController
     {
         private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
+        private OrderHeaderFunctions _salesFunctions = new OrderHeaderFunctions();
 
         // GET: api/SalesOrderHeaders
-        public IQueryable<View_SalesOrderHeaders> GetSalesOrderHeaders()
+        public IEnumerable<vsp_SOH_NotFulfilled_OrderBy_SOID_Desc_Result> GetSalesOrderHeaders()
         {
-            return _db.View_SalesOrderHeaders;
+            return _db.vsp_SOH_NotFulfilled_OrderBy_SOID_Desc();
         }
 
         // GET: api/SalesOrderHeaders/5
@@ -39,13 +41,14 @@ namespace MNMSolutions.Web.Api.Controllers.SalesOrder
 
         // POST: api/ProductOnes
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutSalesOrderHeader(int id, OrderHeader orderHeader)
+        public IHttpActionResult PutSalesOrderHeader(int id, SalesOrderHeader _s)
         {
             try
             {
-                _db.usp_SOH_Update(orderHeader.SalesOrderId, orderHeader.Customer, orderHeader.OnlineOrderFlag, 0, 0, 0, orderHeader.Comment, orderHeader.Fulfilled, orderHeader.ComputeTax);
+                //_db.usp_SOH_Update(orderHeader.SalesOrderId, orderHeader.Customer, orderHeader.OnlineOrderFlag, 0, 0, 0, orderHeader.Comment, orderHeader.Fulfilled, orderHeader.ComputeTax);
+                _salesFunctions.UpdateSalesOrder(id, _s);
 
-                _db.vsp_orderHeader_UpdateSubTotal_ViewBySOId(orderHeader.SalesOrderId);
+                _db.vsp_orderHeader_UpdateSubTotal_ViewBySOId(_s.SalesOrderID);
 
                 return StatusCode(HttpStatusCode.NoContent);
             }

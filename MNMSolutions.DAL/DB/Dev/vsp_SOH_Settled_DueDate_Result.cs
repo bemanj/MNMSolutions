@@ -10,11 +10,9 @@
 namespace MNMSolutions.DAL.DB.Dev
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class View_SalesOrderHeaders
+    public partial class vsp_SOH_Settled_DueDate_Result
     {
-        public string CompanyName { get; set; }
         public int SalesOrderID { get; set; }
         public Nullable<int> Customer { get; set; }
         public Nullable<System.DateTime> OrderDate { get; set; }
@@ -32,6 +30,7 @@ namespace MNMSolutions.DAL.DB.Dev
         public decimal TaxFreeAmt { get; set; }
         public bool ComputeTax { get; set; }
         public bool isSettled { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> Terms { get; set; }
+        public Nullable<System.DateTime> DueDate { get; set; }
     }
 }

@@ -34,5 +34,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public Nullable<int> deficient_qty { get; set; }
         public string ProductTitle { get; set; }
         public string CategoryName { get; set; }
+        public string CompanyName { get; set; }
     }
 }

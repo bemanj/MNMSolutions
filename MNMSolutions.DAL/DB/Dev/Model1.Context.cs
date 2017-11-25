@@ -581,5 +581,20 @@ namespace MNMSolutions.DAL.DB.Dev
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("vsp_SOH_InsertThenReturnNewSO", subTotalParameter, taxAmtParameter, freightParameter);
         }
+    
+        public virtual ObjectResult<vsp_SOH_NotFulfilled_OrderBy_SOID_Desc_Result> vsp_SOH_NotFulfilled_OrderBy_SOID_Desc()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vsp_SOH_NotFulfilled_OrderBy_SOID_Desc_Result>("vsp_SOH_NotFulfilled_OrderBy_SOID_Desc");
+        }
+    
+        public virtual ObjectResult<vsp_SOH_NotSettled_DueDate_Result> vsp_SOH_NotSettled_DueDate()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vsp_SOH_NotSettled_DueDate_Result>("vsp_SOH_NotSettled_DueDate");
+        }
+    
+        public virtual ObjectResult<vsp_SOH_Settled_DueDate_Result> vsp_SOH_Settled_DueDate()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vsp_SOH_Settled_DueDate_Result>("vsp_SOH_Settled_DueDate");
+        }
     }
 }

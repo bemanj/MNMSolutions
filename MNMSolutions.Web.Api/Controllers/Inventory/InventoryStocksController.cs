@@ -9,34 +9,26 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MNMSolutions.DAL.DB.Dev;
-using MNMSolutions.DAL.Repository;
+using MNMSolutions.DAL.BLL.Inventory;
 
 namespace MNMSolutions.Web.Api.Controllers.Inventory
 {
     public class InventoryStocksController : ApiController
     {
-        //private MNMSolutionsDevDBEntities db = new MNMSolutionsDevDBEntities();
-
-        #region Global Declaration
-        private readonly IRepository<InventoryStock> _inventoryStockRepository = null;
-
-        public InventoryStocksController()
-        {
-            this._inventoryStockRepository= new Repository<InventoryStock>();
-        }
-        #endregion
+        private InventoryFunction inventoryFunction = new InventoryFunction();
+        private MNMSolutionsDevDBEntities db = new MNMSolutionsDevDBEntities();
 
         // GET: api/InventoryStocks
-        public IEnumerable<InventoryStock> GetInventoryStocks()
+        public IQueryable<InventoryStock> GetInventoryStocks()
         {
-            return _inventoryStockRepository.GetAll();
+            return db.InventoryStocks;
         }
 
         // GET: api/InventoryStocks/5
         [ResponseType(typeof(InventoryStock))]
         public IHttpActionResult GetInventoryStock(int id)
         {
-            InventoryStock inventoryStock = _inventoryStockRepository.GetById(id);
+            InventoryStock inventoryStock = db.InventoryStocks.Find(id);
             if (inventoryStock == null)
             {
                 return NotFound();
@@ -49,17 +41,34 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
         [ResponseType(typeof(void))]
         public IHttpActionResult PutInventoryStock(int id, InventoryStock inventoryStock)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
-            if (id != inventoryStock.StockId)
-            {
-                return BadRequest();
-            }
+            //if (id != inventoryStock.StockId)
+            //{
+            //    return BadRequest();
+            //}
 
-            _inventoryStockRepository.Update(inventoryStock);
+            //db.Entry(inventoryStock).State = EntityState.Modified;
+
+            try
+            {
+                inventoryFunction.UpdateInventory(id, inventoryStock);
+                //db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!InventoryStockExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -73,7 +82,8 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
                 return BadRequest(ModelState);
             }
 
-            _inventoryStockRepository.Insert(inventoryStock);
+            db.InventoryStocks.Add(inventoryStock);
+            db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = inventoryStock.StockId }, inventoryStock);
         }
@@ -82,16 +92,30 @@ namespace MNMSolutions.Web.Api.Controllers.Inventory
         [ResponseType(typeof(InventoryStock))]
         public IHttpActionResult DeleteInventoryStock(int id)
         {
-            var inventoryStock = _inventoryStockRepository.GetById(id);
+            InventoryStock inventoryStock = db.InventoryStocks.Find(id);
             if (inventoryStock == null)
             {
                 return NotFound();
             }
 
-            _inventoryStockRepository.Delete(inventoryStock);
+            db.InventoryStocks.Remove(inventoryStock);
+            db.SaveChanges();
 
             return Ok(inventoryStock);
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool InventoryStockExists(int id)
+        {
+            return db.InventoryStocks.Count(e => e.StockId == id) > 0;
+        }
     }
 }
