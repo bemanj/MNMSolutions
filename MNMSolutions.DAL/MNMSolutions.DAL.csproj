@@ -171,6 +171,9 @@
     <Compile Include="DB\Dev\vsp_orderHeader_UpdateSubTotal_ViewBySOId_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\Dev\vsp_order_Result_SalesOrderFulfilled_DateRange_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Dev\vsp_Product_CreateThenReturn_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -181,6 +184,15 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Dev\vsp_SOH_NotSettled_DueDate_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\vsp_SOH_NotSettled_DueToday_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\vsp_SOH_NotSettled_IncomingDue_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Dev\vsp_SOH_NotSettled_OverDue_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Dev\vsp_SOH_Settled_DueDate_Result.cs">

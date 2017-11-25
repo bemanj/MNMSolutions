@@ -10,9 +10,8 @@
 namespace MNMSolutions.DAL.DB.Dev
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class SalesOrderHeader
+    public partial class vsp_order_Result_SalesOrderFulfilled_DateRange_Result
     {
         public int SalesOrderID { get; set; }
         public Nullable<int> Customer { get; set; }

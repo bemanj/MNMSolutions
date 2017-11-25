@@ -204,6 +204,7 @@
     <Compile Include="Controllers\Inventory\View_InventoryController.cs" />
     <Compile Include="Controllers\Product\ProductListController.cs" />
     <Compile Include="Controllers\Product\View_ProductController.cs" />
+    <Compile Include="Controllers\Report\FulfilledReportSalesOrderController.cs" />
     <Compile Include="Controllers\Result.cs" />
     <Compile Include="Controllers\SalesOrder\SalesOrderFunctionsController.cs" />
     <Compile Include="Controllers\SalesOrder\SalesOrderHeadersController.cs" />
@@ -290,7 +291,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\Report\" />
     <Folder Include="Controllers\UserManagement\" />
     <Folder Include="Models\" />
   </ItemGroup>

@@ -10,9 +10,8 @@
 namespace MNMSolutions.DAL.DB.Dev
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class SalesOrderHeader
+    public partial class vsp_SOH_NotSettled_DueToday_Result
     {
         public int SalesOrderID { get; set; }
         public Nullable<int> Customer { get; set; }
@@ -34,5 +33,8 @@ namespace MNMSolutions.DAL.DB.Dev
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> EmployeeSales { get; set; }
         public Nullable<System.DateTime> SettledDate { get; set; }
+        public Nullable<int> Terms { get; set; }
+        public Nullable<System.DateTime> DueDate { get; set; }
+        public Nullable<int> DiffDueDate { get; set; }
     }
 }

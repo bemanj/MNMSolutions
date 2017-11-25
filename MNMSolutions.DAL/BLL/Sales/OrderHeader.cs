@@ -31,6 +31,36 @@ namespace MNMSolutions.DAL.BLL.Sales
 
         }
 
+        public SalesOrderHeader CreateSalesOrder(SalesOrderHeader _s)
+        {
+            SalesOrderHeader so = new SalesOrderHeader
+            {
+                Comment = _s.Comment,
+                ComputeTax = true,
+                CreatedDate = DateTime.Now,
+                Customer = null,
+                Freight = 0,
+                Fulfilled = false,
+                ModifiedDate = null,
+                OnlineOrderFlag = null,
+                OrderDate = null,
+                //SalesOrderID = 0,
+                SalesOrderNumber = null,
+                SubTotal = 0,
+                TaxAmt = 0,
+                TaxFreeAmt = 0,
+                TaxableAmt = 0,
+                TotalDue = 0,
+                TotalDueAmt = 0,
+                isSettled = false,
+            };
+
+            _db.SalesOrderHeaders.Add(so);
+            _db.SaveChanges();
+
+            return so;
+        }
+
         public  void UpdateTotalDue(int id, SalesOrderHeader _soHeader)
         {
             var result = _db.SalesOrderHeaders.SingleOrDefault(d => d.SalesOrderID == id);

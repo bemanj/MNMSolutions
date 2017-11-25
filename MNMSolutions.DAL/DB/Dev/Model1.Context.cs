@@ -478,6 +478,19 @@ namespace MNMSolutions.DAL.DB.Dev
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("vsp_Customer_UpdateById", companyNameParameter, contactNameParameter, contactTitleParameter, addressParameter, cityParameter, regionParameter, postalCodeParameter, countryParameter, phoneParameter, faxParameter, termsParameter, iDParameter);
         }
     
+        public virtual ObjectResult<vsp_order_Result_SalesOrderFulfilled_DateRange_Result> vsp_order_Result_SalesOrderFulfilled_DateRange(Nullable<int> soID, string dateRange)
+        {
+            var soIDParameter = soID.HasValue ?
+                new ObjectParameter("soID", soID) :
+                new ObjectParameter("soID", typeof(int));
+    
+            var dateRangeParameter = dateRange != null ?
+                new ObjectParameter("dateRange", dateRange) :
+                new ObjectParameter("dateRange", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vsp_order_Result_SalesOrderFulfilled_DateRange_Result>("vsp_order_Result_SalesOrderFulfilled_DateRange", soIDParameter, dateRangeParameter);
+        }
+    
         public virtual ObjectResult<Nullable<decimal>> vsp_order_ReturnTotalAmountByDateSelected(Nullable<int> soID, string dateRange)
         {
             var soIDParameter = soID.HasValue ?
@@ -489,6 +502,19 @@ namespace MNMSolutions.DAL.DB.Dev
                 new ObjectParameter("dateRange", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("vsp_order_ReturnTotalAmountByDateSelected", soIDParameter, dateRangeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> vsp_order_SUM_SalesOrderFulfilled_DateRange(Nullable<int> soID, string dateRange)
+        {
+            var soIDParameter = soID.HasValue ?
+                new ObjectParameter("soID", soID) :
+                new ObjectParameter("soID", typeof(int));
+    
+            var dateRangeParameter = dateRange != null ?
+                new ObjectParameter("dateRange", dateRange) :
+                new ObjectParameter("dateRange", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("vsp_order_SUM_SalesOrderFulfilled_DateRange", soIDParameter, dateRangeParameter);
         }
     
         public virtual ObjectResult<vsp_orderdetail_ViewBySalesOrderId_Result> vsp_orderdetail_ViewBySalesOrderId(Nullable<int> salesOrderID)
@@ -590,6 +616,21 @@ namespace MNMSolutions.DAL.DB.Dev
         public virtual ObjectResult<vsp_SOH_NotSettled_DueDate_Result> vsp_SOH_NotSettled_DueDate()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vsp_SOH_NotSettled_DueDate_Result>("vsp_SOH_NotSettled_DueDate");
+        }
+    
+        public virtual ObjectResult<vsp_SOH_NotSettled_DueToday_Result> vsp_SOH_NotSettled_DueToday()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vsp_SOH_NotSettled_DueToday_Result>("vsp_SOH_NotSettled_DueToday");
+        }
+    
+        public virtual ObjectResult<vsp_SOH_NotSettled_IncomingDue_Result> vsp_SOH_NotSettled_IncomingDue()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vsp_SOH_NotSettled_IncomingDue_Result>("vsp_SOH_NotSettled_IncomingDue");
+        }
+    
+        public virtual ObjectResult<vsp_SOH_NotSettled_OverDue_Result> vsp_SOH_NotSettled_OverDue()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vsp_SOH_NotSettled_OverDue_Result>("vsp_SOH_NotSettled_OverDue");
         }
     
         public virtual ObjectResult<vsp_SOH_Settled_DueDate_Result> vsp_SOH_Settled_DueDate()

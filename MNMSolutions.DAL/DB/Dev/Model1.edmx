@@ -209,6 +209,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.PurchaseOrderHeader' does no
           <Property Name="ComputeTax" Type="bit" Nullable="false" />
           <Property Name="isSettled" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="EmployeeSales" Type="int" />
+          <Property Name="SettledDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Shippers">
           <Key>
@@ -573,7 +575,15 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           <Parameter Name="Terms" Type="int" Mode="In" />
           <Parameter Name="ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="vsp_order_Result_SalesOrderFulfilled_DateRange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="soID" Type="int" Mode="In" />
+          <Parameter Name="dateRange" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="vsp_order_ReturnTotalAmountByDateSelected" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="soID" Type="int" Mode="In" />
+          <Parameter Name="dateRange" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="vsp_order_SUM_SalesOrderFulfilled_DateRange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="soID" Type="int" Mode="In" />
           <Parameter Name="dateRange" Type="nvarchar" Mode="In" />
         </Function>
@@ -606,6 +616,9 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
         </Function>
         <Function Name="vsp_SOH_NotFulfilled_OrderBy_SOID_Desc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="vsp_SOH_NotSettled_DueDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="vsp_SOH_NotSettled_DueToday" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="vsp_SOH_NotSettled_IncomingDue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="vsp_SOH_NotSettled_OverDue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="vsp_SOH_Settled_DueDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="MNMSolutionsDevDBModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -940,6 +953,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           <Property Name="ComputeTax" Type="Boolean" Nullable="false" />
           <Property Name="isSettled" Type="Boolean" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="EmployeeSales" Type="Int32" />
+          <Property Name="SettledDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Shipper">
           <Key>
@@ -1348,7 +1363,15 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
             <Parameter Name="Terms" Mode="In" Type="Int32" />
             <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="vsp_order_Result_SalesOrderFulfilled_DateRange" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_order_Result_SalesOrderFulfilled_DateRange_Result)">
+            <Parameter Name="soID" Mode="In" Type="Int32" />
+            <Parameter Name="dateRange" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="vsp_order_ReturnTotalAmountByDateSelected" ReturnType="Collection(Decimal)">
+            <Parameter Name="soID" Mode="In" Type="Int32" />
+            <Parameter Name="dateRange" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="vsp_order_SUM_SalesOrderFulfilled_DateRange" ReturnType="Collection(Decimal)">
             <Parameter Name="soID" Mode="In" Type="Int32" />
             <Parameter Name="dateRange" Mode="In" Type="String" />
           </FunctionImport>
@@ -1381,6 +1404,9 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           </FunctionImport>
           <FunctionImport Name="vsp_SOH_NotFulfilled_OrderBy_SOID_Desc" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_SOH_NotFulfilled_OrderBy_SOID_Desc_Result)" />
           <FunctionImport Name="vsp_SOH_NotSettled_DueDate" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_SOH_NotSettled_DueDate_Result)" />
+          <FunctionImport Name="vsp_SOH_NotSettled_DueToday" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_SOH_NotSettled_DueToday_Result)" />
+          <FunctionImport Name="vsp_SOH_NotSettled_IncomingDue" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_SOH_NotSettled_IncomingDue_Result)" />
+          <FunctionImport Name="vsp_SOH_NotSettled_OverDue" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_SOH_NotSettled_OverDue_Result)" />
           <FunctionImport Name="vsp_SOH_Settled_DueDate" ReturnType="Collection(MNMSolutionsDevDBModel.vsp_SOH_Settled_DueDate_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -1420,6 +1446,28 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="Fulfilled" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="vsp_order_Result_SalesOrderFulfilled_DateRange_Result">
+          <Property Type="Int32" Name="SalesOrderID" Nullable="false" />
+          <Property Type="Int32" Name="Customer" Nullable="true" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="OnlineOrderFlag" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="SalesOrderNumber" Nullable="false" MaxLength="25" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TaxAmt" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Freight" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TotalDue" Nullable="false" Precision="19" />
+          <Property Type="String" Name="Comment" Nullable="true" MaxLength="250" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Fulfilled" Nullable="true" />
+          <Property Type="Decimal" Name="TotalDueAmt" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TaxableAmt" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TaxFreeAmt" Nullable="false" Precision="19" />
+          <Property Type="Boolean" Name="ComputeTax" Nullable="false" />
+          <Property Type="Boolean" Name="isSettled" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="EmployeeSales" Nullable="true" />
+          <Property Type="DateTime" Name="SettledDate" Nullable="true" Precision="23" />
+        </ComplexType>
         <ComplexType Name="vsp_orderdetail_ViewBySalesOrderId_Result">
           <Property Type="Int32" Name="SODetailsID" Nullable="false" />
           <Property Type="Int32" Name="SalesOrderID" Nullable="false" />
@@ -1453,6 +1501,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           <Property Type="Boolean" Name="ComputeTax" Nullable="false" />
           <Property Type="Boolean" Name="isSettled" Nullable="false" />
           <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="EmployeeSales" Nullable="true" />
+          <Property Type="DateTime" Name="SettledDate" Nullable="true" Precision="23" />
         </ComplexType>
         <ComplexType Name="vsp_Product_CreateThenReturn_Result">
           <Property Type="Int32" Name="ProductId" Nullable="false" />
@@ -1494,6 +1544,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           <Property Type="Boolean" Name="ComputeTax" Nullable="false" />
           <Property Type="Boolean" Name="isSettled" Nullable="false" />
           <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="EmployeeSales" Nullable="true" />
+          <Property Type="DateTime" Name="SettledDate" Nullable="true" Precision="23" />
         </ComplexType>
         <ComplexType Name="vsp_SOH_NotSettled_DueDate_Result">
           <Property Type="Int32" Name="SalesOrderID" Nullable="false" />
@@ -1513,8 +1565,87 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           <Property Type="Decimal" Name="TaxFreeAmt" Nullable="false" Precision="19" />
           <Property Type="Boolean" Name="ComputeTax" Nullable="false" />
           <Property Type="Boolean" Name="isSettled" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="EmployeeSales" Nullable="true" />
+          <Property Type="DateTime" Name="SettledDate" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="Terms" Nullable="true" />
           <Property Type="DateTime" Name="DueDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="DiffDueDate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vsp_SOH_NotSettled_DueToday_Result">
+          <Property Type="Int32" Name="SalesOrderID" Nullable="false" />
+          <Property Type="Int32" Name="Customer" Nullable="true" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="OnlineOrderFlag" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="SalesOrderNumber" Nullable="false" MaxLength="25" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TaxAmt" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Freight" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TotalDue" Nullable="false" Precision="19" />
+          <Property Type="String" Name="Comment" Nullable="true" MaxLength="250" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Fulfilled" Nullable="true" />
+          <Property Type="Decimal" Name="TotalDueAmt" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TaxableAmt" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TaxFreeAmt" Nullable="false" Precision="19" />
+          <Property Type="Boolean" Name="ComputeTax" Nullable="false" />
+          <Property Type="Boolean" Name="isSettled" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="EmployeeSales" Nullable="true" />
+          <Property Type="DateTime" Name="SettledDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Terms" Nullable="true" />
+          <Property Type="DateTime" Name="DueDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="DiffDueDate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vsp_SOH_NotSettled_IncomingDue_Result">
+          <Property Type="Int32" Name="SalesOrderID" Nullable="false" />
+          <Property Type="Int32" Name="Customer" Nullable="true" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="OnlineOrderFlag" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="SalesOrderNumber" Nullable="false" MaxLength="25" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TaxAmt" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Freight" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TotalDue" Nullable="false" Precision="19" />
+          <Property Type="String" Name="Comment" Nullable="true" MaxLength="250" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Fulfilled" Nullable="true" />
+          <Property Type="Decimal" Name="TotalDueAmt" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TaxableAmt" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TaxFreeAmt" Nullable="false" Precision="19" />
+          <Property Type="Boolean" Name="ComputeTax" Nullable="false" />
+          <Property Type="Boolean" Name="isSettled" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="EmployeeSales" Nullable="true" />
+          <Property Type="DateTime" Name="SettledDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Terms" Nullable="true" />
+          <Property Type="DateTime" Name="DueDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="DiffDueDate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vsp_SOH_NotSettled_OverDue_Result">
+          <Property Type="Int32" Name="SalesOrderID" Nullable="false" />
+          <Property Type="Int32" Name="Customer" Nullable="true" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="OnlineOrderFlag" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="SalesOrderNumber" Nullable="false" MaxLength="25" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TaxAmt" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Freight" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TotalDue" Nullable="false" Precision="19" />
+          <Property Type="String" Name="Comment" Nullable="true" MaxLength="250" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Fulfilled" Nullable="true" />
+          <Property Type="Decimal" Name="TotalDueAmt" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TaxableAmt" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TaxFreeAmt" Nullable="false" Precision="19" />
+          <Property Type="Boolean" Name="ComputeTax" Nullable="false" />
+          <Property Type="Boolean" Name="isSettled" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="EmployeeSales" Nullable="true" />
+          <Property Type="DateTime" Name="SettledDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Terms" Nullable="true" />
+          <Property Type="DateTime" Name="DueDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="DiffDueDate" Nullable="true" />
         </ComplexType>
         <ComplexType Name="vsp_SOH_Settled_DueDate_Result">
           <Property Type="Int32" Name="SalesOrderID" Nullable="false" />
@@ -1534,6 +1665,9 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           <Property Type="Decimal" Name="TaxFreeAmt" Nullable="false" Precision="19" />
           <Property Type="Boolean" Name="ComputeTax" Nullable="false" />
           <Property Type="Boolean" Name="isSettled" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="EmployeeSales" Nullable="true" />
+          <Property Type="DateTime" Name="SettledDate" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="Terms" Nullable="true" />
           <Property Type="DateTime" Name="DueDate" Nullable="true" Precision="23" />
         </ComplexType>
@@ -1732,6 +1866,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
                 <ScalarProperty Name="ComputeTax" ColumnName="ComputeTax" />
                 <ScalarProperty Name="isSettled" ColumnName="isSettled" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EmployeeSales" ColumnName="EmployeeSales" />
+                <ScalarProperty Name="SettledDate" ColumnName="SettledDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1996,7 +2132,34 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           <FunctionImportMapping FunctionImportName="usp_SOH_Update" FunctionName="MNMSolutionsDevDBModel.Store.usp_SOH_Update" />
           <FunctionImportMapping FunctionImportName="vsp_Customer_Create" FunctionName="MNMSolutionsDevDBModel.Store.vsp_Customer_Create" />
           <FunctionImportMapping FunctionImportName="vsp_Customer_UpdateById" FunctionName="MNMSolutionsDevDBModel.Store.vsp_Customer_UpdateById" />
+          <FunctionImportMapping FunctionImportName="vsp_order_Result_SalesOrderFulfilled_DateRange" FunctionName="MNMSolutionsDevDBModel.Store.vsp_order_Result_SalesOrderFulfilled_DateRange">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNMSolutionsDevDBModel.vsp_order_Result_SalesOrderFulfilled_DateRange_Result">
+                <ScalarProperty Name="SalesOrderID" ColumnName="SalesOrderID" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OnlineOrderFlag" ColumnName="OnlineOrderFlag" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="TaxAmt" ColumnName="TaxAmt" />
+                <ScalarProperty Name="Freight" ColumnName="Freight" />
+                <ScalarProperty Name="TotalDue" ColumnName="TotalDue" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Fulfilled" ColumnName="Fulfilled" />
+                <ScalarProperty Name="TotalDueAmt" ColumnName="TotalDueAmt" />
+                <ScalarProperty Name="TaxableAmt" ColumnName="TaxableAmt" />
+                <ScalarProperty Name="TaxFreeAmt" ColumnName="TaxFreeAmt" />
+                <ScalarProperty Name="ComputeTax" ColumnName="ComputeTax" />
+                <ScalarProperty Name="isSettled" ColumnName="isSettled" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EmployeeSales" ColumnName="EmployeeSales" />
+                <ScalarProperty Name="SettledDate" ColumnName="SettledDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="vsp_order_ReturnTotalAmountByDateSelected" FunctionName="MNMSolutionsDevDBModel.Store.vsp_order_ReturnTotalAmountByDateSelected" />
+          <FunctionImportMapping FunctionImportName="vsp_order_SUM_SalesOrderFulfilled_DateRange" FunctionName="MNMSolutionsDevDBModel.Store.vsp_order_SUM_SalesOrderFulfilled_DateRange" />
           <FunctionImportMapping FunctionImportName="vsp_orderdetail_ViewBySalesOrderId" FunctionName="MNMSolutionsDevDBModel.Store.vsp_orderdetail_ViewBySalesOrderId">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MNMSolutionsDevDBModel.vsp_orderdetail_ViewBySalesOrderId_Result">
@@ -2036,6 +2199,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
                 <ScalarProperty Name="ComputeTax" ColumnName="ComputeTax" />
                 <ScalarProperty Name="isSettled" ColumnName="isSettled" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EmployeeSales" ColumnName="EmployeeSales" />
+                <ScalarProperty Name="SettledDate" ColumnName="SettledDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2092,6 +2257,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
                 <ScalarProperty Name="ComputeTax" ColumnName="ComputeTax" />
                 <ScalarProperty Name="isSettled" ColumnName="isSettled" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EmployeeSales" ColumnName="EmployeeSales" />
+                <ScalarProperty Name="SettledDate" ColumnName="SettledDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2115,8 +2282,99 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
                 <ScalarProperty Name="TaxFreeAmt" ColumnName="TaxFreeAmt" />
                 <ScalarProperty Name="ComputeTax" ColumnName="ComputeTax" />
                 <ScalarProperty Name="isSettled" ColumnName="isSettled" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EmployeeSales" ColumnName="EmployeeSales" />
+                <ScalarProperty Name="SettledDate" ColumnName="SettledDate" />
                 <ScalarProperty Name="Terms" ColumnName="Terms" />
                 <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="DiffDueDate" ColumnName="DiffDueDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="vsp_SOH_NotSettled_DueToday" FunctionName="MNMSolutionsDevDBModel.Store.vsp_SOH_NotSettled_DueToday">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNMSolutionsDevDBModel.vsp_SOH_NotSettled_DueToday_Result">
+                <ScalarProperty Name="SalesOrderID" ColumnName="SalesOrderID" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OnlineOrderFlag" ColumnName="OnlineOrderFlag" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="TaxAmt" ColumnName="TaxAmt" />
+                <ScalarProperty Name="Freight" ColumnName="Freight" />
+                <ScalarProperty Name="TotalDue" ColumnName="TotalDue" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Fulfilled" ColumnName="Fulfilled" />
+                <ScalarProperty Name="TotalDueAmt" ColumnName="TotalDueAmt" />
+                <ScalarProperty Name="TaxableAmt" ColumnName="TaxableAmt" />
+                <ScalarProperty Name="TaxFreeAmt" ColumnName="TaxFreeAmt" />
+                <ScalarProperty Name="ComputeTax" ColumnName="ComputeTax" />
+                <ScalarProperty Name="isSettled" ColumnName="isSettled" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EmployeeSales" ColumnName="EmployeeSales" />
+                <ScalarProperty Name="SettledDate" ColumnName="SettledDate" />
+                <ScalarProperty Name="Terms" ColumnName="Terms" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="DiffDueDate" ColumnName="DiffDueDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="vsp_SOH_NotSettled_IncomingDue" FunctionName="MNMSolutionsDevDBModel.Store.vsp_SOH_NotSettled_IncomingDue">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNMSolutionsDevDBModel.vsp_SOH_NotSettled_IncomingDue_Result">
+                <ScalarProperty Name="SalesOrderID" ColumnName="SalesOrderID" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OnlineOrderFlag" ColumnName="OnlineOrderFlag" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="TaxAmt" ColumnName="TaxAmt" />
+                <ScalarProperty Name="Freight" ColumnName="Freight" />
+                <ScalarProperty Name="TotalDue" ColumnName="TotalDue" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Fulfilled" ColumnName="Fulfilled" />
+                <ScalarProperty Name="TotalDueAmt" ColumnName="TotalDueAmt" />
+                <ScalarProperty Name="TaxableAmt" ColumnName="TaxableAmt" />
+                <ScalarProperty Name="TaxFreeAmt" ColumnName="TaxFreeAmt" />
+                <ScalarProperty Name="ComputeTax" ColumnName="ComputeTax" />
+                <ScalarProperty Name="isSettled" ColumnName="isSettled" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EmployeeSales" ColumnName="EmployeeSales" />
+                <ScalarProperty Name="SettledDate" ColumnName="SettledDate" />
+                <ScalarProperty Name="Terms" ColumnName="Terms" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="DiffDueDate" ColumnName="DiffDueDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="vsp_SOH_NotSettled_OverDue" FunctionName="MNMSolutionsDevDBModel.Store.vsp_SOH_NotSettled_OverDue">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNMSolutionsDevDBModel.vsp_SOH_NotSettled_OverDue_Result">
+                <ScalarProperty Name="SalesOrderID" ColumnName="SalesOrderID" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OnlineOrderFlag" ColumnName="OnlineOrderFlag" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="TaxAmt" ColumnName="TaxAmt" />
+                <ScalarProperty Name="Freight" ColumnName="Freight" />
+                <ScalarProperty Name="TotalDue" ColumnName="TotalDue" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Fulfilled" ColumnName="Fulfilled" />
+                <ScalarProperty Name="TotalDueAmt" ColumnName="TotalDueAmt" />
+                <ScalarProperty Name="TaxableAmt" ColumnName="TaxableAmt" />
+                <ScalarProperty Name="TaxFreeAmt" ColumnName="TaxFreeAmt" />
+                <ScalarProperty Name="ComputeTax" ColumnName="ComputeTax" />
+                <ScalarProperty Name="isSettled" ColumnName="isSettled" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EmployeeSales" ColumnName="EmployeeSales" />
+                <ScalarProperty Name="SettledDate" ColumnName="SettledDate" />
+                <ScalarProperty Name="Terms" ColumnName="Terms" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="DiffDueDate" ColumnName="DiffDueDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2140,6 +2398,9 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
                 <ScalarProperty Name="TaxFreeAmt" ColumnName="TaxFreeAmt" />
                 <ScalarProperty Name="ComputeTax" ColumnName="ComputeTax" />
                 <ScalarProperty Name="isSettled" ColumnName="isSettled" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EmployeeSales" ColumnName="EmployeeSales" />
+                <ScalarProperty Name="SettledDate" ColumnName="SettledDate" />
                 <ScalarProperty Name="Terms" ColumnName="Terms" />
                 <ScalarProperty Name="DueDate" ColumnName="DueDate" />
               </ComplexTypeMapping>

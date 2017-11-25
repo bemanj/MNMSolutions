@@ -13,7 +13,7 @@ using MNMSolutions.DAL.BLL.Sales;
 
 namespace MNMSolutions.Web.Api.Controllers
 {
-    public class NotSettledOrderController : ApiController
+    public class FulfilledReportSalesOrderController : ApiController
     {
         private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
 
@@ -21,9 +21,18 @@ namespace MNMSolutions.Web.Api.Controllers
 
         // GET: api/Products/5
         //[ResponseType(typeof(vsp_SOH_NotSettled_DueDate_Result))]
-        public IEnumerable<vsp_SOH_NotSettled_DueDate_Result> GetNotSettledSalesOrder()
+        public IEnumerable<vsp_order_Result_SalesOrderFulfilled_DateRange_Result> GetListFulfilledByDateRange(int id, string daterange)
         {
-            return _salesReport.ReturnNotSettledSalesOrders();
+            return _salesReport.ReturnListFulfilledSalesOrdersDateRange(id, daterange);
+        }
+
+        // GET: api/Products/5
+        //[ResponseType(typeof(vsp_SOH_NotSettled_DueDate_Result))]
+        public ObjectResult<decimal?> GetSumFulfilledByDateRange(string daterange)
+        {
+            int id = 0;
+
+            return _salesReport.ReturnSumFulfilledSalesOrdersDateRange(id, daterange);
         }
 
         // GET: api/Products/5

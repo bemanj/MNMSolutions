@@ -30,7 +30,11 @@ namespace MNMSolutions.DAL.DB.Dev
         public decimal TaxFreeAmt { get; set; }
         public bool ComputeTax { get; set; }
         public bool isSettled { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> EmployeeSales { get; set; }
+        public Nullable<System.DateTime> SettledDate { get; set; }
         public Nullable<int> Terms { get; set; }
         public Nullable<System.DateTime> DueDate { get; set; }
+        public Nullable<int> DiffDueDate { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace MNMSolutions.Web.Api.Controllers.SalesOrder
     public class SalesOrderHeadersController : ApiController
     {
         private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
-        private OrderHeaderFunctions _salesFunctions = new OrderHeaderFunctions();
+        private OrderHeaderFunctions _orderHeaderF = new OrderHeaderFunctions();
 
         // GET: api/SalesOrderHeaders
         public IEnumerable<vsp_SOH_NotFulfilled_OrderBy_SOID_Desc_Result> GetSalesOrderHeaders()
@@ -46,7 +46,7 @@ namespace MNMSolutions.Web.Api.Controllers.SalesOrder
             try
             {
                 //_db.usp_SOH_Update(orderHeader.SalesOrderId, orderHeader.Customer, orderHeader.OnlineOrderFlag, 0, 0, 0, orderHeader.Comment, orderHeader.Fulfilled, orderHeader.ComputeTax);
-                _salesFunctions.UpdateSalesOrder(id, _s);
+                _orderHeaderF.UpdateSalesOrder(id, _s);
 
                 _db.vsp_orderHeader_UpdateSubTotal_ViewBySOId(_s.SalesOrderID);
 
@@ -104,10 +104,12 @@ namespace MNMSolutions.Web.Api.Controllers.SalesOrder
                 return BadRequest(ModelState);
             }
 
-            _db.SalesOrderHeaders.Add(salesOrderHeader);
-            _db.SaveChanges();
+            //_db.SalesOrderHeaders.Add(salesOrderHeader);
+            //_db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = salesOrderHeader.SalesOrderID }, salesOrderHeader);
+            var newso = _orderHeaderF.CreateSalesOrder(salesOrderHeader);
+
+            return CreatedAtRoute("DefaultApi", new { id = newso.SalesOrderID }, newso);
         }
 
         // DELETE: api/SalesOrderHeaders/5
