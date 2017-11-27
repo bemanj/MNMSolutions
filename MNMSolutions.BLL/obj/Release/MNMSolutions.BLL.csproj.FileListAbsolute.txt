@@ -1,0 +1,16 @@
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\bin\Release\MNMSolutions.BLL.dll.config
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\bin\Release\MNMSolutions.BLL.dll
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\bin\Release\MNMSolutions.BLL.pdb
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\bin\Release\EntityFramework.dll
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\bin\Release\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\bin\Release\MNMSolutions.DAL.dll
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\bin\Release\MNMSolutions.DAL.pdb
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\bin\Release\MNMSolutions.DAL.dll.config
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\bin\Release\EntityFramework.xml
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\bin\Release\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\obj\Release\MNMSolutions.BLL.csprojResolveAssemblyReference.cache
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\obj\Release\MNMSolutions.BLL.csproj.CoreCompileInputs.cache
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\obj\Release\MNMSolutions.BLL.dll
+C:\Users\rober\source\repos\MNMSolutions\MNMSolutions.BLL\obj\Release\MNMSolutions.BLL.pdb
