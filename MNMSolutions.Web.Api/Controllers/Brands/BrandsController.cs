@@ -19,6 +19,7 @@ namespace MNMSolutions.Web.Api.Controllers.Brands
         // GET: api/Brands
         public IQueryable<Brand> GetBrands()
         {
+            // retrieve brands
             return _db.Brands;
         }
 
