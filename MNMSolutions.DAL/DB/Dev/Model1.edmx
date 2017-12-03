@@ -322,9 +322,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_Inventory' does not hav
             <PropertyRef Name="Created" />
             <PropertyRef Name="PutAwayLocation" />
             <PropertyRef Name="committed_qty" />
-            <PropertyRef Name="ProductTitle" />
-            <PropertyRef Name="CategoryName" />
-            <PropertyRef Name="CompanyName" />
           </Key>
           <Property Name="StockId" Type="int" Nullable="false" />
           <Property Name="PONumber" Type="int" Nullable="false" />
@@ -344,9 +341,10 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_Inventory' does not hav
           <Property Name="committed_qty" Type="int" Nullable="false" />
           <Property Name="available_qty" Type="int" />
           <Property Name="deficient_qty" Type="int" />
-          <Property Name="ProductTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CategoryName" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="CompanyName" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="ProductTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="15" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="40" />
+          <Property Name="BrandTitle" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_Product' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -703,7 +701,8 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
     [View_Inventory].[deficient_qty] AS [deficient_qty], 
     [View_Inventory].[ProductTitle] AS [ProductTitle], 
     [View_Inventory].[CategoryName] AS [CategoryName], 
-    [View_Inventory].[CompanyName] AS [CompanyName]
+    [View_Inventory].[CompanyName] AS [CompanyName], 
+    [View_Inventory].[BrandTitle] AS [BrandTitle]
     FROM [dbo].[View_Inventory] AS [View_Inventory]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="View_Product" EntityType="Self.View_Product" store:Type="Views" store:Schema="dbo">
@@ -1082,9 +1081,6 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
             <PropertyRef Name="Created" />
             <PropertyRef Name="PutAwayLocation" />
             <PropertyRef Name="committed_qty" />
-            <PropertyRef Name="ProductTitle" />
-            <PropertyRef Name="CategoryName" />
-            <PropertyRef Name="CompanyName" />
           </Key>
           <Property Name="StockId" Type="Int32" Nullable="false" />
           <Property Name="PONumber" Type="Int32" Nullable="false" />
@@ -1104,9 +1100,10 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
           <Property Name="committed_qty" Type="Int32" Nullable="false" />
           <Property Name="available_qty" Type="Int32" />
           <Property Name="deficient_qty" Type="Int32" />
-          <Property Name="ProductTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CategoryName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CompanyName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="BrandTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="View_Product">
           <Key>
@@ -2003,6 +2000,7 @@ warning 6002: The table/view 'MNMSolutionsDevDB.dbo.View_SalesOrderHeaders' does
                 <ScalarProperty Name="ProductTitle" ColumnName="ProductTitle" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="BrandTitle" ColumnName="BrandTitle" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

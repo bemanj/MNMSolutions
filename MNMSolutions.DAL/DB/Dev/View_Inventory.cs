@@ -35,5 +35,6 @@ namespace MNMSolutions.DAL.DB.Dev
         public string ProductTitle { get; set; }
         public string CategoryName { get; set; }
         public string CompanyName { get; set; }
+        public string BrandTitle { get; set; }
     }
 }
