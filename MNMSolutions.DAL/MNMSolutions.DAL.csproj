@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\Inventory\InventoryFunction.cs" />
+    <Compile Include="BLL\Product\SupplierFunction.cs" />
     <Compile Include="BLL\Product\ProductList.cs" />
     <Compile Include="BLL\Sales\Report.cs" />
     <Compile Include="BLL\Sales\OrderHeader.cs" />

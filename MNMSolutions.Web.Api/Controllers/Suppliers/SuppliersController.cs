@@ -9,11 +9,13 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MNMSolutions.DAL.DB.Dev;
+using MNMSolutions.DAL.BLL.Product;
 
 namespace MNMSolutions.Web.Api.Controllers.Suppliers
 {
     public class SuppliersController : ApiController
     {
+        private SupplierFunction supplierFunction = new SupplierFunction();
         private readonly MNMSolutionsDevDBEntities _db = new MNMSolutionsDevDBEntities();
 
         // GET: api/Suppliers
@@ -49,11 +51,12 @@ namespace MNMSolutions.Web.Api.Controllers.Suppliers
                 return BadRequest();
             }
 
-            _db.Entry(supplier).State = EntityState.Modified;
+            //_db.Entry(supplier).State = EntityState.Modified;
 
             try
             {
-                _db.SaveChanges();
+                supplierFunction.UpdateSupplier(id, supplier);
+                //_db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
